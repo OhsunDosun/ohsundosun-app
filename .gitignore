@@ -391,3 +391,7 @@ fabric.properties
 !/gradle/wrapper/gradle-wrapper.jar
 
 # End of https://www.toptal.com/developers/gitignore/api/flutter,dart,androidstudio,gradle,cocoapods,swift,kotlin,fastlane,firebase
+
+**/*.freezed.dart
+**/*.g.dart
+**/*.config.dart
