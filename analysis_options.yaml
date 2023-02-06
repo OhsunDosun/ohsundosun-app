@@ -11,6 +11,7 @@ include: package:flutter_lints/flutter.yaml
 
 analyzer:
   exclude:
+    - "**/*.config.dart"
     - "**/*.g.dart"
     - "**/*.freezed.dart"
   errors:

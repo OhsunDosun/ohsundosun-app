@@ -5,4 +5,4 @@ import 'package:ohsundosun/config/injectable.config.dart';
 final getIt = GetIt.instance;
 
 @InjectableInit()
-void configureDependencies() => init(getIt);
+void configureDependencies() => getIt.init();
