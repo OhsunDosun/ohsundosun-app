@@ -395,3 +395,5 @@ fabric.properties
 **/*.freezed.dart
 **/*.g.dart
 **/*.config.dart
+
+.fvm/flutter_sdk
