@@ -3,6 +3,8 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:ohsundosun/config/route.dart';
 import 'package:ohsundosun/module/login/login_view.dart';
 import 'package:ohsundosun/style/color_style.dart';
+import 'package:ohsundosun/util/image.dart';
+import 'package:ohsundosun/widget/button.dart';
 import 'package:ohsundosun/widget/safebox.dart';
 
 class OnboardView extends ConsumerWidget {
@@ -21,7 +23,7 @@ class OnboardView extends ConsumerWidget {
                   const SizedBox(
                     height: 100,
                   ),
-                  Image.asset("asset/png/authmain.png"),
+                  Image.asset(Pngs.mainLogo),
                   const SizedBox(
                     height: 47,
                   ),
@@ -55,50 +57,24 @@ class OnboardView extends ConsumerWidget {
                   width: 20,
                 ),
                 Expanded(
-                  child: InkWell(
+                  child: Button(
                     onTap: () {
                       Navigator.pushNamed(context, AppRoute.login);
                     },
-                    child: Container(
-                      height: 50,
-                      decoration: BoxDecoration(
-                        color: ColorStyle.black100,
-                        borderRadius: BorderRadius.circular(8),
-                      ),
-                      child: const Center(
-                        child: Text(
-                          "로그인",
-                          style: TextStyle(
-                            color: ColorStyle.white,
-                          ),
-                        ),
-                      ),
-                    ),
+                    type: ButtonType.black,
+                    text: "로그인",
                   ),
                 ),
                 const SizedBox(
                   width: 7,
                 ),
                 Expanded(
-                  child: InkWell(
+                  child: Button(
                     onTap: () {
                       Navigator.pushNamed(context, AppRoute.register);
                     },
-                    child: Container(
-                      height: 50,
-                      decoration: BoxDecoration(
-                        color: ColorStyle.red100,
-                        borderRadius: BorderRadius.circular(8),
-                      ),
-                      child: const Center(
-                        child: Text(
-                          "회원가입",
-                          style: TextStyle(
-                            color: ColorStyle.white,
-                          ),
-                        ),
-                      ),
-                    ),
+                    type: ButtonType.red,
+                    text: "회원가입",
                   ),
                 ),
                 const SizedBox(
