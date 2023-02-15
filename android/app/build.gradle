@@ -60,6 +60,22 @@ android {
             signingConfig signingConfigs.debug
         }
     }
+
+    flavorDimensions "app"
+
+    productFlavors {
+        dev {
+            dimension "app"
+            applicationId "com.ohsundosun.ohsundosun.dev"
+            resValue "string", "app_name", "오순도순 DEV"
+        }
+        
+        prod {
+            dimension "app"
+            applicationId "com.ohsundosun.ohsundosun"
+            resValue "string", "app_name", "오순도순"
+        }
+    }
 }
 
 flutter {
