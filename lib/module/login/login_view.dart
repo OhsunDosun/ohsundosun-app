@@ -20,7 +20,7 @@ class LoginView extends ConsumerWidget {
               height: 27,
             ),
             Container(
-              margin: EdgeInsets.only(left: 20),
+              margin: const EdgeInsets.only(left: 20),
               child: const Text(
                 "이메일 아이디를 입력하여 \n오순도순에 로그인합니다.",
                 style: TextStyle(
@@ -37,12 +37,11 @@ class LoginView extends ConsumerWidget {
             Row(
               children: [
                 const SizedBox(
-                  width: 10,
+                  height: 10,
                 ),
                 Expanded(
                   child: Container(
-                    margin: EdgeInsets.only(right: 10),
-                    padding: EdgeInsets.all(15),
+                    margin: const EdgeInsets.only(right: 10, left: 10),
                     height: 60,
                     decoration: BoxDecoration(
                       border: Border.all(
@@ -52,11 +51,10 @@ class LoginView extends ConsumerWidget {
                       color: ColorStyle.white,
                       borderRadius: BorderRadius.circular(8),
                     ),
-                    child: const Text(
-                      "이메일 아이디",
-                      style: TextStyle(
-                        color: ColorStyle.black40,
-                        fontSize: 16,
+                    child: const TextField(
+                      decoration: InputDecoration(
+                        border: OutlineInputBorder(),
+                        hintText: '이메일 아이디',
                       ),
                     ),
                   ),
@@ -69,12 +67,11 @@ class LoginView extends ConsumerWidget {
             Row(
               children: [
                 const SizedBox(
-                  width: 10,
+                  height: 10,
                 ),
                 Expanded(
                   child: Container(
-                    margin: EdgeInsets.only(right: 10),
-                    padding: EdgeInsets.all(17),
+                    margin: const EdgeInsets.only(right: 10, left: 10),
                     height: 60,
                     decoration: BoxDecoration(
                       border: Border.all(
@@ -84,11 +81,11 @@ class LoginView extends ConsumerWidget {
                       color: ColorStyle.white,
                       borderRadius: BorderRadius.circular(8),
                     ),
-                    child: const Text(
-                      "비밀번호",
-                      style: TextStyle(
-                        color: ColorStyle.black40,
-                        fontSize: 17,
+                    child: const TextField(
+                      obscureText: true,
+                      decoration: InputDecoration(
+                        border: OutlineInputBorder(),
+                        hintText: '비밀번호',
                       ),
                     ),
                   ),
@@ -105,7 +102,7 @@ class LoginView extends ConsumerWidget {
                 ),
                 Expanded(
                   child: Container(
-                    margin: EdgeInsets.only(right: 10),
+                    margin: const EdgeInsets.only(right: 10),
                     height: 60,
                     decoration: BoxDecoration(
                       color: ColorStyle.black100,
