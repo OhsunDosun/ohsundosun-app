@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:ohsundosun/config/route.dart';
 import 'package:ohsundosun/style/color_style.dart';
 import 'package:ohsundosun/widget/appbar.dart';
 import 'package:ohsundosun/widget/safebox.dart';
@@ -52,6 +53,7 @@ class LoginView extends ConsumerWidget {
                       borderRadius: BorderRadius.circular(8),
                     ),
                     child: const TextField(
+                      obscureText: true,
                       decoration: InputDecoration(
                         border: OutlineInputBorder(),
                         hintText: '이메일 아이디',
@@ -126,12 +128,17 @@ class LoginView extends ConsumerWidget {
             ),
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
-              children: const [
-                Text("🔑   비밀번호를 잊어버리셨나요?"),
-                SizedBox(
+              children: [
+                const Text("🔑   비밀번호를 잊어버리셨나요?"),
+                const SizedBox(
                   width: 7,
                 ),
-                Text("비밀번호 찾기"),
+                InkWell(
+                  onTap: () {
+                    Navigator.pushNamed(context, AppRoute.pwfind);
+                  },
+                  child: const Text("비밀번호 찾기"),
+                ),
               ],
             ),
             const SizedBox(
