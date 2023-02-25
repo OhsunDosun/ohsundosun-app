@@ -13,11 +13,48 @@
 # Uncomment the line if you want fastlane to automatically update itself
 # update_fastlane
 
+fastlane_require 'dotenv'
+
+before_all do
+  Dotenv.overload '.env'
+end
+
 default_platform(:ios)
 
 platform :ios do
-  desc "Description of what the lane does"
-  lane :custom_lane do
-    # add actions here: https://docs.fastlane.tools/actions
+  desc "Build & Deploy (DEV)"
+  lane :fb_dev do
+    match(type: "adhoc", readonly: true, git_private_key: ENV['MATCH_GIT_PRIVATE_KEY'], app_identifier: [ENV["APP_IDENTIFIER_DEV"]])
+
+    Dir.chdir "../.." do
+      sh("fvm", "flutter", "build", "ipa", "--release", "--flavor", "dev", "--export-options-plist=ios/Runner/DevExportOptions.plist")
+    end
+
+    firebase_app_distribution(
+      app: ENV['FIREBASE_APP_ID_DEV'],
+      firebase_cli_token: ENV['FIREBASE_TOKEN'],
+      debug: false,
+      groups_file: "fastlane/testers-groups.txt",
+      release_notes_file: "../release-notes-dev.txt",
+      ipa_path: "../build/ios/ipa/ohsundosun.ipa",
+  )
+  end
+
+  desc "Build & Deploy (PROD)"
+  lane :fb_prod do
+    match(type: "adhoc", readonly: true, git_private_key: ENV['MATCH_GIT_PRIVATE_KEY'], app_identifier: [ENV["APP_IDENTIFIER"]])
+    
+    Dir.chdir "../.." do
+      sh("fvm", "flutter", "build", "ipa", "--release", "--flavor", "prod", "--export-options-plist=ios/Runner/ProdExportOptions.plist")
+    end
+
+    firebase_app_distribution(
+      app: ENV['FIREBASE_APP_ID'],
+      firebase_cli_token: ENV['FIREBASE_TOKEN'],
+      debug: false,
+      groups_file: "fastlane/testers-groups.txt",
+      release_notes_file: "../release-notes-prod.txt",
+      ipa_path: "../build/ios/ipa/ohsundosun.ipa",
+  )
   end
 end

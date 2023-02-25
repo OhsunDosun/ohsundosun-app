@@ -1,0 +1,70 @@
+# This file contains the fastlane.tools configuration
+# You can find the documentation at https://docs.fastlane.tools
+#
+# For a list of all available actions, check out
+#
+#     https://docs.fastlane.tools/actions
+#
+# For a list of all available plugins, check out
+#
+#     https://docs.fastlane.tools/plugins/available-plugins
+#
+
+# Uncomment the line if you want fastlane to automatically update itself
+# update_fastlane
+
+fastlane_require 'dotenv'
+
+before_all do
+  Dotenv.overload '.env'
+end
+
+default_platform(:android)
+
+platform :android do
+  desc "Build & Deploy (DEV)"
+  lane :fb_dev do
+    yaml_file_path = "../../pubspec.yaml"
+    data = YAML.load_file(yaml_file_path)
+    version_and_no = data["version"].split("+")
+    version=version_and_no[0]
+    no=version_and_no[1]
+
+    Dir.chdir "../.." do
+      sh("fvm", "flutter", "build", "apk", "--release", "--build-number", no, "--build-name", version, "--flavor", "dev")
+    end
+
+    firebase_app_distribution(
+        app: ENV['FIREBASE_APP_ID_DEV'],
+        firebase_cli_token: ENV['FIREBASE_TOKEN'],
+        debug: false,
+        groups_file: "fastlane/testers-groups.txt",
+        release_notes_file: "../release-notes-dev.txt",
+        android_artifact_type: "APK",
+        android_artifact_path: "../build/app/outputs/flutter-apk/app-dev-release.apk",
+    )
+  end
+
+  desc "Build & Deploy (PROD)"
+  lane :fb_prod do
+    yaml_file_path = "../../pubspec.yaml"
+    data = YAML.load_file(yaml_file_path)
+    version_and_no = data["version"].split("+")
+    version=version_and_no[0]
+    no=version_and_no[1]
+
+    Dir.chdir "../.." do
+      sh("fvm", "flutter", "build", "apk", "--release", "--build-number", no, "--build-name", version, "--flavor", "prod")
+    end
+
+    firebase_app_distribution(
+        app: ENV['FIREBASE_APP_ID'],
+        firebase_cli_token: ENV['FIREBASE_TOKEN'],
+        debug: false,
+        groups_file: "fastlane/testers-groups.txt",
+        release_notes_file: "../release-notes-prod.txt",
+        android_artifact_type: "APK",
+        android_artifact_path: "../build/app/outputs/flutter-apk/app-prod-release.apk",
+    )
+  end
+end
