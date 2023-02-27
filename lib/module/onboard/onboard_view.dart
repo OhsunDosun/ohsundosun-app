@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:ohsundosun/config/route.dart';
-import 'package:ohsundosun/module/login/login_view.dart';
-import 'package:ohsundosun/style/color_style.dart';
+import 'package:ohsundosun/style/color_styles.dart';
 import 'package:ohsundosun/util/image.dart';
 import 'package:ohsundosun/widget/button.dart';
 import 'package:ohsundosun/widget/safebox.dart';
@@ -30,7 +29,7 @@ class OnboardView extends ConsumerWidget {
                   const Text(
                     "MBTI 대화를 하고싶다면,\n바로 여기 오순도순에서!",
                     style: TextStyle(
-                      color: ColorStyle.black100,
+                      color: ColorStyles.black100,
                       fontSize: 24,
                       fontWeight: FontWeight.w700,
                       letterSpacing: -1,
@@ -42,7 +41,7 @@ class OnboardView extends ConsumerWidget {
                   const Text(
                     "16개의 성격 유형, 오순도순 우리들의 이야기",
                     style: TextStyle(
-                      color: ColorStyle.black80,
+                      color: ColorStyles.black80,
                     ),
                   ),
                 ],

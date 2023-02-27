@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:ohsundosun/style/color_style.dart';
+import 'package:ohsundosun/style/color_styles.dart';
 
 class Input extends StatelessWidget {
   final TextEditingController? controller;
@@ -20,11 +20,11 @@ class Input extends StatelessWidget {
       onChanged: onChanged,
       decoration: InputDecoration(
         border: OutlineInputBorder(
-          borderSide: const BorderSide(color: ColorStyle.black20, width: 1),
+          borderSide: const BorderSide(color: ColorStyles.black20, width: 1),
           borderRadius: BorderRadius.circular(8),
         ),
         focusedBorder: OutlineInputBorder(
-          borderSide: const BorderSide(color: ColorStyle.black100, width: 1),
+          borderSide: const BorderSide(color: ColorStyles.black100, width: 1),
           borderRadius: BorderRadius.circular(8),
         ),
         contentPadding: const EdgeInsets.symmetric(
@@ -33,12 +33,12 @@ class Input extends StatelessWidget {
         ),
         hintText: hintText,
         hintStyle: const TextStyle(
-          color: ColorStyle.black40,
+          color: ColorStyles.black40,
         ),
       ),
-      cursorColor: ColorStyle.black100,
+      cursorColor: ColorStyles.black100,
       style: const TextStyle(
-        color: ColorStyle.black100,
+        color: ColorStyles.black100,
       ),
     );
   }

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
-class ColorStyle {
-  ColorStyle._();
+class ColorStyles {
+  ColorStyles._();
 
   static const red100 = Color(0xFFFF4040);
   static const red80 = Color(0xFFFF6465);

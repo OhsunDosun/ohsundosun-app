@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:ohsundosun/style/color_style.dart';
+import 'package:ohsundosun/style/color_styles.dart';
 
 enum ButtonType {
   black,
@@ -9,11 +9,11 @@ enum ButtonType {
   Color toColor() {
     switch (this) {
       case ButtonType.black:
-        return ColorStyle.black100;
+        return ColorStyles.black100;
       case ButtonType.red:
-        return ColorStyle.red100;
+        return ColorStyles.red100;
       case ButtonType.grey:
-        return ColorStyle.black20;
+        return ColorStyles.black20;
     }
   }
 }
@@ -49,7 +49,7 @@ class Button extends StatelessWidget {
             child: Text(
               text,
               style: const TextStyle(
-                color: ColorStyle.white,
+                color: ColorStyles.white,
               ),
             ),
           ),
