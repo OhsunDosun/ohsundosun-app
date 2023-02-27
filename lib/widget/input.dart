@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:ohsundosun/style/color_styles.dart';
 
-class Input extends StatelessWidget {
+class ODInput extends StatelessWidget {
   final TextEditingController? controller;
   final void Function(String)? onChanged;
   final String? hintText;
 
-  const Input({
+  const ODInput({
     super.key,
     this.controller,
     this.onChanged,

@@ -1,32 +1,33 @@
 import 'package:flutter/material.dart';
 import 'package:ohsundosun/style/color_styles.dart';
+import 'package:ohsundosun/style/text_styles.dart';
 
-enum ButtonType {
+enum ODButtonType {
   black,
   red,
   grey;
 
   Color toColor() {
     switch (this) {
-      case ButtonType.black:
+      case ODButtonType.black:
         return ColorStyles.black100;
-      case ButtonType.red:
+      case ODButtonType.red:
         return ColorStyles.red100;
-      case ButtonType.grey:
+      case ODButtonType.grey:
         return ColorStyles.black20;
     }
   }
 }
 
-class Button extends StatelessWidget {
-  final ButtonType type;
+class ODButton extends StatelessWidget {
+  final ODButtonType type;
   final String text;
   final void Function()? onTap;
 
-  const Button({
+  const ODButton(
+    this.text, {
     super.key,
-    this.type = ButtonType.black,
-    this.text = "",
+    this.type = ODButtonType.black,
     this.onTap,
   });
 
@@ -48,8 +49,10 @@ class Button extends StatelessWidget {
           child: Center(
             child: Text(
               text,
-              style: const TextStyle(
+              style: TextStyles.bold.copyWith(
                 color: ColorStyles.white,
+                fontSize: 16,
+                letterSpacing: -1,
               ),
             ),
           ),

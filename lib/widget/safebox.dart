@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
-class SafeBox extends SafeArea {
-  const SafeBox({
+class ODSafeBox extends SafeArea {
+  const ODSafeBox({
     super.key,
     super.left = false,
     super.top = false,

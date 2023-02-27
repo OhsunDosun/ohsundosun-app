@@ -10,12 +10,12 @@ class LoginView extends ConsumerWidget {
   @override
   Widget build(BuildContext context, ref) {
     return Scaffold(
-      body: SafeBox(
+      body: ODSafeBox(
         top: true,
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
-            const BackAppBar(),
+            const ODBackAppBar(),
             const SizedBox(
               height: 27,
             ),
@@ -137,7 +137,7 @@ class LoginView extends ConsumerWidget {
             const SizedBox(
               height: 301,
             ),
-            const SafeBox(
+            const ODSafeBox(
               bottom: true,
             ),
           ],

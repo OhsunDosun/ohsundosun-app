@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:ohsundosun/util/image.dart';
 
-class BackAppBar extends StatelessWidget {
-  const BackAppBar({super.key});
+class ODBackAppBar extends StatelessWidget {
+  const ODBackAppBar({super.key});
 
   @override
   Widget build(BuildContext context) {

@@ -12,7 +12,7 @@ class OnboardView extends ConsumerWidget {
   @override
   Widget build(BuildContext context, ref) {
     return Scaffold(
-      body: SafeBox(
+      body: ODSafeBox(
         top: true,
         child: Column(
           children: [
@@ -56,24 +56,24 @@ class OnboardView extends ConsumerWidget {
                   width: 20,
                 ),
                 Expanded(
-                  child: Button(
+                  child: ODButton(
+                    "로그인",
                     onTap: () {
                       Navigator.pushNamed(context, AppRoute.login);
                     },
-                    type: ButtonType.black,
-                    text: "로그인",
+                    type: ODButtonType.black,
                   ),
                 ),
                 const SizedBox(
                   width: 7,
                 ),
                 Expanded(
-                  child: Button(
+                  child: ODButton(
+                    "회원가입",
                     onTap: () {
                       Navigator.pushNamed(context, AppRoute.register);
                     },
-                    type: ButtonType.red,
-                    text: "회원가입",
+                    type: ODButtonType.red,
                   ),
                 ),
                 const SizedBox(
@@ -97,7 +97,7 @@ class OnboardView extends ConsumerWidget {
             const SizedBox(
               height: 47,
             ),
-            const SafeBox(
+            const ODSafeBox(
               bottom: true,
             ),
           ],
