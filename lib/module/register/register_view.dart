@@ -6,6 +6,6 @@ class RegisterView extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, ref) {
-    return Scaffold();
+    return const Scaffold();
   }
 }

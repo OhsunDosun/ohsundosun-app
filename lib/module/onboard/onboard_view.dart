@@ -86,12 +86,17 @@ class OnboardView extends ConsumerWidget {
             ),
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
-              children: const [
-                Text("🔑   비밀번호를 잊어버리셨나요?"),
-                SizedBox(
+              children: [
+                const Text("🔑   비밀번호를 잊어버리셨나요?"),
+                const SizedBox(
                   width: 8,
                 ),
-                Text("비밀번호 찾기"),
+                InkWell(
+                  onTap: () {
+                    Navigator.pushNamed(context, AppRoute.pwfind);
+                  },
+                  child: const Text("비밀번호 찾기"),
+                ),
               ],
             ),
             const SizedBox(
