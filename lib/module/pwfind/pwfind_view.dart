@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:ohsundosun/style/color_style.dart';
+import 'package:ohsundosun/style/color_styles.dart';
 import 'package:ohsundosun/widget/appbar.dart';
 import 'package:ohsundosun/widget/safebox.dart';
 
@@ -10,12 +10,12 @@ class PwfindView extends ConsumerWidget {
   @override
   Widget build(BuildContext context, ref) {
     return Scaffold(
-      body: SafeBox(
+      body: ODSafeBox(
         top: true,
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
-            const BackAppBar(),
+            const ODBackAppBar(),
             const SizedBox(
               height: 27,
             ),
@@ -24,8 +24,8 @@ class PwfindView extends ConsumerWidget {
               child: const Text(
                 "이메일 아이디를 입력하여 \n임시 비밀번호로 로그인합니다.",
                 style: TextStyle(
-                  color: ColorStyle.black100,
-                  fontSize: 25,
+                  color: ColorStyles.black100,
+                  fontSize: 20,
                   fontWeight: FontWeight.w700,
                   letterSpacing: -1,
                 ),
@@ -39,7 +39,7 @@ class PwfindView extends ConsumerWidget {
               child: const Text(
                 "이메일 아이디",
                 style: TextStyle(
-                  color: ColorStyle.black100,
+                  color: ColorStyles.black100,
                   fontSize: 16,
                   fontWeight: FontWeight.w700,
                   letterSpacing: -1,
@@ -61,10 +61,10 @@ class PwfindView extends ConsumerWidget {
                     height: 60,
                     decoration: BoxDecoration(
                       border: Border.all(
-                        color: ColorStyle.black20,
+                        color: ColorStyles.black20,
                         width: 1,
                       ),
-                      color: ColorStyle.white,
+                      color: ColorStyles.white,
                       borderRadius: BorderRadius.circular(8),
                     ),
                     child: const TextField(
@@ -81,15 +81,15 @@ class PwfindView extends ConsumerWidget {
                     margin: const EdgeInsets.only(right: 10),
                     height: 60,
                     decoration: BoxDecoration(
-                      color: ColorStyle.red100,
+                      color: ColorStyles.red100,
                       borderRadius: BorderRadius.circular(8),
                     ),
                     child: const Center(
                       child: Text(
                         "인증 발송",
                         style: TextStyle(
-                          color: ColorStyle.white,
-                          fontSize: 19,
+                          color: ColorStyles.white,
+                          fontSize: 15,
                         ),
                       ),
                     ),
@@ -105,7 +105,7 @@ class PwfindView extends ConsumerWidget {
               child: const Text(
                 "임시 비밀번호",
                 style: TextStyle(
-                  color: ColorStyle.black100,
+                  color: ColorStyles.black100,
                   fontSize: 16,
                   fontWeight: FontWeight.w700,
                   letterSpacing: -1,
@@ -126,10 +126,10 @@ class PwfindView extends ConsumerWidget {
                     height: 60,
                     decoration: BoxDecoration(
                       border: Border.all(
-                        color: ColorStyle.black20,
+                        color: ColorStyles.black20,
                         width: 1,
                       ),
-                      color: ColorStyle.white,
+                      color: ColorStyles.white,
                       borderRadius: BorderRadius.circular(8),
                     ),
                     child: const TextField(
@@ -156,15 +156,15 @@ class PwfindView extends ConsumerWidget {
                     margin: const EdgeInsets.only(right: 10),
                     height: 60,
                     decoration: BoxDecoration(
-                      color: ColorStyle.black100,
+                      color: ColorStyles.black100,
                       borderRadius: BorderRadius.circular(8),
                     ),
                     child: const Center(
                       child: Text(
                         "로그인",
                         style: TextStyle(
-                          color: ColorStyle.white,
-                          fontSize: 19,
+                          color: ColorStyles.white,
+                          fontSize: 16,
                         ),
                       ),
                     ),

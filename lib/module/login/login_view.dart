@@ -26,7 +26,7 @@ class LoginView extends ConsumerWidget {
                 "이메일 아이디를 입력하여 \n오순도순에 로그인합니다.",
                 style: TextStyle(
                   color: ColorStyles.black100,
-                  fontSize: 25,
+                  fontSize: 20,
                   fontWeight: FontWeight.w700,
                   letterSpacing: -1,
                 ),
@@ -115,7 +115,7 @@ class LoginView extends ConsumerWidget {
                         "로그인",
                         style: TextStyle(
                           color: ColorStyles.white,
-                          fontSize: 19,
+                          fontSize: 16,
                         ),
                       ),
                     ),
