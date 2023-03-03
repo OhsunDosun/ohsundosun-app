@@ -1,6 +1,4 @@
-import 'package:flutter/material.dart';
-import 'package:ohsundosun/style/color_styles.dart';
-import 'package:ohsundosun/style/text_styles.dart';
+part of 'index.dart';
 
 enum ODButtonType {
   black,
@@ -49,7 +47,7 @@ class ODButton extends StatelessWidget {
           child: Center(
             child: Text(
               text,
-              style: TextStyles.bold.copyWith(
+              style: SpoqaHanSansNeo.bold.copyWith(
                 color: ColorStyles.white,
                 fontSize: 16,
                 letterSpacing: -1,

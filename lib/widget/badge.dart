@@ -1,6 +1,4 @@
-import 'package:flutter/material.dart';
-import 'package:ohsundosun/style/color_styles.dart';
-import 'package:ohsundosun/style/text_styles.dart';
+part of 'index.dart';
 
 enum ODBadgeType {
   white,
@@ -77,7 +75,7 @@ class ODBadge extends StatelessWidget {
           child: Center(
             child: Text(
               text,
-              style: (type == ODBadgeType.white ? TextStyles.medium : TextStyles.bold).copyWith(
+              style: (type == ODBadgeType.white ? SpoqaHanSansNeo.medium : SpoqaHanSansNeo.bold).copyWith(
                 color: type.toTextColor(),
                 fontSize: 11,
                 letterSpacing: -1,

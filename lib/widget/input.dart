@@ -1,5 +1,4 @@
-import 'package:flutter/material.dart';
-import 'package:ohsundosun/style/color_styles.dart';
+part of 'index.dart';
 
 class ODInput extends StatelessWidget {
   final TextEditingController? controller;

@@ -1,10 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:ohsundosun/asset/index.dart';
 import 'package:ohsundosun/config/route.dart';
-import 'package:ohsundosun/style/color_styles.dart';
-import 'package:ohsundosun/util/image.dart';
-import 'package:ohsundosun/widget/button.dart';
-import 'package:ohsundosun/widget/safebox.dart';
+import 'package:ohsundosun/style/index.dart';
+import 'package:ohsundosun/widget/index.dart';
 
 class OnboardView extends ConsumerWidget {
   const OnboardView({super.key});
@@ -22,7 +21,7 @@ class OnboardView extends ConsumerWidget {
                   const SizedBox(
                     height: 100,
                   ),
-                  Image.asset(Pngs.mainLogo),
+                  Image.asset(PngImage.mainLogo),
                   const SizedBox(
                     height: 47,
                   ),

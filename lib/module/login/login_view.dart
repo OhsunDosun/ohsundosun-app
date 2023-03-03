@@ -1,9 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:ohsundosun/config/route.dart';
-import 'package:ohsundosun/style/color_styles.dart';
-import 'package:ohsundosun/widget/appbar.dart';
-import 'package:ohsundosun/widget/safebox.dart';
+import 'package:ohsundosun/style/index.dart';
+import 'package:ohsundosun/widget/index.dart';
 
 class LoginView extends ConsumerWidget {
   const LoginView({super.key});

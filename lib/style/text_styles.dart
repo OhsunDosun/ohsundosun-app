@@ -1,7 +1,7 @@
-import 'package:flutter/material.dart';
+part of 'index.dart';
 
-class TextStyles {
-  TextStyles._();
+class SpoqaHanSansNeo {
+  SpoqaHanSansNeo._();
 
   static const thin = TextStyle(
     fontFamily: "SpoqaHanSansNeo",

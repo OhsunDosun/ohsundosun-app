@@ -1,6 +1,4 @@
-import 'package:flutter/material.dart';
-import 'package:flutter_svg/svg.dart';
-import 'package:ohsundosun/util/image.dart';
+part of 'index.dart';
 
 class ODBackAppBar extends StatelessWidget {
   const ODBackAppBar({super.key});
@@ -23,7 +21,7 @@ class ODBackAppBar extends StatelessWidget {
               child: Padding(
                 padding: const EdgeInsets.all(10),
                 child: SvgPicture.asset(
-                  Svgs.back,
+                  SvgImage.icBack,
                 ),
               ),
             )
