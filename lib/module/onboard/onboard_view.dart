@@ -44,9 +44,7 @@ class OnboardView extends ConsumerWidget {
                 ],
               ),
             ),
-            const SizedBox(
-              height: 50,
-            ),
+            ODHeight(50),
             Row(
               children: [
                 ODWidth(20),
@@ -59,9 +57,7 @@ class OnboardView extends ConsumerWidget {
                     type: ODButtonType.black,
                   ),
                 ),
-                const SizedBox(
-                  width: 7,
-                ),
+                ODWidth(7),
                 Expanded(
                   child: ODButton(
                     "회원가입",
@@ -71,32 +67,38 @@ class OnboardView extends ConsumerWidget {
                     type: ODButtonType.red,
                   ),
                 ),
-                const SizedBox(
-                  width: 20,
-                ),
+                ODWidth(20),
               ],
             ),
-            const SizedBox(
-              height: 30,
-            ),
+            ODHeight(30),
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                const Text("🔑   비밀번호를 잊어버리셨나요?"),
-                const SizedBox(
-                  width: 8,
+                Text(
+                  "🔑   비밀번호를 잊어버리셨나요?",
+                  style: SpoqaHanSansNeo.regular.set(
+                    size: 13,
+                    height: 19.5,
+                    letter: -1,
+                  ),
                 ),
+                ODWidth(8),
                 InkWell(
                   onTap: () {
                     Navigator.pushNamed(context, AppRoute.pwfind);
                   },
-                  child: const Text("비밀번호 찾기"),
+                  child: Text(
+                    "비밀번호 찾기",
+                    style: SpoqaHanSansNeo.medium.set(
+                      size: 13,
+                      height: 19.5,
+                      letter: -1,
+                    ),
+                  ),
                 ),
               ],
             ),
-            const SizedBox(
-              height: 47,
-            ),
+            ODHeight(47),
             const ODSafeBox(
               bottom: true,
             ),

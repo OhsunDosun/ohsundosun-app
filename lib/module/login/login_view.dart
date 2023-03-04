@@ -16,29 +16,23 @@ class LoginView extends ConsumerWidget {
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
             const ODBackAppBar(),
-            const SizedBox(
-              height: 27,
-            ),
+            ODHeight(27),
             Container(
               margin: const EdgeInsets.only(left: 20),
-              child: const Text(
+              child: Text(
                 "이메일 아이디를 입력하여 \n오순도순에 로그인합니다.",
-                style: TextStyle(
+                style: SpoqaHanSansNeo.bold.set(
+                  size: 20,
+                  height: 28,
+                  letter: -1,
                   color: ColorStyles.black100,
-                  fontSize: 20,
-                  fontWeight: FontWeight.w700,
-                  letterSpacing: -1,
                 ),
               ),
             ),
-            const SizedBox(
-              height: 50,
-            ),
+            ODHeight(50),
             Row(
               children: [
-                const SizedBox(
-                  height: 10,
-                ),
+                ODHeight(10),
                 Expanded(
                   child: Container(
                     margin: const EdgeInsets.only(right: 10, left: 10),
@@ -62,14 +56,10 @@ class LoginView extends ConsumerWidget {
                 ),
               ],
             ),
-            const SizedBox(
-              height: 7,
-            ),
+            ODHeight(6),
             Row(
               children: [
-                const SizedBox(
-                  height: 10,
-                ),
+                ODHeight(10),
                 Expanded(
                   child: Container(
                     margin: const EdgeInsets.only(right: 10, left: 10),
@@ -93,14 +83,10 @@ class LoginView extends ConsumerWidget {
                 ),
               ],
             ),
-            const SizedBox(
-              height: 25,
-            ),
+            ODHeight(24),
             Row(
               children: [
-                const SizedBox(
-                  width: 10,
-                ),
+                ODWidth(10),
                 Expanded(
                   child: Container(
                     margin: const EdgeInsets.only(right: 10),
@@ -109,12 +95,14 @@ class LoginView extends ConsumerWidget {
                       color: ColorStyles.black100,
                       borderRadius: BorderRadius.circular(8),
                     ),
-                    child: const Center(
+                    child: Center(
                       child: Text(
                         "로그인",
-                        style: TextStyle(
+                        style: SpoqaHanSansNeo.bold.set(
+                          size: 16,
+                          height: 35,
+                          letter: -1,
                           color: ColorStyles.white,
-                          fontSize: 16,
                         ),
                       ),
                     ),
@@ -122,27 +110,35 @@ class LoginView extends ConsumerWidget {
                 ),
               ],
             ),
-            const SizedBox(
-              height: 30,
-            ),
+            ODHeight(30),
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                const Text("🔑   비밀번호를 잊어버리셨나요?"),
-                const SizedBox(
-                  width: 7,
+                Text(
+                  "🔑   비밀번호를 잊어버리셨나요?",
+                  style: SpoqaHanSansNeo.regular.set(
+                    size: 13,
+                    height: 19.5,
+                    letter: -1,
+                  ),
                 ),
+                ODWidth(7),
                 InkWell(
                   onTap: () {
                     Navigator.pushNamed(context, AppRoute.pwfind);
                   },
-                  child: const Text("비밀번호 찾기"),
+                  child: Text(
+                    "비밀번호 찾기",
+                    style: SpoqaHanSansNeo.medium.set(
+                      size: 13,
+                      height: 19.5,
+                      letter: -1,
+                    ),
+                  ),
                 ),
               ],
             ),
-            const SizedBox(
-              height: 301,
-            ),
+            ODHeight(287),
             const ODSafeBox(
               bottom: true,
             ),
