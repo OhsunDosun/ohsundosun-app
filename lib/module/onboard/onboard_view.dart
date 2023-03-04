@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:ohsundosun/asset/index.dart';
 import 'package:ohsundosun/config/route.dart';
@@ -18,28 +19,25 @@ class OnboardView extends ConsumerWidget {
             Expanded(
               child: Column(
                 children: [
-                  const SizedBox(
-                    height: 100,
-                  ),
+                  ODHeight(100),
                   Image.asset(PngImage.mainLogo),
-                  const SizedBox(
-                    height: 47,
-                  ),
-                  const Text(
+                  ODHeight(47),
+                  Text(
                     "MBTI 대화를 하고싶다면,\n바로 여기 오순도순에서!",
-                    style: TextStyle(
+                    style: SpoqaHanSansNeo.bold.set(
+                      size: 24,
+                      height: 32,
+                      letter: -1,
                       color: ColorStyles.black100,
-                      fontSize: 24,
-                      fontWeight: FontWeight.w700,
-                      letterSpacing: -1,
                     ),
                   ),
-                  const SizedBox(
-                    height: 12,
-                  ),
-                  const Text(
+                  ODHeight(12),
+                  Text(
                     "16개의 성격 유형, 오순도순 우리들의 이야기",
-                    style: TextStyle(
+                    style: SpoqaHanSansNeo.regular.set(
+                      size: 16,
+                      height: 20,
+                      letter: -1,
                       color: ColorStyles.black80,
                     ),
                   ),
@@ -51,9 +49,7 @@ class OnboardView extends ConsumerWidget {
             ),
             Row(
               children: [
-                const SizedBox(
-                  width: 20,
-                ),
+                ODWidth(20),
                 Expanded(
                   child: ODButton(
                     "로그인",

@@ -28,3 +28,32 @@ class SpoqaHanSansNeo {
     fontWeight: FontWeight.w700,
   );
 }
+
+extension DoubleExtension on double {
+  double toFigmaLineHeight(double fontSize) {
+    return this / fontSize;
+  }
+}
+
+extension IntExtension on int {
+  double toFigmaLineHeight(int fontSize) {
+    return this / fontSize;
+  }
+}
+
+extension TextStyleExtension on TextStyle {
+  TextStyle set({
+    required double size,
+    double? height,
+    Color? color,
+    double? letter,
+  }) {
+    return copyWith(
+      fontSize: size.sp,
+      height: height?.toFigmaLineHeight(size) ?? 1,
+      leadingDistribution: TextLeadingDistribution.even,
+      color: color,
+      letterSpacing: letter,
+    );
+  }
+}
