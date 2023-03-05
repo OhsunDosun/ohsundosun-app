@@ -11,7 +11,7 @@ class ODBackAppBar extends StatelessWidget {
         highlightColor: Colors.transparent,
       ),
       child: SizedBox(
-        height: 54,
+        height: 54.h,
         child: Row(
           children: [
             InkWell(
@@ -19,9 +19,11 @@ class ODBackAppBar extends StatelessWidget {
                 Navigator.pop(context);
               },
               child: Padding(
-                padding: const EdgeInsets.all(10),
+                padding: EdgeInsets.all(10.r),
                 child: SvgPicture.asset(
                   SvgImage.icBack,
+                  height: 20.h,
+                  width: 20.w,
                 ),
               ),
             )

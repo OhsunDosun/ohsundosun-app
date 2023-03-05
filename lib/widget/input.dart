@@ -4,12 +4,14 @@ class ODInput extends StatelessWidget {
   final TextEditingController? controller;
   final void Function(String)? onChanged;
   final String? hintText;
+  final bool obscureText;
 
   const ODInput({
     super.key,
     this.controller,
     this.onChanged,
     this.hintText,
+    this.obscureText = false,
   });
 
   @override
@@ -17,8 +19,13 @@ class ODInput extends StatelessWidget {
     return TextField(
       controller: controller,
       onChanged: onChanged,
+      obscureText: obscureText,
       decoration: InputDecoration(
         border: OutlineInputBorder(
+          borderSide: const BorderSide(color: ColorStyles.black20, width: 1),
+          borderRadius: BorderRadius.circular(8),
+        ),
+        enabledBorder: OutlineInputBorder(
           borderSide: const BorderSide(color: ColorStyles.black20, width: 1),
           borderRadius: BorderRadius.circular(8),
         ),
@@ -26,17 +33,21 @@ class ODInput extends StatelessWidget {
           borderSide: const BorderSide(color: ColorStyles.black100, width: 1),
           borderRadius: BorderRadius.circular(8),
         ),
-        contentPadding: const EdgeInsets.symmetric(
-          horizontal: 10,
-          vertical: 8,
+        contentPadding: EdgeInsets.symmetric(
+          horizontal: 10.w,
+          vertical: 18.h,
         ),
         hintText: hintText,
-        hintStyle: const TextStyle(
+        hintStyle: SpoqaHanSansNeo.regular.set(
+          size: 15,
+          letter: -1,
           color: ColorStyles.black40,
         ),
       ),
       cursorColor: ColorStyles.black100,
-      style: const TextStyle(
+      style: SpoqaHanSansNeo.regular.set(
+        size: 15,
+        letter: -1,
         color: ColorStyles.black100,
       ),
     );

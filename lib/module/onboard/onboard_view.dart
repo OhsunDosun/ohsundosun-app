@@ -18,9 +18,13 @@ class OnboardView extends ConsumerWidget {
           children: [
             Expanded(
               child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  ODHeight(100),
-                  Image.asset(PngImage.mainLogo),
+                  Image.asset(
+                    PngImage.mainLogo,
+                    height: 218.h,
+                    width: 302.w,
+                  ),
                   ODHeight(47),
                   Text(
                     "MBTI 대화를 하고싶다면,\n바로 여기 오순도순에서!",
@@ -44,7 +48,7 @@ class OnboardView extends ConsumerWidget {
                 ],
               ),
             ),
-            ODHeight(50),
+            ODHeight(62),
             Row(
               children: [
                 ODWidth(20),

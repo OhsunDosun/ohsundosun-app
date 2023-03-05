@@ -39,7 +39,7 @@ class ODButton extends StatelessWidget {
       child: InkWell(
         onTap: onTap,
         child: Container(
-          height: 50,
+          height: 50.h,
           decoration: BoxDecoration(
             color: type.toColor(),
             borderRadius: BorderRadius.circular(8),
@@ -47,10 +47,11 @@ class ODButton extends StatelessWidget {
           child: Center(
             child: Text(
               text,
-              style: SpoqaHanSansNeo.bold.copyWith(
+              style: SpoqaHanSansNeo.bold.set(
                 color: ColorStyles.white,
-                fontSize: 16,
-                letterSpacing: -1,
+                size: 16,
+                height: 35,
+                letter: -1,
               ),
             ),
           ),
