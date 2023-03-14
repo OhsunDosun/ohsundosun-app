@@ -30,7 +30,9 @@ class RegisterView extends ConsumerWidget {
                     ),
                   ),
                   ODHeight(80),
-                  const LinearProgressIndicator(),
+                  const LinearProgressIndicator(
+                    value: 0.33,
+                  ),
                   ODHeight(25),
                   Text(
                     "닉네임",
