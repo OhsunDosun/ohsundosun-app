@@ -18,7 +18,7 @@ class RegisterView extends ConsumerWidget {
             Padding(
               padding: EdgeInsets.symmetric(horizontal: 20.w),
               child: Column(
-                crossAxisAlignment: CrossAxisAlignment.stretch,
+                crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
                     "회원가입",
@@ -29,7 +29,9 @@ class RegisterView extends ConsumerWidget {
                       color: ColorStyles.black100,
                     ),
                   ),
-                  ODHeight(105),
+                  ODHeight(80),
+                  const LinearProgressIndicator(),
+                  ODHeight(25),
                   Text(
                     "닉네임",
                     style: SpoqaHanSansNeo.medium.set(
@@ -40,7 +42,7 @@ class RegisterView extends ConsumerWidget {
                     ),
                   ),
                   const ODInput(
-                    hintText: "한글,영어 최대 8자",
+                    hintText: "한글, 영어 최대 8자",
                   ),
                   ODHeight(15),
                   Text(
@@ -92,6 +94,7 @@ class RegisterView extends ConsumerWidget {
                     ),
                   ),
                   const ODInput(
+                    obscureText: true,
                     hintText: "영문+숫자 조합 8~16자",
                   ),
                   ODHeight(15),
@@ -105,8 +108,11 @@ class RegisterView extends ConsumerWidget {
                     ),
                   ),
                   const ODInput(
+                    obscureText: true,
                     hintText: "영문+숫자 조합 8~16자",
                   ),
+                  ODHeight(75),
+                  const ODButton("다음 단계로"),
                 ],
               ),
             ),
