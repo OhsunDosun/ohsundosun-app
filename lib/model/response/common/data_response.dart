@@ -1,20 +1,20 @@
 import 'package:json_annotation/json_annotation.dart';
 
-part 'base_response.g.dart';
+part 'data_response.g.dart';
 
 @JsonSerializable(genericArgumentFactories: true)
-class BaseResponse<T> {
+class DataResponse<T> {
   final String message;
   final T data;
 
-  const BaseResponse({
+  const DataResponse({
     required this.message,
     required this.data,
   });
 
-  factory BaseResponse.fromJson(Map<String, dynamic> json, T Function(Object? json) fromJsonT) => _$BaseResponseFromJson(json, fromJsonT);
+  factory DataResponse.fromJson(Map<String, dynamic> json, T Function(Object? json) fromJsonT) => _$DataResponseFromJson(json, fromJsonT);
 
   Map<String, dynamic> toJson(Map<String, dynamic> Function(T value) toJsonT) {
-    return _$BaseResponseToJson<T>(this, toJsonT);
+    return _$DataResponseToJson<T>(this, toJsonT);
   }
 }

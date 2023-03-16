@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:ohsundosun/asset/index.dart';
-import 'package:ohsundosun/config/route.dart';
+import 'package:ohsundosun/provider/router_provider.dart';
 import 'package:ohsundosun/style/index.dart';
 import 'package:ohsundosun/widget/index.dart';
 
@@ -56,7 +57,7 @@ class OnboardView extends ConsumerWidget {
                   child: ODButton(
                     "로그인",
                     onTap: () {
-                      Navigator.pushNamed(context, AppRoute.login);
+                      context.go(AppRoute.login);
                     },
                     type: ODButtonType.black,
                   ),
@@ -66,7 +67,7 @@ class OnboardView extends ConsumerWidget {
                   child: ODButton(
                     "회원가입",
                     onTap: () {
-                      Navigator.pushNamed(context, AppRoute.register);
+                      context.go(AppRoute.register);
                     },
                     type: ODButtonType.red,
                   ),
@@ -89,7 +90,7 @@ class OnboardView extends ConsumerWidget {
                 ODWidth(8),
                 InkWell(
                   onTap: () {
-                    Navigator.pushNamed(context, AppRoute.pwfind);
+                    context.go(AppRoute.pwfind);
                   },
                   child: Text(
                     "비밀번호 찾기",

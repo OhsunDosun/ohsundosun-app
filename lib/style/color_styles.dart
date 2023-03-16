@@ -17,6 +17,7 @@ class ColorStyles {
   static const black20 = Color(0xFFD3D3D6);
   static const black10 = Color(0xFFE9E9EA);
   static const black5 = Color(0xFFF4F4F5);
+  static const black = Color(0xFF000000);
 
   static const white = Color(0xFFFFFFFF);
 

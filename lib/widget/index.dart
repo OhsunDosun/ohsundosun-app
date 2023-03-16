@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
@@ -10,3 +11,4 @@ part 'button.dart';
 part 'input.dart';
 part 'safebox.dart';
 part 'size.dart';
+part 'loading.dart';
