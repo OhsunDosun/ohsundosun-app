@@ -21,9 +21,6 @@ abstract class AuthApi {
   @GET("/v1/auth/sign")
   Future<DefaultResponse> signCheck();
 
-  @POST("/v1/auth/sign/new")
-  Future<DataResponse<SignNewData>> signNew();
-
   @POST("/v1/auth/password/new")
   Future<DataResponse> newPassword();
 

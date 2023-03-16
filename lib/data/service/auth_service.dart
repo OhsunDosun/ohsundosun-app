@@ -3,7 +3,6 @@ import 'package:ohsundosun/data/api/auth_api.dart';
 import 'package:ohsundosun/enum/sign_in_type.dart';
 import 'package:ohsundosun/model/request/auth/sign_in_request.dart';
 import 'package:ohsundosun/model/response/auth/sign_in_response.dart';
-import 'package:ohsundosun/model/response/auth/sign_new_response.dart';
 import 'package:ohsundosun/model/response/common/default_response.dart';
 
 class AuthService {
@@ -40,31 +39,11 @@ class AuthService {
     }
   }
 
-  Future<SignNewData> signNew() async {
-    try {
-      final response = await _authApi.signNew();
-
-      return response.data;
-    } on DioError catch (e) {
-      final errorResponse = e.response;
-
-      if (errorResponse != null) {
-        final response = DefaultResponse.fromJson(errorResponse.data);
-        return Future.error(response.message);
-      } else {
-        return Future.error("error");
-      }
-    } catch (e) {
-      return Future.error("error");
-    }
-  }
-
   Future<DefaultResponse> signCheck() async {
     try {
       return await _authApi.signCheck();
     } on DioError catch (e) {
       final errorResponse = e.response;
-
       if (errorResponse != null) {
         final response = DefaultResponse.fromJson(errorResponse.data);
         return Future.error(response.message);
