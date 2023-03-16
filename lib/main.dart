@@ -58,6 +58,10 @@ class MyApp extends ConsumerWidget {
       designSize: const Size(375, 765),
       builder: (BuildContext context, Widget? child) {
         return MaterialApp.router(
+          theme: ThemeData(
+            splashColor: Colors.transparent,
+            highlightColor: Colors.transparent,
+          ),
           routerConfig: router,
           debugShowCheckedModeBanner: false,
         );

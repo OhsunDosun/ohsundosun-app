@@ -52,34 +52,28 @@ class ODBadge extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Theme(
-      data: ThemeData(
-        splashColor: Colors.transparent,
-        highlightColor: Colors.transparent,
-      ),
-      child: InkWell(
-        onTap: onTap,
-        child: Container(
-          height: 20,
-          padding: const EdgeInsets.symmetric(horizontal: 8),
-          decoration: BoxDecoration(
-            color: type.toColor(),
-            borderRadius: BorderRadius.circular(5),
-            border: type == ODBadgeType.white
-                ? Border.all(
-                    width: 1,
-                    color: ColorStyles.black20,
-                  )
-                : null,
-          ),
-          child: Center(
-            child: Text(
-              text,
-              style: (type == ODBadgeType.white ? SpoqaHanSansNeo.medium : SpoqaHanSansNeo.bold).copyWith(
-                color: type.toTextColor(),
-                fontSize: 11,
-                letterSpacing: -1,
-              ),
+    return InkWell(
+      onTap: onTap,
+      child: Container(
+        height: 20,
+        padding: const EdgeInsets.symmetric(horizontal: 8),
+        decoration: BoxDecoration(
+          color: type.toColor(),
+          borderRadius: BorderRadius.circular(5),
+          border: type == ODBadgeType.white
+              ? Border.all(
+                  width: 1,
+                  color: ColorStyles.black20,
+                )
+              : null,
+        ),
+        child: Center(
+          child: Text(
+            text,
+            style: (type == ODBadgeType.white ? SpoqaHanSansNeo.medium : SpoqaHanSansNeo.bold).copyWith(
+              color: type.toTextColor(),
+              fontSize: 11,
+              letterSpacing: -1,
             ),
           ),
         ),

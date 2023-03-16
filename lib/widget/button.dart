@@ -31,28 +31,22 @@ class ODButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Theme(
-      data: ThemeData(
-        splashColor: Colors.transparent,
-        highlightColor: Colors.transparent,
-      ),
-      child: InkWell(
-        onTap: onTap,
-        child: Container(
-          height: 50.h,
-          decoration: BoxDecoration(
-            color: type.toColor(),
-            borderRadius: BorderRadius.circular(8),
-          ),
-          child: Center(
-            child: Text(
-              text,
-              style: SpoqaHanSansNeo.bold.set(
-                color: ColorStyles.white,
-                size: 16,
-                height: 35,
-                letter: -1,
-              ),
+    return InkWell(
+      onTap: onTap,
+      child: Container(
+        height: 50.h,
+        decoration: BoxDecoration(
+          color: type.toColor(),
+          borderRadius: BorderRadius.circular(8),
+        ),
+        child: Center(
+          child: Text(
+            text,
+            style: SpoqaHanSansNeo.bold.set(
+              color: ColorStyles.white,
+              size: 16,
+              height: 35,
+              letter: -1,
             ),
           ),
         ),

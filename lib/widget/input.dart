@@ -21,6 +21,7 @@ class ODInput extends StatelessWidget {
       onChanged: onChanged,
       obscureText: obscureText,
       decoration: InputDecoration(
+        isDense: true,
         border: OutlineInputBorder(
           borderSide: const BorderSide(color: ColorStyles.black20, width: 1),
           borderRadius: BorderRadius.circular(8),
@@ -35,11 +36,12 @@ class ODInput extends StatelessWidget {
         ),
         contentPadding: EdgeInsets.symmetric(
           horizontal: 10.w,
-          vertical: 18.h,
+          vertical: 16.h,
         ),
         hintText: hintText,
         hintStyle: SpoqaHanSansNeo.regular.set(
           size: 15,
+          height: 20,
           letter: -1,
           color: ColorStyles.black40,
         ),
@@ -47,6 +49,7 @@ class ODInput extends StatelessWidget {
       cursorColor: ColorStyles.black100,
       style: SpoqaHanSansNeo.regular.set(
         size: 15,
+        height: 20,
         letter: -1,
         color: ColorStyles.black100,
       ),
