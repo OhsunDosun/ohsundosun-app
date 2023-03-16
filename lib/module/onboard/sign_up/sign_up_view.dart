@@ -32,6 +32,8 @@ class SignUpView extends ConsumerWidget {
                   ODHeight(80),
                   const LinearProgressIndicator(
                     value: 0.33,
+                    color: ColorStyles.red100,
+                    backgroundColor: ColorStyles.black10,
                   ),
                   ODHeight(25),
                   Text(
