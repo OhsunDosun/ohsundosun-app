@@ -22,9 +22,9 @@ class OnboardView extends ConsumerWidget {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   Image.asset(
-                    PngImage.mainLogo,
-                    height: 218.h,
+                    PngImage.onboardLogo,
                     width: 302.w,
+                    fit: BoxFit.fitWidth,
                   ),
                   ODHeight(47),
                   Text(
@@ -57,7 +57,7 @@ class OnboardView extends ConsumerWidget {
                   child: ODButton(
                     "로그인",
                     onTap: () {
-                      context.go(AppRoute.login);
+                      context.go(AppRoute.signIn);
                     },
                     type: ODButtonType.black,
                   ),
@@ -67,7 +67,7 @@ class OnboardView extends ConsumerWidget {
                   child: ODButton(
                     "회원가입",
                     onTap: () {
-                      context.go(AppRoute.register);
+                      context.go(AppRoute.signUp);
                     },
                     type: ODButtonType.red,
                   ),
@@ -90,7 +90,7 @@ class OnboardView extends ConsumerWidget {
                 ODWidth(8),
                 InkWell(
                   onTap: () {
-                    context.go(AppRoute.pwfind);
+                    context.go(AppRoute.findPassword);
                   },
                   child: Text(
                     "비밀번호 찾기",

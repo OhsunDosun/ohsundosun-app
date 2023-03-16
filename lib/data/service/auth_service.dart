@@ -12,7 +12,7 @@ class AuthService {
   AuthService(this._authApi);
 
   Future<SignInData> signIn({
-    SignInType type = SignInType.signIn,
+    SignInType type = SignInType.defaultSignIn,
     required String email,
     required String password,
   }) async {

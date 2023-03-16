@@ -2,16 +2,16 @@ import 'package:freezed_annotation/freezed_annotation.dart';
 
 enum SignInType {
   @JsonValue("DEFAULT")
-  signIn,
+  defaultSignIn,
   @JsonValue("NEW_PASSWORD")
-  temporarySignIn;
+  newPasswordSignIn;
 
   @override
   String toString() {
     switch (this) {
-      case SignInType.signIn:
+      case SignInType.defaultSignIn:
         return "DEFAULT";
-      case SignInType.temporarySignIn:
+      case SignInType.newPasswordSignIn:
         return "NEW_PASSWORD";
     }
   }
@@ -21,9 +21,9 @@ extension StringExtension on String? {
   SignInType? toSignInType() {
     switch (this) {
       case "DEFAULT":
-        return SignInType.signIn;
+        return SignInType.defaultSignIn;
       case "NEW_PASSWORD":
-        return SignInType.temporarySignIn;
+        return SignInType.newPasswordSignIn;
       default:
         return null;
     }

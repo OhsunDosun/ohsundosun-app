@@ -6,6 +6,7 @@ import 'package:ohsundosun/model/response/common/data_response.dart';
 import 'package:ohsundosun/model/response/common/default_response.dart';
 import 'package:ohsundosun/provider/app_provider.dart';
 import 'package:ohsundosun/enum/sign_in_type.dart';
+import 'package:ohsundosun/provider/router_provider.dart';
 import 'package:ohsundosun/util/logger.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
@@ -72,7 +73,7 @@ Dio dio(DioRef ref) {
                         },
                       ),
                       data: SignInRequest(
-                        type: ref.read(appSignInTypeProvider) ?? SignInType.signIn,
+                        type: ref.read(appSignInTypeProvider) ?? SignInType.defaultSignIn,
                         email: ref.read(appEmailProvider) ?? "",
                         password: ref.read(appPasswordProvider) ?? "",
                       ),
@@ -104,6 +105,8 @@ Dio dio(DioRef ref) {
 
                     await ref.read(accessTokenProvider.notifier).update(null);
                     await ref.read(refreshTokenProvider.notifier).update(null);
+
+                    ref.read(routerProvider).go(AppRoute.onboard);
                   }
                 }
               }

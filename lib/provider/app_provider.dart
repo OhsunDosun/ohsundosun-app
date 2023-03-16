@@ -1,8 +1,9 @@
 import 'package:flutter_dotenv/flutter_dotenv.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:ohsundosun/constant/storage_key.dart';
 import 'package:ohsundosun/enum/app_mode.dart';
 import 'package:ohsundosun/enum/sign_in_type.dart';
-import 'package:ohsundosun/enum/sign_status.dart';
+import 'package:ohsundosun/provider/router_provider.dart';
 import 'package:ohsundosun/provider/storage_provider.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
@@ -102,14 +103,13 @@ class AppSignInType extends _$AppSignInType {
   }
 }
 
-@Riverpod(keepAlive: true)
-class AppSignStatus extends _$AppSignStatus {
-  @override
-  SignStatus build() {
-    return SignStatus.signOut;
-  }
+onSignOut(WidgetRef ref) {
+  ref.read(appSignInTypeProvider.notifier).update(null);
+  ref.read(appEmailProvider.notifier).update(null);
+  ref.read(appPasswordProvider.notifier).update(null);
 
-  void update(SignStatus value) {
-    state = value;
-  }
+  ref.read(accessTokenProvider.notifier).update(null);
+  ref.read(refreshTokenProvider.notifier).update(null);
+
+  ref.read(routerProvider).go(AppRoute.onboard);
 }

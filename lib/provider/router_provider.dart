@@ -1,8 +1,9 @@
 import 'package:go_router/go_router.dart';
-import 'package:ohsundosun/module/login/login_view.dart';
+import 'package:ohsundosun/module/main/main_view.dart';
+import 'package:ohsundosun/module/onboard/sign_in/sign_in_view.dart';
 import 'package:ohsundosun/module/onboard/onboard_view.dart';
-import 'package:ohsundosun/module/pwfind/pwfind_view.dart';
-import 'package:ohsundosun/module/register/register_view.dart';
+import 'package:ohsundosun/module/onboard/find_password/find_password_view.dart';
+import 'package:ohsundosun/module/onboard/sign_up/sign_up_view.dart';
 import 'package:ohsundosun/module/splash/splash_view.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
@@ -14,9 +15,9 @@ class AppRoute {
   static const splash = '/splash';
 
   static const onboard = '/onboard';
-  static const login = '$onboard/login';
-  static const register = '$onboard/register';
-  static const pwfind = '$onboard/pwfind';
+  static const signIn = '$onboard/sign/in';
+  static const signUp = '$onboard/sign/up';
+  static const findPassword = '$onboard/find/password';
 
   static const main = '/main';
 
@@ -32,22 +33,22 @@ class AppRoute {
       builder: (context, state) => const OnboardView(),
       routes: [
         GoRoute(
-          path: AppRoute.login.replaceAll("$onboard/", ""),
-          builder: (context, state) => const LoginView(),
+          path: AppRoute.signIn.replaceAll("$onboard/", ""),
+          builder: (context, state) => const SignInView(),
         ),
         GoRoute(
-          path: AppRoute.register.replaceAll("$onboard/", ""),
-          builder: (context, state) => const RegisterView(),
+          path: AppRoute.signUp.replaceAll("$onboard/", ""),
+          builder: (context, state) => const SignUpView(),
         ),
         GoRoute(
-          path: AppRoute.pwfind.replaceAll("$onboard/", ""),
+          path: AppRoute.findPassword.replaceAll("$onboard/", ""),
           builder: (context, state) => const PwfindView(),
         ),
       ],
     ),
     GoRoute(
       path: AppRoute.main,
-      builder: (context, state) => const RegisterView(),
+      builder: (context, state) => const MainView(),
     ),
   ];
 }

@@ -4,7 +4,6 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:ohsundosun/constant/storage_key.dart';
 import 'package:ohsundosun/data/provider/service_provider.dart';
 import 'package:ohsundosun/enum/sign_in_type.dart';
-import 'package:ohsundosun/enum/sign_status.dart';
 import 'package:ohsundosun/provider/app_provider.dart';
 import 'package:ohsundosun/provider/router_provider.dart';
 import 'package:ohsundosun/provider/storage_provider.dart';
@@ -37,16 +36,9 @@ class SplashViewState extends ConsumerState<SplashView> {
 
     try {
       await authService.signCheck();
-      if (signInType == SignInType.signIn) {
-        ref.read(appSignStatusProvider.notifier).update(SignStatus.signIn);
-      } else {
-        ref.read(appSignStatusProvider.notifier).update(SignStatus.temporarySignIn);
-      }
       ref.read(routerProvider).go(AppRoute.main);
       FlutterNativeSplash.remove();
     } catch (_) {
-      ref.read(appSignStatusProvider.notifier).update(SignStatus.signOut);
-      ref.read(routerProvider).go(AppRoute.onboard);
       FlutterNativeSplash.remove();
     }
   }

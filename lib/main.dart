@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:flutter_native_splash/flutter_native_splash.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -14,6 +15,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 Future<void> main() async {
   WidgetsBinding widgetsBinding = WidgetsFlutterBinding.ensureInitialized();
+  SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp]);
   FlutterNativeSplash.preserve(widgetsBinding: widgetsBinding);
 
   await dotenv.load(fileName: ".env");
@@ -53,7 +55,7 @@ class MyApp extends ConsumerWidget {
     final router = ref.watch(routerProvider);
 
     return ScreenUtilInit(
-      designSize: const Size(375, 812),
+      designSize: const Size(375, 765),
       builder: (BuildContext context, Widget? child) {
         return MaterialApp.router(
           routerConfig: router,

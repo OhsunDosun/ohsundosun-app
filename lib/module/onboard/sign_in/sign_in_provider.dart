@@ -2,12 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:ohsundosun/data/provider/service_provider.dart';
 import 'package:ohsundosun/enum/sign_in_type.dart';
-import 'package:ohsundosun/enum/sign_status.dart';
 import 'package:ohsundosun/provider/app_provider.dart';
 import 'package:ohsundosun/provider/router_provider.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
-part 'login_provider.g.dart';
+part 'sign_in_provider.g.dart';
 
 @riverpod
 class Loading extends _$Loading {
@@ -45,6 +44,8 @@ Future<void> onSignIn(
   required String email,
   required String password,
 }) async {
+  FocusScope.of(context).unfocus();
+
   final loading = ref.read(loadingProvider.notifier);
 
   try {
@@ -57,14 +58,12 @@ Future<void> onSignIn(
       password: password,
     );
 
-    ref.read(appSignInTypeProvider.notifier).update(SignInType.signIn);
+    ref.read(appSignInTypeProvider.notifier).update(SignInType.defaultSignIn);
     ref.read(appEmailProvider.notifier).update(email);
     ref.read(appPasswordProvider.notifier).update(password);
 
     ref.read(accessTokenProvider.notifier).update(data.accessToken);
     ref.read(refreshTokenProvider.notifier).update(data.refreshToken);
-
-    ref.read(appSignStatusProvider.notifier).update(SignStatus.signIn);
 
     ref.read(routerProvider).go(AppRoute.main);
 

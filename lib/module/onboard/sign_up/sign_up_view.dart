@@ -4,8 +4,8 @@ import 'package:ohsundosun/widget/index.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:ohsundosun/style/index.dart';
 
-class RegisterView extends ConsumerWidget {
-  const RegisterView({super.key});
+class SignUpView extends ConsumerWidget {
+  const SignUpView({super.key});
 
   @override
   Widget build(BuildContext context, ref) {
