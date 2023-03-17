@@ -398,3 +398,9 @@ fabric.properties
 **/*.config.dart
 
 .fvm/flutter_sdk
+
+google-services.json
+GoogleService-Info.plist
+firebase_app_id_file.json
+
+.DS_Store

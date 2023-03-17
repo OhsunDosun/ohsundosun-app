@@ -1,7 +1,6 @@
 import 'dart:async';
 import 'package:ohsundosun/model/request/auth/sign_in_request.dart';
 import 'package:ohsundosun/model/response/auth/sign_in_response.dart';
-import 'package:ohsundosun/model/response/auth/sign_new_response.dart';
 import 'package:ohsundosun/model/response/common/data_response.dart';
 import 'package:ohsundosun/model/response/common/default_response.dart';
 import 'package:retrofit/retrofit.dart';
