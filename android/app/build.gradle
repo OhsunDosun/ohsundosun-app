@@ -21,6 +21,34 @@ if (flutterVersionName == null) {
     flutterVersionName = '1.0'
 }
 
+def keyStoreProperties = new Properties()
+def keyStorePropertiesFile = rootProject.file('keystore.properties')
+if (keyStorePropertiesFile.exists()) {
+    keyStorePropertiesFile.withReader('UTF-8') { reader ->
+        keyStoreProperties.load(reader)
+    }
+}
+
+def appStoreFile = keyStoreProperties.getProperty('app.storeFile')
+if (appStoreFile == null) {
+    throw new GradleException("appStoreFile not found. Define location with app.storeFile in the keystore.properties file.")
+}
+
+def appStorePassword = keyStoreProperties.getProperty('app.storePassword')
+if (appStorePassword == null) {
+    throw new GradleException("appStorePassword not found. Define location with app.storePassword in the keystore.properties file.")
+}
+
+def appKeyAlias = keyStoreProperties.getProperty('app.keyAlias')
+if (appKeyAlias == null) {
+    throw new GradleException("appKeyAlias not found. Define location with app.keyAlias in the keystore.properties file.")
+}
+
+def appKeyPassword = keyStoreProperties.getProperty('app.keyPassword')
+if (appKeyPassword == null) {
+    throw new GradleException("appKeyPassword not found. Define location with app.keyPassword in the keystore.properties file.")
+}
+
 apply plugin: 'com.android.application'
 // START: FlutterFire Configuration
 apply plugin: 'com.google.gms.google-services'
@@ -57,11 +85,23 @@ android {
         versionName flutterVersionName
     }
 
+    signingConfigs{
+        release {
+            storeFile file(appStoreFile)
+            storePassword appStorePassword
+            keyAlias appKeyAlias
+            keyPassword appKeyPassword
+        }
+    }
+
     buildTypes {
         release {
             // TODO: Add your own signing config for the release build.
             // Signing with the debug keys for now, so `flutter run --release` works.
-            signingConfig signingConfigs.debug
+            signingConfig signingConfigs.release
+
+            minifyEnabled true
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
 
@@ -87,5 +127,9 @@ flutter {
 }
 
 dependencies {
+    coreLibraryDesugaring 'com.android.tools:desugar_jdk_libs:1.1.5'
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
+    
+    implementation 'androidx.window:window:1.0.0'
+    implementation 'androidx.window:window-java:1.0.0'
 }
