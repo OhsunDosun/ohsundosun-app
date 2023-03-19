@@ -33,9 +33,11 @@ class SplashViewState extends ConsumerState<SplashView> {
     await ref.read(refreshTokenProvider.notifier).update(await ref.read(secureStorageProvider).read(key: StorageKey.refreshToken));
 
     final authService = ref.read(authServiceProvider);
+    final usersService = ref.read(usersServiceProvider);
 
     try {
       await authService.signCheck();
+      ref.read(userInfoProvider.notifier).update(await usersService.getUserInfo());
       ref.read(routerProvider).go(AppRoute.main);
       FlutterNativeSplash.remove();
     } catch (_) {

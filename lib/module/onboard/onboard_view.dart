@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:ohsundosun/asset/index.dart';
@@ -21,9 +20,9 @@ class OnboardView extends ConsumerWidget {
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  Image.asset(
+                  const ODPngImage(
                     PngImage.onboardLogo,
-                    width: 302.w,
+                    width: 302,
                     fit: BoxFit.fitWidth,
                   ),
                   ODHeight(47),

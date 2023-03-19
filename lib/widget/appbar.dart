@@ -12,18 +12,29 @@ class ODMainAppBar extends ConsumerWidget {
           InkWell(
             onTap: () {},
             child: Container(
-              margin: const EdgeInsets.only(left: 10),
+              margin: EdgeInsets.only(left: 10.w),
               padding: EdgeInsets.all(10.r),
-              child: Image.asset(
+              child: const ODPngImage(
                 PngImage.mainLogo,
-                width: 50.w,
+                width: 50,
                 fit: BoxFit.fitWidth,
               ),
             ),
           ),
+          const Spacer(),
           InkWell(
             onTap: () => onSignOut(ref),
             child: const Text("로그아웃"),
+          ),
+          Container(
+            margin: EdgeInsets.only(right: 10.w),
+            child: InkWell(
+              onTap: () => Scaffold.of(context).openEndDrawer(),
+              child: const ODSvgImage(
+                SvgImage.icMenu,
+                size: 20,
+              ),
+            ),
           )
         ],
       ),
@@ -32,7 +43,12 @@ class ODMainAppBar extends ConsumerWidget {
 }
 
 class ODBackAppBar extends StatelessWidget {
-  const ODBackAppBar({super.key});
+  final String? text;
+
+  const ODBackAppBar({
+    super.key,
+    this.text,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -47,13 +63,22 @@ class ODBackAppBar extends StatelessWidget {
             },
             child: Padding(
               padding: EdgeInsets.all(10.r),
-              child: SvgPicture.asset(
+              child: const ODSvgImage(
                 SvgImage.icBack,
-                height: 20.h,
-                width: 20.w,
+                size: 20,
               ),
             ),
-          )
+          ),
+          if (text != null)
+            Text(
+              text!,
+              style: SpoqaHanSansNeo.bold.set(
+                size: 18,
+                height: 35,
+                letter: -1,
+                color: ColorStyles.black100,
+              ),
+            ),
         ],
       ),
     );

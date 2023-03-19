@@ -2,7 +2,9 @@ import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:ohsundosun/constant/storage_key.dart';
 import 'package:ohsundosun/enum/app_mode.dart';
+import 'package:ohsundosun/enum/mbti.dart';
 import 'package:ohsundosun/enum/sign_in_type.dart';
+import 'package:ohsundosun/model/response/users/get_user_info_response.dart';
 import 'package:ohsundosun/provider/router_provider.dart';
 import 'package:ohsundosun/provider/storage_provider.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
@@ -99,6 +101,18 @@ class AppSignInType extends _$AppSignInType {
 
   Future<void> update(SignInType? value) async {
     await ref.read(secureStorageProvider).write(key: StorageKey.signInType, value: value?.toString());
+    state = value;
+  }
+}
+
+@Riverpod(keepAlive: true)
+class UserInfo extends _$UserInfo {
+  @override
+  GetUserInfoData build() {
+    return const GetUserInfoData(nickname: '', mbti: MBTI.intp, notification: false);
+  }
+
+  Future<void> update(GetUserInfoData value) async {
     state = value;
   }
 }

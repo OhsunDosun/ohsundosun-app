@@ -16,3 +16,5 @@ part 'safebox.dart';
 part 'size.dart';
 part 'loading.dart';
 part 'scroll.dart';
+part 'modal.dart';
+part 'image.dart';

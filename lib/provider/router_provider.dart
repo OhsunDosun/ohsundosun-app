@@ -1,5 +1,8 @@
 import 'package:go_router/go_router.dart';
 import 'package:ohsundosun/module/main/main_view.dart';
+import 'package:ohsundosun/module/main/rating/rating_view.dart';
+import 'package:ohsundosun/module/main/setting/setting_view.dart';
+import 'package:ohsundosun/module/main/user_info/user_info_view.dart';
 import 'package:ohsundosun/module/onboard/sign_in/sign_in_view.dart';
 import 'package:ohsundosun/module/onboard/onboard_view.dart';
 import 'package:ohsundosun/module/onboard/find_password/find_password_view.dart';
@@ -20,6 +23,10 @@ class AppRoute {
   static const findPassword = '$onboard/find/password';
 
   static const main = '/main';
+
+  static const setting = '$main/setting';
+  static const userInfo = '$setting/user/info';
+  static const rating = '$setting/rating';
 
   static const init = AppRoute.splash;
 
@@ -49,6 +56,22 @@ class AppRoute {
     GoRoute(
       path: AppRoute.main,
       builder: (context, state) => const MainView(),
+      routes: [
+        GoRoute(
+          path: AppRoute.setting.replaceAll("$main/", ""),
+          builder: (context, state) => const SettingView(),
+          routes: [
+            GoRoute(
+              path: AppRoute.userInfo.replaceAll("$setting/", ""),
+              builder: (context, state) => const UserInfoView(),
+            ),
+            GoRoute(
+              path: AppRoute.rating.replaceAll("$setting/", ""),
+              builder: (context, state) => const RatingView(),
+            ),
+          ],
+        ),
+      ],
     ),
   ];
 }

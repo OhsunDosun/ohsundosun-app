@@ -3,6 +3,8 @@ part of 'index.dart';
 class ColorStyles {
   ColorStyles._();
 
+  static const transparent = Colors.transparent;
+
   static const red100 = Color(0xFFFF4040);
   static const red80 = Color(0xFFFF6465);
   static const red60 = Color(0xFFFF8C8C);
