@@ -86,14 +86,14 @@ Future<void> onSignIn(
       password: password,
     );
 
-    ref.read(userInfoProvider.notifier).update(await usersService.getUserInfo());
-
     ref.read(appSignInTypeProvider.notifier).update(SignInType.defaultSignIn);
     ref.read(appEmailProvider.notifier).update(email);
     ref.read(appPasswordProvider.notifier).update(password);
 
     ref.read(accessTokenProvider.notifier).update(data.accessToken);
     ref.read(refreshTokenProvider.notifier).update(data.refreshToken);
+
+    ref.read(userInfoProvider.notifier).update(await usersService.getUserInfo());
 
     ref.read(routerProvider).go(AppRoute.main);
 
