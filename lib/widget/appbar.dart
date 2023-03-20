@@ -22,12 +22,9 @@ class ODMainAppBar extends ConsumerWidget {
             ),
           ),
           const Spacer(),
-          InkWell(
-            onTap: () => onSignOut(ref),
-            child: const Text("로그아웃"),
-          ),
           Container(
             margin: EdgeInsets.only(right: 10.w),
+            padding: EdgeInsets.all(10.r),
             child: InkWell(
               onTap: () => Scaffold.of(context).openEndDrawer(),
               child: const ODSvgImage(

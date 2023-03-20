@@ -1,8 +1,8 @@
 import 'package:go_router/go_router.dart';
 import 'package:ohsundosun/module/main/main_view.dart';
-import 'package:ohsundosun/module/main/rating/rating_view.dart';
+import 'package:ohsundosun/module/main/setting/rating/rating_view.dart';
 import 'package:ohsundosun/module/main/setting/setting_view.dart';
-import 'package:ohsundosun/module/main/user_info/user_info_view.dart';
+import 'package:ohsundosun/module/main/setting/user_info/user_info_view.dart';
 import 'package:ohsundosun/module/onboard/sign_in/sign_in_view.dart';
 import 'package:ohsundosun/module/onboard/onboard_view.dart';
 import 'package:ohsundosun/module/onboard/find_password/find_password_view.dart';

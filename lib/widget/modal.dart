@@ -58,3 +58,79 @@ class ODAlertModal extends StatelessWidget {
     );
   }
 }
+
+class ODConfirmModal extends StatelessWidget {
+  final String? text;
+  final Widget? content;
+  final String cancelText;
+  final void Function()? onCancelTap;
+  final String okText;
+  final void Function()? onOkTap;
+
+  const ODConfirmModal({
+    this.text,
+    this.content,
+    this.cancelText = "취소",
+    this.onCancelTap,
+    this.okText = "확인",
+    this.onOkTap,
+    super.key,
+  }) : super();
+
+  @override
+  Widget build(BuildContext context) {
+    return SafeArea(
+      child: Center(
+        child: Container(
+          margin: EdgeInsets.symmetric(horizontal: 30.w),
+          padding: EdgeInsets.all(10.r),
+          decoration: BoxDecoration(
+            color: ColorStyles.white,
+            borderRadius: BorderRadius.circular(8.r),
+          ),
+          child: Material(
+            color: ColorStyles.transparent,
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.stretch,
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                Padding(
+                  padding: EdgeInsets.only(top: 49.h, bottom: 55.h),
+                  child: content ??
+                      Text(
+                        text ?? "",
+                        textAlign: TextAlign.center,
+                        style: SpoqaHanSansNeo.regular.set(
+                          size: 18,
+                          height: 15,
+                          letter: -1,
+                          color: ColorStyles.black100,
+                        ),
+                      ),
+                ),
+                Row(
+                  children: [
+                    ODButton(
+                      cancelText,
+                      width: 95.w,
+                      type: ODButtonType.black,
+                      onTap: onCancelTap,
+                    ),
+                    ODWidth(10),
+                    Expanded(
+                      child: ODButton(
+                        okText,
+                        type: ODButtonType.red,
+                        onTap: onOkTap,
+                      ),
+                    ),
+                  ],
+                ),
+              ],
+            ),
+          ),
+        ),
+      ),
+    );
+  }
+}

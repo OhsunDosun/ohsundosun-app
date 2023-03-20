@@ -7,6 +7,7 @@ import 'package:ohsundosun/provider/app_provider.dart';
 import 'package:ohsundosun/provider/router_provider.dart';
 import 'package:ohsundosun/style/index.dart';
 import 'package:ohsundosun/widget/index.dart';
+import 'package:dotted_line/dotted_line.dart';
 
 part 'setting_widget.dart';
 
@@ -21,6 +22,7 @@ class SettingView extends ConsumerWidget {
       body: ODSafeBox(
         top: true,
         child: Column(
+          crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
             const ODBackAppBar(),
             Padding(
@@ -91,9 +93,104 @@ class SettingView extends ConsumerWidget {
                           ),
                         )
                       ],
-                    )
+                    ),
                   ],
                 ),
+              ),
+            ),
+            Padding(
+              padding: EdgeInsets.only(left: 20.w, bottom: 9.h),
+              child: Text(
+                "앱 환결설정",
+                style: SpoqaHanSansNeo.bold.set(
+                  size: 18,
+                  height: 27,
+                  letter: -1,
+                  color: ColorStyles.black100,
+                ),
+              ),
+            ),
+            const SettingItem("댓글 알림"),
+            const SettingItem("평가하기"),
+            SettingItem(
+              "로그아웃",
+              onTap: () => showDialog(
+                context: context,
+                builder: (context) {
+                  return ODConfirmModal(
+                    text: "로그아웃을 하시겠습니까?",
+                    onCancelTap: () => context.pop(),
+                    onOkTap: () => onSignOut(ref),
+                  );
+                },
+              ),
+            ),
+            const Spacer(),
+            Container(
+              color: ColorStyles.black5,
+              child: Column(
+                children: [
+                  Container(
+                    height: 54.h,
+                    padding: EdgeInsets.symmetric(horizontal: 20.w),
+                    child: Row(
+                      children: [
+                        Text(
+                          "더이상 오순도순을 쓰고싶지 않나요?",
+                          style: SpoqaHanSansNeo.regular.set(
+                            size: 11,
+                            letter: -1,
+                            color: ColorStyles.black40,
+                          ),
+                        ),
+                        Expanded(
+                          child: Padding(
+                            padding: EdgeInsets.symmetric(horizontal: 10.w),
+                            child: DottedLine(
+                              direction: Axis.horizontal,
+                              dashLength: 2.w,
+                              dashColor: ColorStyles.black20,
+                              dashGapLength: 2.w,
+                              dashGapColor: ColorStyles.transparent,
+                            ),
+                          ),
+                        ),
+                        InkWell(
+                          onTap: () => showDialog(
+                            context: context,
+                            builder: (context) {
+                              return ODConfirmModal(
+                                text: "오순도순을 탈퇴하시겠습니까?",
+                                onCancelTap: () => context.pop(),
+                                onOkTap: () => onSignOut(ref),
+                              );
+                            },
+                          ),
+                          child: Row(
+                            children: [
+                              const ODSvgImage(
+                                SvgImage.icLeave,
+                                size: 16,
+                              ),
+                              ODWidth(4),
+                              Text(
+                                "탈퇴하기",
+                                style: SpoqaHanSansNeo.regular.set(
+                                  size: 13,
+                                  letter: -1,
+                                  color: ColorStyles.black40,
+                                ),
+                              ),
+                            ],
+                          ),
+                        )
+                      ],
+                    ),
+                  ),
+                  const ODSafeBox(
+                    bottom: true,
+                  )
+                ],
               ),
             )
           ],

@@ -19,6 +19,7 @@ enum ODButtonType {
 
 class ODButton extends StatelessWidget {
   final ODButtonType type;
+  final double? width;
   final String text;
   final void Function()? onTap;
 
@@ -26,6 +27,7 @@ class ODButton extends StatelessWidget {
     this.text, {
     super.key,
     this.type = ODButtonType.black,
+    this.width,
     this.onTap,
   });
 
@@ -35,6 +37,7 @@ class ODButton extends StatelessWidget {
       onTap: onTap,
       child: Container(
         height: 50.h,
+        width: width,
         decoration: BoxDecoration(
           color: type.toColor(),
           borderRadius: BorderRadius.circular(8),
