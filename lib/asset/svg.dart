@@ -8,5 +8,6 @@ class SvgImage {
   static const String icLeave = 'asset/svg/ic_leave.svg';
   static const String icMenu = 'asset/svg/ic_menu.svg';
   static const String icSetting = 'asset/svg/ic_setting.svg';
-  static const String icWrite = 'asset/svg/ic_write.svg';
+  static const String icWrite14 = 'asset/svg/ic_write_14.svg';
+  static const String icWrite17 = 'asset/svg/ic_write_17.svg';
 }

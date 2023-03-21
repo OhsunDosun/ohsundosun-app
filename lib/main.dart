@@ -13,6 +13,7 @@ import 'package:ohsundosun/firebase_options.dart';
 import 'package:ohsundosun/provider/app_provider.dart';
 import 'package:ohsundosun/provider/router_provider.dart';
 import 'package:ohsundosun/provider/storage_provider.dart';
+import 'package:ohsundosun/style/index.dart';
 import 'package:ohsundosun/util/logger.dart';
 import 'package:ohsundosun/util/mode.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -78,6 +79,7 @@ class MyApp extends ConsumerWidget {
           theme: ThemeData(
             splashColor: Colors.transparent,
             highlightColor: Colors.transparent,
+            scaffoldBackgroundColor: ColorStyles.white,
           ),
           routerConfig: router,
           debugShowCheckedModeBanner: false,

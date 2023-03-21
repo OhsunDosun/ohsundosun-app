@@ -1,5 +1,7 @@
 import 'package:go_router/go_router.dart';
 import 'package:ohsundosun/module/main/main_view.dart';
+import 'package:ohsundosun/module/main/post_detail/post_detail_view.dart';
+import 'package:ohsundosun/module/main/post_write/post_write_view.dart';
 import 'package:ohsundosun/module/main/setting/rating/rating_view.dart';
 import 'package:ohsundosun/module/main/setting/setting_view.dart';
 import 'package:ohsundosun/module/main/setting/user_info/user_info_view.dart';
@@ -23,6 +25,9 @@ class AppRoute {
   static const findPassword = '$onboard/find/password';
 
   static const main = '/main';
+
+  static const postWrite = '$main/post/write';
+  static const postDetail = '$setting/post/detail/:postId';
 
   static const setting = '$main/setting';
   static const userInfo = '$setting/user/info';
@@ -57,6 +62,14 @@ class AppRoute {
       path: AppRoute.main,
       builder: (context, state) => const MainView(),
       routes: [
+        GoRoute(
+          path: AppRoute.postWrite.replaceAll("$main/", ""),
+          builder: (context, state) => const PostWriteView(),
+        ),
+        GoRoute(
+          path: AppRoute.postDetail.replaceAll("$main/", ""),
+          builder: (context, state) => const PostDetailView(),
+        ),
         GoRoute(
           path: AppRoute.setting.replaceAll("$main/", ""),
           builder: (context, state) => const SettingView(),

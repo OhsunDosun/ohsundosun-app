@@ -55,14 +55,14 @@ class ODBadge extends StatelessWidget {
     return InkWell(
       onTap: onTap,
       child: Container(
-        height: 20,
-        padding: const EdgeInsets.symmetric(horizontal: 8),
+        height: 20.h,
+        padding: EdgeInsets.symmetric(horizontal: 8.w),
         decoration: BoxDecoration(
           color: type.toColor(),
-          borderRadius: BorderRadius.circular(5),
+          borderRadius: BorderRadius.circular(5.r),
           border: type == ODBadgeType.white
               ? Border.all(
-                  width: 1,
+                  width: 1.r,
                   color: ColorStyles.black20,
                 )
               : null,
@@ -70,10 +70,9 @@ class ODBadge extends StatelessWidget {
         child: Center(
           child: Text(
             text,
-            style: (type == ODBadgeType.white ? SpoqaHanSansNeo.medium : SpoqaHanSansNeo.bold).copyWith(
+            style: (type == ODBadgeType.white ? SpoqaHanSansNeo.medium : SpoqaHanSansNeo.bold).set(
+              size: 11,
               color: type.toTextColor(),
-              fontSize: 11,
-              letterSpacing: -1,
             ),
           ),
         ),

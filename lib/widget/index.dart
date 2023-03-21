@@ -5,7 +5,6 @@ import 'package:flutter_svg/svg.dart';
 import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:ohsundosun/asset/index.dart';
-import 'package:ohsundosun/provider/app_provider.dart';
 import 'package:ohsundosun/style/index.dart';
 
 part 'appbar.dart';

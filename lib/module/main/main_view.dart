@@ -86,13 +86,47 @@ class MainView extends ConsumerWidget {
           ),
         ),
       ),
-      body: ODSafeBox(
-        top: true,
-        child: Column(
-          children: const [
-            ODMainAppBar(),
-          ],
-        ),
+      body: Stack(
+        children: [
+          ODSafeBox(
+            top: true,
+            child: Column(
+              children: const [
+                ODMainAppBar(),
+              ],
+            ),
+          ),
+          SafeArea(
+            child: Container(
+              alignment: Alignment.bottomRight,
+              padding: EdgeInsets.only(right: 15.w, bottom: 20.h),
+              child: InkWell(
+                onTap: () => context.go(AppRoute.postWrite),
+                child: Container(
+                  height: 55.r,
+                  width: 55.r,
+                  decoration: BoxDecoration(
+                    shape: BoxShape.circle,
+                    color: ColorStyles.red100,
+                    boxShadow: [
+                      BoxShadow(
+                        color: ColorStyles.black20.withOpacity(0.5),
+                        blurRadius: 10.r,
+                        offset: Offset(0, 4.h),
+                      ),
+                    ],
+                  ),
+                  child: const Center(
+                    child: ODSvgImage(
+                      SvgImage.icWrite17,
+                      size: 17,
+                    ),
+                  ),
+                ),
+              ),
+            ),
+          ),
+        ],
       ),
     );
   }

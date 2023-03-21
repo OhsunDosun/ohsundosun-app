@@ -64,7 +64,7 @@ class SettingView extends ConsumerWidget {
                         Expanded(
                           child: Text(
                             userInfo.nickname,
-                            style: SpoqaHanSansNeo.regular.set(
+                            style: SpoqaHanSansNeo.medium.set(
                               size: 15,
                               height: 22.5,
                               letter: -1,
@@ -77,7 +77,7 @@ class SettingView extends ConsumerWidget {
                           child: Row(
                             children: [
                               const ODSvgImage(
-                                SvgImage.icWrite,
+                                SvgImage.icWrite14,
                                 size: 14,
                               ),
                               ODWidth(5),
@@ -111,7 +111,10 @@ class SettingView extends ConsumerWidget {
               ),
             ),
             const SettingItem("댓글 알림"),
-            const SettingItem("평가하기"),
+            SettingItem(
+              "평가하기",
+              onTap: () => context.go(AppRoute.rating),
+            ),
             SettingItem(
               "로그아웃",
               onTap: () => showDialog(
