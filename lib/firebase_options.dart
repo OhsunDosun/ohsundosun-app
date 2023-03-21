@@ -13,45 +13,52 @@ Future<FirebaseOptions> currentPlatform() async {
       'you can reconfigure this by running the FlutterFire CLI again.',
     );
   }
+
+  final messagingSenderId = dotenv.get("MESSAGING_SENDER_ID");
+  final projectId = dotenv.get("PROJECT_ID");
+  final storageBucket = dotenv.get("STORAGE_BUCKET");
+
   switch (defaultTargetPlatform) {
     case TargetPlatform.android:
+      final apiKey = dotenv.get("ANDROID_API_KEY");
       switch (appMode) {
         case AppMode.dev:
           return FirebaseOptions(
-            apiKey: dotenv.get("ANDROID_API_KEY"),
+            apiKey: apiKey,
             appId: dotenv.get("DEV_ANDROID_APP_ID"),
-            messagingSenderId: dotenv.get("MESSAGING_SENDER_ID"),
-            projectId: dotenv.get("PROJECT_ID"),
-            storageBucket: dotenv.get("STORAGE_BUCKET"),
+            messagingSenderId: messagingSenderId,
+            projectId: projectId,
+            storageBucket: storageBucket,
           );
         case AppMode.prod:
           return FirebaseOptions(
-            apiKey: dotenv.get("ANDROID_API_KEY"),
+            apiKey: apiKey,
             appId: dotenv.get("PROD_ANDROID_APP_ID"),
-            messagingSenderId: dotenv.get("MESSAGING_SENDER_ID"),
-            projectId: dotenv.get("PROJECT_ID"),
-            storageBucket: dotenv.get("STORAGE_BUCKET"),
+            messagingSenderId: messagingSenderId,
+            projectId: projectId,
+            storageBucket: storageBucket,
           );
       }
     case TargetPlatform.iOS:
+      final apiKey = dotenv.get("IOS_API_KEY");
       switch (appMode) {
         case AppMode.dev:
           return FirebaseOptions(
-            apiKey: dotenv.get("IOS_API_KEY"),
+            apiKey: apiKey,
             appId: dotenv.get("DEV_IOS_APP_ID"),
-            messagingSenderId: dotenv.get("MESSAGING_SENDER_ID"),
-            projectId: dotenv.get("PROJECT_ID"),
-            storageBucket: dotenv.get("STORAGE_BUCKET"),
+            messagingSenderId: messagingSenderId,
+            projectId: projectId,
+            storageBucket: storageBucket,
             iosClientId: dotenv.get("DEV_IOS_CLIENT_ID"),
             iosBundleId: dotenv.get("DEV_IOS_BUNDLE_ID"),
           );
         case AppMode.prod:
           return FirebaseOptions(
-            apiKey: dotenv.get("IOS_API_KEY"),
+            apiKey: apiKey,
             appId: dotenv.get("PROD_IOS_APP_ID"),
-            messagingSenderId: dotenv.get("MESSAGING_SENDER_ID"),
-            projectId: dotenv.get("PROJECT_ID"),
-            storageBucket: dotenv.get("STORAGE_BUCKET"),
+            messagingSenderId: messagingSenderId,
+            projectId: projectId,
+            storageBucket: storageBucket,
             iosClientId: dotenv.get("PROD_IOS_CLIENT_ID"),
             iosBundleId: dotenv.get("PROD_IOS_BUNDLE_ID"),
           );
