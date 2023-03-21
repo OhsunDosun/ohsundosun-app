@@ -32,14 +32,13 @@ class ODAlertModal extends StatelessWidget {
               mainAxisSize: MainAxisSize.min,
               children: [
                 Padding(
-                  padding: EdgeInsets.only(top: 49.h, bottom: 55.h),
+                  padding: EdgeInsets.only(top: 39.h, bottom: 45.h, left: 10.w, right: 10.w),
                   child: content ??
                       Text(
                         text ?? "",
                         textAlign: TextAlign.center,
-                        style: SpoqaHanSansNeo.regular.set(
+                        style: SpoqaHanSansNeo.medium.set(
                           size: 18,
-                          height: 15,
                           letter: -1,
                           color: ColorStyles.black100,
                         ),
@@ -95,14 +94,13 @@ class ODConfirmModal extends StatelessWidget {
               mainAxisSize: MainAxisSize.min,
               children: [
                 Padding(
-                  padding: EdgeInsets.only(top: 49.h, bottom: 55.h),
+                  padding: EdgeInsets.only(top: 39.h, bottom: 45.h, left: 10.w, right: 10.w),
                   child: content ??
                       Text(
                         text ?? "",
                         textAlign: TextAlign.center,
-                        style: SpoqaHanSansNeo.regular.set(
+                        style: SpoqaHanSansNeo.medium.set(
                           size: 18,
-                          height: 15,
                           letter: -1,
                           color: ColorStyles.black100,
                         ),

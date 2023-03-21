@@ -65,6 +65,7 @@ dependencies:
 
   # Util
   flutter_dotenv: ^5.0.2
+  email_validator: '^2.1.16'
 
   # Firebase
   firebase_core: ^2.8.0

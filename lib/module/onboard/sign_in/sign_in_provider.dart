@@ -1,3 +1,4 @@
+import 'package:email_validator/email_validator.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
@@ -5,6 +6,7 @@ import 'package:ohsundosun/data/provider/service_provider.dart';
 import 'package:ohsundosun/enum/sign_in_type.dart';
 import 'package:ohsundosun/provider/app_provider.dart';
 import 'package:ohsundosun/provider/router_provider.dart';
+import 'package:ohsundosun/util/valid.dart';
 import 'package:ohsundosun/widget/index.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
@@ -31,6 +33,16 @@ class Email extends _$Email {
 }
 
 @riverpod
+String? emailError(EmailErrorRef ref) {
+  final email = ref.watch(emailProvider);
+
+  if (email.isNotEmpty && !EmailValidator.validate(email)) {
+    return "유효하지 않은 이메일입니다.";
+  }
+  return null;
+}
+
+@riverpod
 class Password extends _$Password {
   @override
   String build() => "";
@@ -40,6 +52,29 @@ class Password extends _$Password {
   }
 }
 
+@riverpod
+String? passwordError(PasswordErrorRef ref) {
+  final password = ref.watch(passwordProvider);
+
+  if (password.isNotEmpty && !Valid.password.hasMatch(password)) {
+    return "유효하지 않은 비밀번호입니다. (영문+숫자 8~16)";
+  }
+  return null;
+}
+
+@riverpod
+bool signInEnabled(SignInEnabledRef ref) {
+  final email = ref.watch(emailProvider);
+  final emailError = ref.watch(emailErrorProvider);
+  final password = ref.watch(passwordProvider);
+  final passwordError = ref.watch(passwordErrorProvider);
+
+  if (email.isEmpty || emailError != null || password.isEmpty || passwordError != null) {
+    return false;
+  }
+  return true;
+}
+
 Future<void> onSignIn(
   BuildContext context,
   WidgetRef ref, {
@@ -47,31 +82,6 @@ Future<void> onSignIn(
   required String password,
 }) async {
   FocusScope.of(context).unfocus();
-
-  if (email.isEmpty) {
-    showDialog(
-      context: context,
-      builder: (context) {
-        return ODAlertModal(
-          text: "이메일을 입력해주세요.",
-          onTap: () => context.pop(),
-        );
-      },
-    );
-    return;
-  }
-  if (password.isEmpty) {
-    showDialog(
-      context: context,
-      builder: (context) {
-        return ODAlertModal(
-          text: "비밀번호를 입력해주세요.",
-          onTap: () => context.pop(),
-        );
-      },
-    );
-    return;
-  }
 
   final loading = ref.read(loadingProvider.notifier);
 
@@ -105,7 +115,7 @@ Future<void> onSignIn(
 
     switch (errorCode) {
       case "bad_request":
-        errorText = "존재하지 않은 이메일 입니다.";
+        errorText = "유효하지 않은 이메일 또는 비밀번호입니다.";
         break;
       case "bad_password":
         errorText = "비밀번호가 일치하지 않습니다.";

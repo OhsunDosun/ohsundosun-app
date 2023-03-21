@@ -20,6 +20,7 @@ enum ODButtonType {
 class ODButton extends StatelessWidget {
   final ODButtonType type;
   final double? width;
+  final bool enabled;
   final String text;
   final void Function()? onTap;
 
@@ -27,19 +28,25 @@ class ODButton extends StatelessWidget {
     this.text, {
     super.key,
     this.type = ODButtonType.black,
+    this.enabled = true,
     this.width,
     this.onTap,
   });
 
   @override
   Widget build(BuildContext context) {
+    ODButtonType buttonType = type;
+    if (!enabled) {
+      buttonType = ODButtonType.grey;
+    }
+
     return InkWell(
-      onTap: onTap,
+      onTap: enabled ? onTap : null,
       child: Container(
         height: 50.h,
         width: width,
         decoration: BoxDecoration(
-          color: type.toColor(),
+          color: buttonType.toColor(),
           borderRadius: BorderRadius.circular(8),
         ),
         child: Center(
