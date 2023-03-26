@@ -196,6 +196,72 @@ class SignUpView extends ConsumerWidget {
                 ],
               ),
             ),
+            const ODBackAppBar(),
+            Padding(
+              padding: EdgeInsets.symmetric(horizontal: 20.w),
+              child: Column(
+                children: [
+                  Text(
+                    textAlign: TextAlign.center,
+                    "회원가입",
+                    style: SpoqaHanSansNeo.bold.set(
+                      size: 28,
+                      height: 35,
+                      letter: -1,
+                      color: ColorStyles.black100,
+                    ),
+                  ),
+                  ODHeight(60),
+                  Row(
+                    children: [
+                      Expanded(
+                        child: Text(
+                          textAlign: TextAlign.center,
+                          "계정정보",
+                          style: SpoqaHanSansNeo.medium.set(
+                            size: 16,
+                            height: 35,
+                            letter: -1,
+                            color: ColorStyles.black100,
+                          ),
+                        ),
+                      ),
+                      Expanded(
+                        child: Text(
+                          textAlign: TextAlign.center,
+                          "유형선택",
+                          style: SpoqaHanSansNeo.medium.set(
+                            size: 16,
+                            height: 35,
+                            letter: -1,
+                            color: ColorStyles.black100,
+                          ),
+                        ),
+                      ),
+                      Expanded(
+                        child: Text(
+                          textAlign: TextAlign.center,
+                          "완료",
+                          style: SpoqaHanSansNeo.medium.set(
+                            size: 16,
+                            height: 35,
+                            letter: -1,
+                            color: ColorStyles.black100,
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                  ODHeight(7),
+                  const LinearProgressIndicator(
+                    minHeight: 8,
+                    value: 0.70,
+                    color: ColorStyles.red100,
+                    backgroundColor: ColorStyles.black10,
+                  ),
+                ],
+              ),
+            ),
           ],
         ),
       ),
