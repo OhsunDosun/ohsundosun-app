@@ -50,7 +50,7 @@ class AppRoute {
         ),
         GoRoute(
           path: AppRoute.signUp.replaceAll("$onboard/", ""),
-          builder: (context, state) => const SignUpView(),
+          builder: (context, state) => SignUpView(),
         ),
         GoRoute(
           path: AppRoute.findPassword.replaceAll("$onboard/", ""),

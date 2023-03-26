@@ -1,27 +1,33 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_native_splash/cli_commands.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:ohsundosun/widget/index.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:ohsundosun/style/index.dart';
 
 class SignUpView extends ConsumerWidget {
-  const SignUpView({super.key});
+  SignUpView({super.key});
+
+  final PageController pageController = PageController(
+    initialPage: 0,
+  );
 
   @override
   Widget build(BuildContext context, ref) {
     return Scaffold(
       body: ODSafeBox(
         top: true,
-        child: Column(
+        child: PageView(
+          controller: pageController,
           children: [
             const ODBackAppBar(),
             Padding(
               padding: EdgeInsets.symmetric(horizontal: 20.w),
               child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    "                      회원가입",
+                    textAlign: TextAlign.center,
+                    "회원가입",
                     style: SpoqaHanSansNeo.bold.set(
                       size: 28,
                       height: 35,
@@ -29,7 +35,7 @@ class SignUpView extends ConsumerWidget {
                       color: ColorStyles.black100,
                     ),
                   ),
-                  ODHeight(80),
+                  ODHeight(60),
                   Row(
                     children: [
                       Expanded(
@@ -77,28 +83,42 @@ class SignUpView extends ConsumerWidget {
                     color: ColorStyles.red100,
                     backgroundColor: ColorStyles.black10,
                   ),
-                  ODHeight(22),
-                  Text(
-                    "닉네임",
-                    style: SpoqaHanSansNeo.medium.set(
-                      size: 16,
-                      height: 35,
-                      letter: -1,
-                      color: ColorStyles.black100,
-                    ),
+                  ODHeight(10),
+                  Row(
+                    children: [
+                      Expanded(
+                        child: Text(
+                          textAlign: TextAlign.start,
+                          "닉네임",
+                          style: SpoqaHanSansNeo.medium.set(
+                            size: 16,
+                            height: 35,
+                            letter: -1,
+                            color: ColorStyles.black100,
+                          ),
+                        ),
+                      ),
+                    ],
                   ),
                   const ODInput(
                     hintText: "한글, 영어 최대 8자",
                   ),
-                  ODHeight(12),
-                  Text(
-                    "이메일 아이디",
-                    style: SpoqaHanSansNeo.medium.set(
-                      size: 16,
-                      height: 35,
-                      letter: -1,
-                      color: ColorStyles.black100,
-                    ),
+                  ODHeight(10),
+                  Row(
+                    children: [
+                      Expanded(
+                        child: Text(
+                          textAlign: TextAlign.start,
+                          "이메일 아이디",
+                          style: SpoqaHanSansNeo.medium.set(
+                            size: 16,
+                            height: 35,
+                            letter: -1,
+                            color: ColorStyles.black100,
+                          ),
+                        ),
+                      ),
+                    ],
                   ),
                   Row(
                     children: [
@@ -129,35 +149,49 @@ class SignUpView extends ConsumerWidget {
                       ),
                     ],
                   ),
-                  ODHeight(12),
-                  Text(
-                    "비밀번호",
-                    style: SpoqaHanSansNeo.medium.set(
-                      size: 16,
-                      height: 35,
-                      letter: -1,
-                      color: ColorStyles.black100,
-                    ),
+                  ODHeight(10),
+                  Row(
+                    children: [
+                      Expanded(
+                        child: Text(
+                          textAlign: TextAlign.start,
+                          "비밀번호",
+                          style: SpoqaHanSansNeo.medium.set(
+                            size: 16,
+                            height: 35,
+                            letter: -1,
+                            color: ColorStyles.black100,
+                          ),
+                        ),
+                      ),
+                    ],
                   ),
                   const ODInput(
                     obscureText: true,
                     hintText: "영문+숫자 조합 8~16자",
                   ),
-                  ODHeight(15),
-                  Text(
-                    "비밀번호 확인",
-                    style: SpoqaHanSansNeo.medium.set(
-                      size: 16,
-                      height: 35,
-                      letter: -1,
-                      color: ColorStyles.black100,
-                    ),
+                  ODHeight(10),
+                  Row(
+                    children: [
+                      Expanded(
+                        child: Text(
+                          textAlign: TextAlign.start,
+                          "비밀번호 확인",
+                          style: SpoqaHanSansNeo.medium.set(
+                            size: 16,
+                            height: 35,
+                            letter: -1,
+                            color: ColorStyles.black100,
+                          ),
+                        ),
+                      ),
+                    ],
                   ),
                   const ODInput(
                     obscureText: true,
                     hintText: "영문+숫자 조합 8~16자",
                   ),
-                  ODHeight(45),
+                  ODHeight(40),
                   const ODButton("다음 단계로"),
                 ],
               ),
