@@ -24,7 +24,7 @@ Dio dio(DioRef ref) {
       return handler.next(response);
     }, onError: (DioError e, handler) async {
       final data = e.response?.data;
-      if (e.requestOptions.baseUrl == ref.read(baseUrlProvider) && data != null) {
+      if (e.requestOptions.baseUrl == ref.read(baseUrlProvider) && data != null && data.runtimeType != String) {
         final responseData = DefaultResponse.fromJson(data);
 
         final error = e;

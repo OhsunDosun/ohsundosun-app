@@ -66,6 +66,86 @@ enum MBTI {
     }
   }
 
+  String toSubTitle() {
+    switch (this) {
+      case MBTI.intj:
+        return "용의주도한 전략가";
+      case MBTI.intp:
+        return "논리적인 사색가";
+      case MBTI.entj:
+        return "대담한 통솔자";
+      case MBTI.entp:
+        return "뜨거운 논쟁을 즐기는 변론가";
+
+      case MBTI.infj:
+        return "통찰력 있는 선지자";
+      case MBTI.infp:
+        return "열정적인 중재자";
+      case MBTI.enfj:
+        return "정의로운 사회운동가";
+      case MBTI.enfp:
+        return "재기발랄한 활동가";
+
+      case MBTI.isfj:
+        return "용감한 수호자";
+      case MBTI.istj:
+        return "청렴결백한 논리주의자";
+      case MBTI.esfj:
+        return "사교적인 외교관";
+      case MBTI.estj:
+        return "엄격한 관리자";
+
+      case MBTI.isfp:
+        return "호기심 많은 예술가";
+      case MBTI.istp:
+        return "논리적인 실용주의자";
+      case MBTI.esfp:
+        return "자유로운 영혼의 연예인";
+      case MBTI.estp:
+        return "모험을 즐기는 사업가";
+    }
+  }
+
+  String toTitle() {
+    switch (this) {
+      case MBTI.intj:
+        return "과학자형";
+      case MBTI.intp:
+        return "아이디어 뱅크형";
+      case MBTI.entj:
+        return "지도자형";
+      case MBTI.entp:
+        return "발명가형";
+
+      case MBTI.infj:
+        return "예언자형";
+      case MBTI.infp:
+        return "잔다르크형";
+      case MBTI.enfj:
+        return "언변능숙형";
+      case MBTI.enfp:
+        return "스파크형";
+
+      case MBTI.isfj:
+        return "수호자형";
+      case MBTI.istj:
+        return "세상의 소금형";
+      case MBTI.esfj:
+        return "친선도모형";
+      case MBTI.estj:
+        return "사업자형";
+
+      case MBTI.isfp:
+        return "성인군자형";
+      case MBTI.istp:
+        return "백과사전형";
+      case MBTI.esfp:
+        return "사교형";
+      case MBTI.estp:
+        return "활동가형";
+    }
+  }
+
   @override
   String toString() {
     switch (this) {

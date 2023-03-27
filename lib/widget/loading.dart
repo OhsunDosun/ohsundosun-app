@@ -13,7 +13,10 @@ class ODLoading extends StatelessWidget {
           child: Container(
             height: 82.r,
             width: 82.r,
-            decoration: BoxDecoration(color: ColorStyles.black.withOpacity(0.3), borderRadius: BorderRadius.circular(12.r)),
+            decoration: BoxDecoration(
+              color: ColorStyles.black.withOpacity(0.3),
+              borderRadius: BorderRadius.circular(12.r),
+            ),
             child: Center(
               child: CupertinoActivityIndicator(
                 color: ColorStyles.white,

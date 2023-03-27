@@ -1,4 +1,5 @@
 import 'package:ohsundosun/data/api/auth_api.dart';
+import 'package:ohsundosun/data/api/posts_api.dart';
 import 'package:ohsundosun/data/api/users_api.dart';
 import 'package:ohsundosun/data/provider/dio_provider.dart';
 import 'package:ohsundosun/provider/app_provider.dart';
@@ -20,4 +21,12 @@ UsersApi usersApi(UsersApiRef ref) {
   final baseUrl = ref.watch(baseUrlProvider);
 
   return UsersApi(dio, baseUrl: baseUrl);
+}
+
+@riverpod
+PostsApi postsApi(PostsApiRef ref) {
+  final dio = ref.watch(dioProvider);
+  final baseUrl = ref.watch(baseUrlProvider);
+
+  return PostsApi(dio, baseUrl: baseUrl);
 }

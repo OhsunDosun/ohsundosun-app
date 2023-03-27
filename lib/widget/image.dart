@@ -32,6 +32,7 @@ class ODSvgImage extends StatelessWidget {
   final double? size;
   final double? height;
   final double? width;
+  final Color? color;
   final BoxFit fit;
 
   const ODSvgImage(
@@ -40,6 +41,7 @@ class ODSvgImage extends StatelessWidget {
     this.size,
     this.height,
     this.width,
+    this.color,
     this.fit = BoxFit.cover,
   });
 
@@ -50,6 +52,7 @@ class ODSvgImage extends StatelessWidget {
       height: size != null ? size!.r : height?.h,
       width: size != null ? size!.r : width?.w,
       fit: fit,
+      colorFilter: color != null ? ColorFilter.mode(color!, BlendMode.srcIn) : null,
     );
   }
 }

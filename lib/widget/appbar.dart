@@ -10,7 +10,9 @@ class ODMainAppBar extends ConsumerWidget {
       child: Row(
         children: [
           InkWell(
-            onTap: () {},
+            onTap: () {
+              ref.read(mainMBTIProvider.notifier).update(null);
+            },
             child: Container(
               margin: EdgeInsets.only(left: 10.w),
               padding: EdgeInsets.all(10.r),

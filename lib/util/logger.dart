@@ -21,7 +21,11 @@ class ProviderLogger extends ProviderObserver {
 final dioLogger = InterceptorsWrapper(onRequest: (options, handler) {
   debugPrint('[${options.method}] ${options.path}');
   debugPrint('REQUEST');
-  debugPrint('${options.data}');
+  if (options.method == "GET") {
+    debugPrint('${options.queryParameters}');
+  } else {
+    debugPrint('${options.data}');
+  }
   debugPrint('${options.headers["cookie"]}');
   debugPrint('____________________________________________');
   return handler.next(options);

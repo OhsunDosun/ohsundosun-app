@@ -29,8 +29,12 @@ class AuthService {
       final errorResponse = e.response;
 
       if (errorResponse != null) {
-        final response = DefaultResponse.fromJson(errorResponse.data);
-        return Future.error(response.message);
+        try {
+          final response = DefaultResponse.fromJson(errorResponse.data);
+          return Future.error(response.message);
+        } catch (e) {
+          return Future.error("error");
+        }
       } else {
         return Future.error("error");
       }
@@ -45,8 +49,12 @@ class AuthService {
     } on DioError catch (e) {
       final errorResponse = e.response;
       if (errorResponse != null) {
-        final response = DefaultResponse.fromJson(errorResponse.data);
-        return Future.error(response.message);
+        try {
+          final response = DefaultResponse.fromJson(errorResponse.data);
+          return Future.error(response.message);
+        } catch (e) {
+          return Future.error("error");
+        }
       } else {
         return Future.error("error");
       }
