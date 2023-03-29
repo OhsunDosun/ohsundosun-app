@@ -30,6 +30,16 @@ platform :ios do
       sh("fvm", "flutter", "build", "ipa", "--release", "--flavor", "dev", "--bundle-sksl-path", "flutter_01.sksl.json", "--export-options-plist=ios/Runner/DevExportOptions.plist")
     end
 
+    zip(
+      path: "../build/ios/archive/Runner.xcarchive/dSYMs",
+      output_path: "../build/ios/archive/Runner.xcarchive/dSYMs.zip"
+    )
+
+    upload_symbols_to_crashlytics(
+      dsym_path: "../build/ios/archive/Runner.xcarchive/dSYMs.zip",
+      gsp_path: "./Runner/Dev/GoogleService-Info.plist",
+    )
+
     firebase_app_distribution(
       app: ENV['FIREBASE_APP_ID_DEV'],
       firebase_cli_token: ENV['FIREBASE_TOKEN'],
@@ -47,6 +57,16 @@ platform :ios do
     Dir.chdir "../.." do
       sh("fvm", "flutter", "build", "ipa", "--release", "--flavor", "prod", "--bundle-sksl-path", "flutter_01.sksl.json", "--export-options-plist=ios/Runner/ProdExportOptions.plist")
     end
+
+    zip(
+      path: "../build/ios/archive/Runner.xcarchive/dSYMs",
+      output_path: "../build/ios/archive/Runner.xcarchive/dSYMs.zip"
+    )
+
+    upload_symbols_to_crashlytics(
+      dsym_path: "../build/ios/archive/Runner.xcarchive/dSYMs.zip",
+      gsp_path: "./Runner/Prod/GoogleService-Info.plist",
+    )
 
     firebase_app_distribution(
       app: ENV['FIREBASE_APP_ID'],
