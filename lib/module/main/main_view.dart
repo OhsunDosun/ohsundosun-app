@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
@@ -19,61 +20,31 @@ import 'package:flutter_spinkit/flutter_spinkit.dart';
 
 part 'main_widget.dart';
 
-class MainView extends ConsumerStatefulWidget {
-  const MainView({Key? key}) : super(key: key);
+class MainView extends HookConsumerWidget {
+  const MainView({super.key});
 
   @override
-  MainViewState createState() => MainViewState();
-}
+  Widget build(BuildContext context, WidgetRef ref) {
+    final appbarShadowOpacity = ref.watch(appbarShadowOpacityProvider);
+    final sortOpacity = ref.watch(sortOpacityProvider);
+    final mbtiOpacity = ref.watch(mbtiOpacityProvider);
+    final sortPaddingLeft = ref.watch(sortPaddingLeftProvider);
 
-class MainViewState extends ConsumerState<MainView> {
-  final scrollController = ScrollController();
+    final userInfo = ref.watch(userInfoProvider);
+    final pagingController = ref.watch(pagingProvider);
+    final mbti = ref.watch(mainMBTIProvider);
+    final scrollController = ref.watch(scrollControllerProvider);
 
-  double appbarShadowOpacity = 0;
-  final Tween<double> appbarShadowOpacityTween = Tween(begin: 0, end: 0.05);
-  double sortOpacity = 0;
-  double mbtiOpacity = 1;
-  double sortPaddingLeft = 0.w;
-  final Tween<double> sortPaddingLeftTween = Tween(begin: 0.w, end: 33.w);
-  double offset = 0;
+    useEffect(() {
+      SchedulerBinding.instance.addPostFrameCallback((_) {
+        ref.read(pagingProvider.notifier).load(type: LoadingType.init);
 
-  int? openMBTIMenu;
-
-  @override
-  void initState() {
-    super.initState();
-
-    SchedulerBinding.instance.addPostFrameCallback((_) {
-      final openHeight = (ref.watch(mainMBTIProvider) == null ? 201.h : 232.h) - 99.h;
-
-      scrollController.addListener(() {
-        setState(() {
-          offset = scrollController.offset;
-          if (offset < 0) {
-            offset = 0;
-          } else if (offset > openHeight) {
-            offset = openHeight;
-          }
-
-          sortOpacity = offset / openHeight;
-          mbtiOpacity = 1 - offset / openHeight;
-          sortPaddingLeft = sortPaddingLeftTween.transform(offset / openHeight);
-          appbarShadowOpacity = appbarShadowOpacityTween.transform(offset / openHeight);
+        scrollController.addListener(() {
+          ref.read(scrollOffsetProvider.notifier).update(scrollController.offset);
         });
       });
-
-      getPosts(ref);
-
-      ref.watch(pagingControllerProvider).addPageRequestListener((pageKey) {
-        getPosts(ref, lastKey: pageKey);
-      });
-    });
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    final userInfo = ref.watch(userInfoProvider);
-    final pagingController = ref.watch(pagingControllerProvider);
+      return null;
+    }, []);
 
     return Scaffold(
       endDrawer: SizedBox(
@@ -213,14 +184,16 @@ class MainViewState extends ConsumerState<MainView> {
             top: true,
             child: CustomScrollView(
               controller: scrollController,
-              physics: const BouncingScrollPhysics(),
+              physics: const AlwaysScrollableScrollPhysics(
+                parent: BouncingScrollPhysics(),
+              ),
               slivers: [
                 SliverAppBar(
                   backgroundColor: ColorStyles.transparent,
                   actions: const [SizedBox.shrink()],
                   pinned: true,
                   toolbarHeight: 99.h,
-                  expandedHeight: ref.watch(mainMBTIProvider) == null ? 201.h : 232.h,
+                  expandedHeight: mbti == null ? 201.h : 232.h,
                   elevation: 0,
                   flexibleSpace: Container(
                     decoration: BoxDecoration(
@@ -240,18 +213,78 @@ class MainViewState extends ConsumerState<MainView> {
                           child: Opacity(
                             opacity: mbtiOpacity,
                             child: Container(
-                              padding: EdgeInsets.only(top: 20.h, left: 20.w, right: 20.w),
+                              padding: EdgeInsets.only(top: 25.h, left: 20.w, right: 20.w),
                               child: Wrap(
                                 clipBehavior: Clip.hardEdge,
                                 children: [
-                                  if (ref.watch(mainMBTIProvider) == null)
-                                    Container(
-                                      alignment: Alignment.topLeft,
-                                      child: RichText(
-                                        text: TextSpan(
+                                  mbti == null
+                                      ? Container(
+                                          alignment: Alignment.topLeft,
+                                          child: RichText(
+                                            text: TextSpan(
+                                              children: [
+                                                TextSpan(
+                                                  text: '16개의 성격 유형,\n',
+                                                  style: SpoqaHanSansNeo.regular.set(
+                                                    size: 24,
+                                                    height: 35,
+                                                    letter: -1,
+                                                    color: ColorStyles.black100,
+                                                  ),
+                                                ),
+                                                TextSpan(
+                                                  text: '오순도순 ',
+                                                  style: SpoqaHanSansNeo.bold.set(
+                                                    size: 24,
+                                                    height: 35,
+                                                    letter: -1,
+                                                    color: ColorStyles.black100,
+                                                  ),
+                                                ),
+                                                TextSpan(
+                                                  text: '우리들의 이야기',
+                                                  style: SpoqaHanSansNeo.regular.set(
+                                                    size: 24,
+                                                    height: 35,
+                                                    letter: -1,
+                                                    color: ColorStyles.black100,
+                                                  ),
+                                                ),
+                                              ],
+                                            ),
+                                          ),
+                                        )
+                                      : Column(
+                                          crossAxisAlignment: CrossAxisAlignment.stretch,
                                           children: [
-                                            TextSpan(
-                                              text: '16개의 성격 유형,\n',
+                                            Row(
+                                              children: [
+                                                ODSvgImage(
+                                                  mbti.toIcon(),
+                                                  size: 18,
+                                                ),
+                                                ODWidth(5),
+                                                Text(
+                                                  mbti.toTypeName(),
+                                                  style: SpoqaHanSansNeo.bold.set(
+                                                    size: 18,
+                                                    letter: -1,
+                                                    color: ColorStyles.black100,
+                                                  ),
+                                                ),
+                                                ODWidth(5),
+                                                Text(
+                                                  "/ ${mbti.toTypeCode()}",
+                                                  style: SpoqaHanSansNeo.regular.set(
+                                                    size: 15,
+                                                    color: ColorStyles.black40,
+                                                  ),
+                                                ),
+                                              ],
+                                            ),
+                                            ODHeight(13),
+                                            Text(
+                                              mbti.toSubTitle(),
                                               style: SpoqaHanSansNeo.regular.set(
                                                 size: 24,
                                                 height: 35,
@@ -259,28 +292,30 @@ class MainViewState extends ConsumerState<MainView> {
                                                 color: ColorStyles.black100,
                                               ),
                                             ),
-                                            TextSpan(
-                                              text: '오순도순 ',
-                                              style: SpoqaHanSansNeo.bold.set(
-                                                size: 24,
-                                                height: 35,
-                                                letter: -1,
-                                                color: ColorStyles.black100,
-                                              ),
-                                            ),
-                                            TextSpan(
-                                              text: '우리들의 이야기',
-                                              style: SpoqaHanSansNeo.regular.set(
-                                                size: 24,
-                                                height: 35,
-                                                letter: -1,
-                                                color: ColorStyles.black100,
-                                              ),
+                                            Row(
+                                              children: [
+                                                Text(
+                                                  mbti.toTitle(),
+                                                  style: SpoqaHanSansNeo.bold.set(
+                                                    size: 24,
+                                                    height: 35,
+                                                    letter: -1,
+                                                    color: ColorStyles.black100,
+                                                  ),
+                                                ),
+                                                ODWidth(2),
+                                                Text(
+                                                  mbti.toString(),
+                                                  style: SpoqaHanSansNeo.bold.set(
+                                                    size: 24,
+                                                    height: 30,
+                                                    color: mbti.toColor(),
+                                                  ),
+                                                ),
+                                              ],
                                             ),
                                           ],
-                                        ),
-                                      ),
-                                    ),
+                                        )
                                 ],
                               ),
                             ),
@@ -312,31 +347,56 @@ class MainViewState extends ConsumerState<MainView> {
                                 child: Container(
                                   alignment: Alignment.centerLeft,
                                   padding: EdgeInsets.only(left: sortPaddingLeft),
-                                  child: Container(
-                                    height: 30.h,
-                                    width: 80.w,
-                                    padding: EdgeInsets.symmetric(horizontal: 8.w),
-                                    decoration: BoxDecoration(
-                                      borderRadius: BorderRadius.circular(5.r),
-                                      color: ColorStyles.black5,
-                                    ),
-                                    child: Row(
-                                      children: [
-                                        Expanded(
-                                          child: Text(
-                                            ref.watch(mainPostSortProvider).toString(),
-                                            style: SpoqaHanSansNeo.medium.set(
-                                              size: 12,
-                                              letter: -1,
-                                              color: ColorStyles.black60,
-                                            ),
+                                  child: InkWell(
+                                    onTap: () {
+                                      showModalBottomSheet(
+                                        enableDrag: false,
+                                        isScrollControlled: true,
+                                        shape: RoundedRectangleBorder(
+                                          borderRadius: BorderRadius.vertical(
+                                            top: Radius.circular(8.r),
                                           ),
                                         ),
-                                        const ODSvgImage(
-                                          SvgImage.icSort,
-                                          size: 13,
-                                        )
-                                      ],
+                                        context: context,
+                                        builder: (context) {
+                                          return ODPostSortBottomSheet(
+                                            sort: ref.watch(mainPostSortProvider),
+                                            onTap: (sort) {
+                                              if (ref.read(mainPostSortProvider) != sort) {
+                                                ref.read(mainPostSortProvider.notifier).update(sort);
+                                                ref.read(pagingProvider.notifier).load(type: LoadingType.reload);
+                                              }
+                                            },
+                                          );
+                                        },
+                                      );
+                                    },
+                                    child: Container(
+                                      height: 30.h,
+                                      width: 80.w,
+                                      padding: EdgeInsets.symmetric(horizontal: 8.w),
+                                      decoration: BoxDecoration(
+                                        borderRadius: BorderRadius.circular(5.r),
+                                        color: ColorStyles.black5,
+                                      ),
+                                      child: Row(
+                                        children: [
+                                          Expanded(
+                                            child: Text(
+                                              ref.watch(mainPostSortProvider).toString(),
+                                              style: SpoqaHanSansNeo.medium.set(
+                                                size: 12,
+                                                letter: -1,
+                                                color: ColorStyles.black60,
+                                              ),
+                                            ),
+                                          ),
+                                          const ODSvgImage(
+                                            SvgImage.icSort,
+                                            size: 13,
+                                          )
+                                        ],
+                                      ),
                                     ),
                                   ),
                                 ),
@@ -347,6 +407,9 @@ class MainViewState extends ConsumerState<MainView> {
                       ],
                     ),
                   ),
+                ),
+                CupertinoSliverRefreshControl(
+                  onRefresh: () => ref.read(pagingProvider.notifier).load(type: LoadingType.refresh),
                 ),
                 PagedSliverList<String?, Post>(
                   pagingController: pagingController,
@@ -378,7 +441,33 @@ class MainViewState extends ConsumerState<MainView> {
                         ),
                       ],
                     ),
-                    noItemsFoundIndicatorBuilder: (_) => const SizedBox.shrink(),
+                    noItemsFoundIndicatorBuilder: (_) => ODSafeBox(
+                      bottom: true,
+                      child: Center(
+                        child: Column(
+                          mainAxisSize: MainAxisSize.min,
+                          children: [
+                            ODSvgImage(
+                              SvgImage.icMainEmpty,
+                              height: 50.h,
+                              fit: BoxFit.fitHeight,
+                            ),
+                            ODHeight(12),
+                            Text(
+                              "작성된 게시글이 없어요.\n첫 게시글을 작성해주세요!",
+                              textAlign: TextAlign.center,
+                              style: SpoqaHanSansNeo.regular.set(
+                                size: 18,
+                                height: 27,
+                                letter: -1,
+                                color: ColorStyles.black80,
+                              ),
+                            ),
+                            ODHeight(207),
+                          ],
+                        ),
+                      ),
+                    ),
                     noMoreItemsIndicatorBuilder: (_) => Column(
                       children: [
                         ODHeight(20),
@@ -397,7 +486,13 @@ class MainViewState extends ConsumerState<MainView> {
               alignment: Alignment.bottomRight,
               padding: EdgeInsets.only(right: 15.w, bottom: 20.h),
               child: InkWell(
-                onTap: () => context.go(AppRoute.postWrite),
+                onTap: () async {
+                  final result = await context.push(AppRoute.postWrite);
+
+                  if (result == true) {
+                    ref.read(pagingProvider.notifier).load(type: LoadingType.reload);
+                  }
+                },
                 child: Container(
                   height: 55.r,
                   width: 55.r,

@@ -105,9 +105,9 @@ Future<void> onSignIn(
 
     ref.read(userInfoProvider.notifier).update(await usersService.getUserInfo());
 
-    ref.read(routerProvider).go(AppRoute.main);
-
     loading.update(false);
+
+    ref.read(routerProvider).go(AppRoute.main);
   } on String catch (errorCode) {
     loading.update(false);
 

@@ -1,4 +1,5 @@
-import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
 import 'package:ohsundosun/data/provider/service_provider.dart';
 import 'package:ohsundosun/enum/mbti.dart';
@@ -55,45 +56,197 @@ class MainPostSort extends _$MainPostSort {
 }
 
 @riverpod
-PagingController<String?, Post> pagingController(PagingControllerRef ref) {
-  return PagingController(firstPageKey: null);
+ScrollController scrollController(ScrollControllerRef ref) {
+  return ScrollController();
 }
 
-Future<void> getPosts(
-  WidgetRef ref, {
-  String? lastKey,
-}) async {
-  final pagingController = ref.read(pagingControllerProvider);
-  final postsService = ref.read(postsServiceProvider);
+@riverpod
+double maxHeight(MaxHeightRef ref) {
+  return (ref.watch(mainMBTIProvider) == null ? 201.h : 232.h) - 99.h;
+}
 
-  final loading = ref.read(loadingProvider.notifier);
+@riverpod
+class ScrollOffset extends _$ScrollOffset {
+  @override
+  double build() => 0;
 
-  final limit = ref.watch(limitProvider);
-  final sort = ref.watch(mainPostSortProvider);
-  final type = ref.watch(mainPostTypeProvider);
-  final mbti = ref.watch(mainMBTIProvider);
+  void update(double value) {
+    final maxOffset = ref.watch(maxHeightProvider);
 
-  final isEmpty = pagingController.value.itemList?.isEmpty ?? true;
+    double offset = value;
 
-  if (isEmpty) {
-    loading.update(true);
-  }
+    if (offset < 0) {
+      offset = 0;
+    } else if (offset > maxOffset) {
+      offset = maxOffset;
+    }
 
-  final posts = await postsService.getPosts(
-    sort: sort,
-    limit: limit,
-    lastKey: lastKey,
-    type: type,
-    mbti: mbti,
-  );
-
-  if (posts.length < limit) {
-    pagingController.appendLastPage(posts);
-  } else {
-    pagingController.appendPage(posts, posts.last.key);
-  }
-
-  if (isEmpty) {
-    loading.update(false);
+    state = offset;
   }
 }
+
+@riverpod
+double appbarShadowOpacity(AppbarShadowOpacityRef ref) {
+  final Tween<double> appbarShadowOpacityTween = Tween(begin: 0, end: 0.05);
+  return appbarShadowOpacityTween.transform(ref.watch(scrollOffsetProvider) / ref.watch(maxHeightProvider));
+}
+
+@riverpod
+double sortOpacity(SortOpacityRef ref) {
+  return ref.watch(scrollOffsetProvider) / ref.watch(maxHeightProvider);
+}
+
+@riverpod
+double mbtiOpacity(MbtiOpacityRef ref) {
+  return 1 - ref.watch(scrollOffsetProvider) / ref.watch(maxHeightProvider);
+}
+
+@riverpod
+double sortPaddingLeft(SortPaddingLeftRef ref) {
+  final Tween<double> sortPaddingLeftTween = Tween(begin: 0.w, end: 33.w);
+  return sortPaddingLeftTween.transform(ref.watch(scrollOffsetProvider) / ref.watch(maxHeightProvider));
+}
+
+@riverpod
+void Function(String?) pageRequestListener(PageRequestListenerRef ref) {
+  return (pageKey) async {
+    await ref.read(pagingProvider.notifier).load(type: LoadingType.load, lastKey: pageKey);
+  };
+}
+
+@riverpod
+class Paging extends _$Paging {
+  @override
+  PagingController<String?, Post> build() => PagingController(firstPageKey: null);
+
+  Future<void> load({
+    LoadingType type = LoadingType.init,
+    String? lastKey,
+  }) async {
+    final scrollController = ref.read(scrollControllerProvider);
+    final postsService = ref.read(postsServiceProvider);
+
+    final loading = ref.read(loadingProvider.notifier);
+
+    final limit = ref.watch(limitProvider);
+    final sort = ref.watch(mainPostSortProvider);
+    final postType = ref.watch(mainPostTypeProvider);
+    final mbti = ref.watch(mainMBTIProvider);
+
+    if (type == LoadingType.init || type == LoadingType.reload) {
+      loading.update(true);
+      ref.read(scrollOffsetProvider.notifier).update(0);
+    }
+
+    if (type == LoadingType.reload || type == LoadingType.refresh) {
+      state.removePageRequestListener(ref.watch(pageRequestListenerProvider));
+    }
+
+    try {
+      final posts = await postsService.getPosts(
+        sort: sort,
+        limit: limit,
+        lastKey: lastKey,
+        type: postType,
+        mbti: mbti,
+      );
+
+      if (type == LoadingType.reload || type == LoadingType.refresh) {
+        state.itemList = [];
+        scrollController.jumpTo(0);
+      }
+
+      if (posts.length < limit) {
+        state.appendLastPage(posts);
+      } else {
+        state.appendPage(posts, posts.last.key);
+        if (type == LoadingType.init || type == LoadingType.reload || type == LoadingType.refresh) {
+          state.addPageRequestListener(ref.watch(pageRequestListenerProvider));
+        }
+      }
+
+      if (type == LoadingType.init || type == LoadingType.reload) {
+        loading.update(false);
+      }
+    } on String catch (error) {
+      debugPrint(error);
+      if (type == LoadingType.reload || type == LoadingType.refresh) {
+        state.itemList = null;
+        state.appendLastPage([]);
+        scrollController.jumpTo(0);
+      }
+
+      if (type == LoadingType.init || type == LoadingType.reload) {
+        loading.update(false);
+      }
+    }
+  }
+}
+
+enum LoadingType {
+  load,
+  reload,
+  refresh,
+  init,
+}
+
+// Future<void> getPosts(
+//   WidgetRef ref, {
+//   LoadingType type = LoadingType.init,
+//   String? lastKey,
+// }) async {
+// final scrollController = ref.read(scrollControllerProvider);
+// final pagingController = ref.read(pagingControllerProvider);
+// final postsService = ref.read(postsServiceProvider);
+
+// final loading = ref.read(loadingProvider.notifier);
+
+// final limit = ref.watch(limitProvider);
+// final sort = ref.watch(mainPostSortProvider);
+// final postType = ref.watch(mainPostTypeProvider);
+// final mbti = ref.watch(mainMBTIProvider);
+
+// if (type == LoadingType.init || type == LoadingType.reload) {
+//   loading.update(true);
+// }
+
+// debugPrint(type.toString());
+
+// debugPrint(pagingController.itemList?.length.toString());
+
+// try {
+//   final posts = await postsService.getPosts(
+//     sort: sort,
+//     limit: limit,
+//     lastKey: lastKey,
+//     type: postType,
+//     mbti: mbti,
+//   );
+
+//   if (type == LoadingType.reload || type == LoadingType.refresh) {
+//     pagingController.itemList = [];
+//     scrollController.jumpTo(0);
+//   }
+
+//   if (posts.length < limit) {
+//     pagingController.appendLastPage(posts);
+//   } else {
+//     pagingController.appendPage(posts, posts.last.key);
+//   }
+
+//   if (type == LoadingType.init || type == LoadingType.reload) {
+//     loading.update(false);
+//   }
+// } on String catch (error) {
+//   debugPrint(error);
+//   if (type == LoadingType.reload || type == LoadingType.refresh) {
+//     pagingController.itemList = null;
+//     pagingController.appendLastPage([]);
+//     scrollController.jumpTo(0);
+//   }
+
+//   if (type == LoadingType.init || type == LoadingType.reload) {
+//     loading.update(false);
+//   }
+// }
+// }

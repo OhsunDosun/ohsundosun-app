@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_native_splash/cli_commands.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:ohsundosun/widget/index.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';

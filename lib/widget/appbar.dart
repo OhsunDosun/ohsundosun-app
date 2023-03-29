@@ -11,7 +11,10 @@ class ODMainAppBar extends ConsumerWidget {
         children: [
           InkWell(
             onTap: () {
-              ref.read(mainMBTIProvider.notifier).update(null);
+              if (ref.read(mainMBTIProvider) != null) {
+                ref.read(mainMBTIProvider.notifier).update(null);
+                ref.read(pagingProvider.notifier).load(type: LoadingType.reload);
+              }
             },
             child: Container(
               margin: EdgeInsets.only(left: 10.w),
@@ -43,10 +46,12 @@ class ODMainAppBar extends ConsumerWidget {
 
 class ODBackAppBar extends StatelessWidget {
   final String? text;
+  final Widget right;
 
   const ODBackAppBar({
     super.key,
     this.text,
+    this.right = const SizedBox.shrink(),
   });
 
   @override
@@ -68,16 +73,20 @@ class ODBackAppBar extends StatelessWidget {
               ),
             ),
           ),
-          if (text != null)
-            Text(
-              text!,
-              style: SpoqaHanSansNeo.bold.set(
-                size: 18,
-                height: 35,
-                letter: -1,
-                color: ColorStyles.black100,
-              ),
-            ),
+          Expanded(
+            child: (text != null)
+                ? Text(
+                    text!,
+                    style: SpoqaHanSansNeo.bold.set(
+                      size: 18,
+                      height: 35,
+                      letter: -1,
+                      color: ColorStyles.black100,
+                    ),
+                  )
+                : const SizedBox.shrink(),
+          ),
+          right
         ],
       ),
     );

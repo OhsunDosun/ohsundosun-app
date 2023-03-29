@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:io';
 import 'package:ohsundosun/model/common/post.dart';
 import 'package:ohsundosun/model/response/common/data_response.dart';
 import 'package:retrofit/retrofit.dart';
@@ -23,5 +24,14 @@ abstract class PostsApi {
   @GET("/v1/posts/:postId")
   Future<DataResponse<Post>> getPost({
     @Path(':postId') required String rowId,
+  });
+
+  @POST("/v1/posts")
+  @MultiPart()
+  Future<DataResponse> addPost({
+    @Part() required String type,
+    @Part() required String title,
+    @Part() required String content,
+    @Part() required List<File> images,
   });
 }

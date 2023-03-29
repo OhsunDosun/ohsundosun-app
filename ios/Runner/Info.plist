@@ -51,5 +51,9 @@
 		<false/>
 		<key>UIStatusBarHidden</key>
 		<false/>
+		<key>NSCameraUsageDescription</key>
+		<string>이미지 첨부를 위한 권한 요청</string>
+		<key>NSPhotoLibraryUsageDescription</key>
+		<string>이미지 첨부를 위한 권한 요청</string>
 	</dict>
 </plist>

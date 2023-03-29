@@ -1,7 +1,7 @@
 import 'package:go_router/go_router.dart';
 import 'package:ohsundosun/module/main/main_view.dart';
 import 'package:ohsundosun/module/main/post_detail/post_detail_view.dart';
-import 'package:ohsundosun/module/main/post_write/post_write_view.dart';
+import 'package:ohsundosun/module/main/post_upsert/post_upsert_view.dart';
 import 'package:ohsundosun/module/main/setting/rating/rating_view.dart';
 import 'package:ohsundosun/module/main/setting/setting_view.dart';
 import 'package:ohsundosun/module/main/setting/user_info/user_info_view.dart';
@@ -27,7 +27,8 @@ class AppRoute {
   static const main = '/main';
 
   static const postWrite = '$main/post/write';
-  static const postDetail = '$setting/post/detail/:postId';
+  static const postUpdate = '$setting/post/update';
+  static const postDetail = '$setting/post/detail';
 
   static const setting = '$main/setting';
   static const userInfo = '$setting/user/info';
@@ -64,11 +65,19 @@ class AppRoute {
       routes: [
         GoRoute(
           path: AppRoute.postWrite.replaceAll("$main/", ""),
-          builder: (context, state) => const PostWriteView(),
+          builder: (context, state) => const PostUpsertView(),
+        ),
+        GoRoute(
+          path: AppRoute.postUpdate.replaceAll("$main/", ""),
+          builder: (context, state) => PostUpsertView(
+            id: state.extra as String?,
+          ),
         ),
         GoRoute(
           path: AppRoute.postDetail.replaceAll("$main/", ""),
-          builder: (context, state) => const PostDetailView(),
+          builder: (context, state) => PostDetailView(
+            id: state.extra as String?,
+          ),
         ),
         GoRoute(
           path: AppRoute.setting.replaceAll("$main/", ""),

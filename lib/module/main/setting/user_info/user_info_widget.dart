@@ -2,13 +2,13 @@ part of 'user_info_view.dart';
 
 class InfoItem extends StatelessWidget {
   final String text;
-  final Widget? right;
+  final Widget right;
   final void Function()? onTap;
 
   const InfoItem(
     this.text, {
     super.key,
-    this.right,
+    this.right = const SizedBox.shrink(),
     this.onTap,
   });
 
@@ -34,7 +34,7 @@ class InfoItem extends StatelessWidget {
                     ),
                   ),
                 ),
-                right ?? const SizedBox.shrink(),
+                right,
                 ODWidth(11),
                 InkWell(
                   onTap: onTap,

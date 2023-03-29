@@ -1,4 +1,7 @@
+import 'package:flutter/material.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
+import 'package:ohsundosun/asset/index.dart';
+import 'package:ohsundosun/style/index.dart';
 import 'package:ohsundosun/widget/index.dart';
 
 enum MBTI {
@@ -38,6 +41,62 @@ enum MBTI {
   @JsonValue("ESTP")
   estp;
 
+  String toIcon() {
+    switch (this) {
+      case MBTI.intj:
+      case MBTI.intp:
+      case MBTI.entj:
+      case MBTI.entp:
+        return SvgImage.icLogoPurple;
+
+      case MBTI.infj:
+      case MBTI.infp:
+      case MBTI.enfj:
+      case MBTI.enfp:
+        return SvgImage.icLogoGreen;
+
+      case MBTI.isfj:
+      case MBTI.istj:
+      case MBTI.esfj:
+      case MBTI.estj:
+        return SvgImage.icLogoBlue;
+
+      case MBTI.isfp:
+      case MBTI.istp:
+      case MBTI.esfp:
+      case MBTI.estp:
+        return SvgImage.icLogoOrange;
+    }
+  }
+
+  Color toColor() {
+    switch (this) {
+      case MBTI.intj:
+      case MBTI.intp:
+      case MBTI.entj:
+      case MBTI.entp:
+        return ColorStyles.purpleDeep;
+
+      case MBTI.infj:
+      case MBTI.infp:
+      case MBTI.enfj:
+      case MBTI.enfp:
+        return ColorStyles.greenDeep;
+
+      case MBTI.isfj:
+      case MBTI.istj:
+      case MBTI.esfj:
+      case MBTI.estj:
+        return ColorStyles.blueDeep;
+
+      case MBTI.isfp:
+      case MBTI.istp:
+      case MBTI.esfp:
+      case MBTI.estp:
+        return ColorStyles.orangeDeep;
+    }
+  }
+
   ODBadgeType toODBadgeType() {
     switch (this) {
       case MBTI.intj:
@@ -63,6 +122,62 @@ enum MBTI {
       case MBTI.esfp:
       case MBTI.estp:
         return ODBadgeType.orange;
+    }
+  }
+
+  String toTypeName() {
+    switch (this) {
+      case MBTI.intj:
+      case MBTI.intp:
+      case MBTI.entj:
+      case MBTI.entp:
+        return "분석형";
+
+      case MBTI.infj:
+      case MBTI.infp:
+      case MBTI.enfj:
+      case MBTI.enfp:
+        return "외교형";
+
+      case MBTI.isfj:
+      case MBTI.istj:
+      case MBTI.esfj:
+      case MBTI.estj:
+        return "관리자형";
+
+      case MBTI.isfp:
+      case MBTI.istp:
+      case MBTI.esfp:
+      case MBTI.estp:
+        return "탐험가형";
+    }
+  }
+
+  String toTypeCode() {
+    switch (this) {
+      case MBTI.intj:
+      case MBTI.intp:
+      case MBTI.entj:
+      case MBTI.entp:
+        return "NT";
+
+      case MBTI.infj:
+      case MBTI.infp:
+      case MBTI.enfj:
+      case MBTI.enfp:
+        return "NF";
+
+      case MBTI.isfj:
+      case MBTI.istj:
+      case MBTI.esfj:
+      case MBTI.estj:
+        return "SJ";
+
+      case MBTI.isfp:
+      case MBTI.istp:
+      case MBTI.esfp:
+      case MBTI.estp:
+        return "SP";
     }
   }
 
