@@ -22,8 +22,8 @@ end
 default_platform(:android)
 
 platform :android do
-  desc "Build & Deploy (DEV)"
-  lane :fb_dev do
+  desc "Deploy Firebase (DEV)"
+  lane :dev do
     yaml_file_path = "../../pubspec.yaml"
     data = YAML.load_file(yaml_file_path)
     version_and_no = data["version"].split("+")
@@ -45,8 +45,8 @@ platform :android do
     )
   end
 
-  desc "Build & Deploy (PROD)"
-  lane :fb_prod do
+  desc "Deploy Firebase (PROD)"
+  lane :prod_fb do
     yaml_file_path = "../../pubspec.yaml"
     data = YAML.load_file(yaml_file_path)
     version_and_no = data["version"].split("+")

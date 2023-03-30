@@ -10,8 +10,8 @@ fi
 
 # Deploy android 
 cd android
-fastlane fb_dev
+fastlane dev
 
 # Deploy ios 
 cd ../ios
-fastlane fb_dev
+fastlane dev

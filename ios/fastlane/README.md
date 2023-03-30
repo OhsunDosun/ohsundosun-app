@@ -15,13 +15,13 @@ For _fastlane_ installation instructions, see [Installing _fastlane_](https://do
 
 ## iOS
 
-### ios fb_dev
+### ios dev
 
 ```sh
-[bundle exec] fastlane ios fb_dev
+[bundle exec] fastlane ios dev
 ```
 
-Build & Deploy (DEV)
+Deploy Firebase (DEV)
 
 ### ios fb_prod
 

@@ -285,8 +285,6 @@
 			inputFileListPaths = (
 			);
 			inputPaths = (
-				"\"${DWARF_DSYM_FOLDER_PATH}/${DWARF_DSYM_FILE_NAME}/Contents/Resources/DWARF/${TARGET_NAME}\"",
-				"\"$(SRCROOT)/$(BUILT_PRODUCTS_DIR)/$(INFOPLIST_PATH)\"",
 			);
 			name = "[firebase_crashlytics] Crashlytics Upload Symbols";
 			outputFileListPaths = (
@@ -295,7 +293,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"$PODS_ROOT/FirebaseCrashlytics/upload-symbols\" --flutter-project \"$PROJECT_DIR/firebase_app_id_file.json\" \n";
+			shellScript = "\"$PODS_ROOT/FirebaseCrashlytics/upload-symbols\" -gsp ${PROJECT_DIR}/Runner/GoogleService-Info.plist -p ios \"${DWARF_DSYM_FOLDER_PATH}/${DWARF_DSYM_FILE_NAME}\"\n";
 		};
 		C48F10E829C3E90500A8C65B /* Firebase Script */ = {
 			isa = PBXShellScriptBuildPhase;

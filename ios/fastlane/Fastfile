@@ -22,23 +22,13 @@ end
 default_platform(:ios)
 
 platform :ios do
-  desc "Build & Deploy (DEV)"
-  lane :fb_dev do
+  desc "Deploy Firebase (DEV)"
+  lane :dev do
     match(type: "adhoc", readonly: true, git_private_key: ENV['MATCH_GIT_PRIVATE_KEY'], app_identifier: [ENV["APP_IDENTIFIER_DEV"]])
 
     Dir.chdir "../.." do
       sh("fvm", "flutter", "build", "ipa", "--release", "--flavor", "dev", "--bundle-sksl-path", "flutter_01.sksl.json", "--export-options-plist=ios/Runner/DevExportOptions.plist")
     end
-
-    zip(
-      path: "../build/ios/archive/Runner.xcarchive/dSYMs",
-      output_path: "../build/ios/archive/Runner.xcarchive/dSYMs.zip"
-    )
-
-    upload_symbols_to_crashlytics(
-      dsym_path: "../build/ios/archive/Runner.xcarchive/dSYMs.zip",
-      gsp_path: "./Runner/Dev/GoogleService-Info.plist",
-    )
 
     firebase_app_distribution(
       app: ENV['FIREBASE_APP_ID_DEV'],
@@ -50,23 +40,13 @@ platform :ios do
   )
   end
 
-  desc "Build & Deploy (PROD)"
-  lane :fb_prod do
+  desc "Deploy Firebase (PROD)"
+  lane :prod_fb do
     match(type: "adhoc", readonly: true, git_private_key: ENV['MATCH_GIT_PRIVATE_KEY'], app_identifier: [ENV["APP_IDENTIFIER"]])
     
     Dir.chdir "../.." do
       sh("fvm", "flutter", "build", "ipa", "--release", "--flavor", "prod", "--bundle-sksl-path", "flutter_01.sksl.json", "--export-options-plist=ios/Runner/ProdExportOptions.plist")
     end
-
-    zip(
-      path: "../build/ios/archive/Runner.xcarchive/dSYMs",
-      output_path: "../build/ios/archive/Runner.xcarchive/dSYMs.zip"
-    )
-
-    upload_symbols_to_crashlytics(
-      dsym_path: "../build/ios/archive/Runner.xcarchive/dSYMs.zip",
-      gsp_path: "./Runner/Prod/GoogleService-Info.plist",
-    )
 
     firebase_app_distribution(
       app: ENV['FIREBASE_APP_ID'],
