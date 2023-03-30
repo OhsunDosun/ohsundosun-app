@@ -1,10 +1,10 @@
 import 'dart:io';
 
 import 'package:flutter/material.dart';
-import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:ohsundosun/data/provider/service_provider.dart';
 import 'package:ohsundosun/enum/post_type.dart';
+import 'package:ohsundosun/provider/app_provider.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 part 'post_upsert_provider.g.dart';
@@ -91,6 +91,8 @@ Future<void> upsertPost(
   final content = ref.watch(contentProvider);
   final images = ref.watch(imagesProvider);
 
+  ref.read(accessTokenProvider.notifier).update(null);
+
   loading.update(true);
 
   try {
@@ -102,7 +104,7 @@ Future<void> upsertPost(
     );
 
     loading.update(false);
-    if (context.mounted) context.pop(true);
+    // ref.watch(routerProvider).pop();
   } on String catch (error) {
     debugPrint(error);
 

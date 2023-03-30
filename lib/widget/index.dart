@@ -1,18 +1,13 @@
-import 'dart:io';
-
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:image_cropper/image_cropper.dart';
-import 'package:image_picker/image_picker.dart';
 import 'package:ohsundosun/asset/index.dart';
 import 'package:ohsundosun/enum/post_sort.dart';
 import 'package:ohsundosun/enum/post_type.dart';
 import 'package:ohsundosun/module/main/main_provider.dart';
-import 'package:ohsundosun/provider/router_provider.dart';
 import 'package:ohsundosun/style/index.dart';
 
 part 'appbar.dart';

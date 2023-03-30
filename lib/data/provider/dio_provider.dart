@@ -1,4 +1,5 @@
 import 'package:dio/dio.dart';
+import 'package:flutter/material.dart';
 import 'package:ohsundosun/model/request/auth/sign_in_request.dart';
 import 'package:ohsundosun/model/response/auth/sign_in_response.dart';
 import 'package:ohsundosun/model/response/auth/sign_new_response.dart';
@@ -45,6 +46,20 @@ Dio dio(DioRef ref) {
                   DataResponse<SignNewData>.fromJson(signNewResult.data, (json) => SignNewData.fromJson(json as Map<String, dynamic>));
               await ref.read(accessTokenProvider.notifier).update(signNewResponse.data.accessToken);
 
+              if (error.requestOptions.data is FormData) {
+                FormData formData = FormData();
+                formData.fields.addAll(error.requestOptions.data.fields);
+                for (MapEntry mapFile in error.requestOptions.data.files) {
+                  formData.files.add(
+                    MapEntry(
+                      mapFile.key,
+                      mapFile.value,
+                    ),
+                  );
+                }
+                error.requestOptions.data = formData;
+              }
+
               final reRequest = await dio.request(
                 error.requestOptions.baseUrl + error.requestOptions.path,
                 options: Options(
@@ -59,6 +74,7 @@ Dio dio(DioRef ref) {
 
               return handler.resolve(reRequest);
             } on DioError catch (e) {
+              debugPrint(e.toString());
               final signNewData = e.response?.data;
               if (signNewData != null) {
                 final signNewResponseData = DefaultResponse.fromJson(signNewData);
@@ -110,6 +126,9 @@ Dio dio(DioRef ref) {
                   }
                 }
               }
+              break;
+            } catch (e) {
+              debugPrint(e.toString());
               break;
             }
           default:
