@@ -6,6 +6,7 @@ class ColorStyles {
   static const transparent = Colors.transparent;
 
   static const messageError = Color(0xFFF0685F);
+  static const messageComp = Color(0xFF00C66C);
 
   static const red100 = Color(0xFFFF4040);
   static const red80 = Color(0xFFFF6465);

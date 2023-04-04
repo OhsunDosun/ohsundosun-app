@@ -39,6 +39,22 @@ class PostsService {
     }
   }
 
+  Future<Post> getPost({
+    required String postId,
+  }) async {
+    try {
+      final response = await _postsApi.getPost(
+        postId: postId,
+      );
+
+      return response.data;
+    } on DioError catch (e) {
+      return Future.error(getErrorMessage(e));
+    } catch (e) {
+      return Future.error("error");
+    }
+  }
+
   Future<void> addPost({
     required PostType type,
     required String title,

@@ -1,6 +1,7 @@
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:ohsundosun/constant/storage_key.dart';
+import 'package:ohsundosun/data/provider/service_provider.dart';
 import 'package:ohsundosun/enum/app_mode.dart';
 import 'package:ohsundosun/enum/mbti.dart';
 import 'package:ohsundosun/enum/sign_in_type.dart';
@@ -114,6 +115,16 @@ class UserInfo extends _$UserInfo {
 
   Future<void> update(GetUserInfoData value) async {
     state = value;
+  }
+
+  Future<void> updateNotification(bool value) async {
+    final usersService = ref.read(usersServiceProvider);
+
+    await usersService.updateNotification(
+      notification: value,
+    );
+
+    ref.read(userInfoProvider.notifier).update(await usersService.getUserInfo());
   }
 }
 

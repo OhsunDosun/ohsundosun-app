@@ -3,7 +3,6 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:image_cropper/image_cropper.dart';
 import 'package:image_picker/image_picker.dart';
@@ -261,7 +260,9 @@ class PostUpsertView extends HookConsumerWidget {
                                               }
                                             }
 
-                                            if (context.mounted) context.pop();
+                                            Navigator.of(context).pop();
+
+                                            // if (context.mounted) context.pop();
                                           },
                                           onGalleryTap: () async {
                                             if (ref.read(imagesProvider).length < 3) {
@@ -281,7 +282,9 @@ class PostUpsertView extends HookConsumerWidget {
                                               }
                                             }
 
-                                            if (context.mounted) context.pop();
+                                            Navigator.of(context).pop();
+
+                                            // if (context.mounted) context.pop();
                                           },
                                         );
                                       },

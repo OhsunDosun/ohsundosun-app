@@ -21,9 +21,9 @@ abstract class PostsApi {
     @Query("type") required String type,
   });
 
-  @GET("/v1/posts/:postId")
+  @GET("/v1/posts/{postId}")
   Future<DataResponse<Post>> getPost({
-    @Path(':postId') required String rowId,
+    @Path('postId') required String postId,
   });
 
   @POST("/v1/posts")

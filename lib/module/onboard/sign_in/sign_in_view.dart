@@ -46,14 +46,14 @@ class SignInView extends ConsumerWidget {
                             ODHeight(43),
                             ODInput(
                               hintText: '이메일 아이디',
-                              errorText: ref.watch(emailErrorProvider),
+                              message: ref.watch(emailErrorProvider),
                               onChanged: (value) => ref.read(emailProvider.notifier).update(value),
                             ),
                             ODHeight(10),
                             ODInput(
                               obscureText: true,
                               hintText: '비밀번호',
-                              errorText: ref.watch(passwordErrorProvider),
+                              message: ref.watch(passwordErrorProvider),
                               onChanged: (value) => ref.read(passwordProvider.notifier).update(value),
                             ),
                             ODHeight(25),

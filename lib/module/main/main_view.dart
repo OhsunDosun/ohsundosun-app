@@ -7,6 +7,7 @@ import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
 import 'package:ohsundosun/asset/index.dart';
+import 'package:ohsundosun/enum/loading_type.dart';
 import 'package:ohsundosun/enum/mbti.dart';
 import 'package:ohsundosun/model/common/post.dart';
 import 'package:ohsundosun/module/main/main_provider.dart';

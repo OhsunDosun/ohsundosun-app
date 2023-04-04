@@ -115,7 +115,7 @@ class PostItem extends StatelessWidget {
                   ),
                   Text(
                     DateTime.now().difference(createdAt) <= const Duration(minutes: 10)
-                        ? DateFormat('m분전').format(createdAt)
+                        ? DateFormat('${DateTime.now().difference(createdAt).inMinutes}분전').format(createdAt)
                         : DateFormat('yy.MM.dd').format(createdAt),
                     style: SpoqaHanSansNeo.medium.set(
                       size: 12,

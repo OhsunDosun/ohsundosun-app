@@ -76,7 +76,7 @@ class AppRoute {
         GoRoute(
           path: AppRoute.postDetail.replaceAll("$main/", ""),
           builder: (context, state) => PostDetailView(
-            id: state.extra as String?,
+            id: state.extra as String,
           ),
         ),
         GoRoute(

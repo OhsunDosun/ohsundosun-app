@@ -3,6 +3,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:ohsundosun/asset/index.dart';
+import 'package:ohsundosun/module/main/setting/setting_provider.dart';
 import 'package:ohsundosun/provider/app_provider.dart';
 import 'package:ohsundosun/provider/router_provider.dart';
 import 'package:ohsundosun/style/index.dart';
@@ -17,6 +18,7 @@ class SettingView extends ConsumerWidget {
   @override
   Widget build(BuildContext context, ref) {
     final userInfo = ref.watch(userInfoProvider);
+    final notification = ref.watch(notificationProvider);
 
     return Scaffold(
       body: ODSafeBox(
@@ -110,7 +112,13 @@ class SettingView extends ConsumerWidget {
                 ),
               ),
             ),
-            const SettingItem("댓글 알림"),
+            SettingItem(
+              "댓글 알림",
+              right: ODSwitch(
+                value: notification,
+                onChange: (value) => ref.read(notificationProvider.notifier).update(value),
+              ),
+            ),
             SettingItem(
               "평가하기",
               onTap: () => context.go(AppRoute.rating),

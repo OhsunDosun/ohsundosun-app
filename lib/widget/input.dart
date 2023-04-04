@@ -1,19 +1,37 @@
 part of 'index.dart';
 
+enum MessageType {
+  success,
+  error;
+
+  Color toColor() {
+    switch (this) {
+      case MessageType.success:
+        return ColorStyles.messageComp;
+      case MessageType.error:
+        return ColorStyles.messageError;
+    }
+  }
+}
+
 class ODInput extends StatelessWidget {
   final TextEditingController? controller;
   final void Function(String)? onChanged;
   final String? hintText;
-  final String? errorText;
+  final String? message;
+  final MessageType messageType;
   final bool obscureText;
+  final int? maxLength;
 
   const ODInput({
     super.key,
     this.controller,
     this.onChanged,
     this.hintText,
-    this.errorText,
+    this.message,
+    this.messageType = MessageType.error,
     this.obscureText = false,
+    this.maxLength,
   });
 
   @override
@@ -21,6 +39,7 @@ class ODInput extends StatelessWidget {
     return Column(
       children: [
         TextField(
+          maxLength: maxLength,
           controller: controller,
           onChanged: onChanged,
           obscureText: obscureText,
@@ -43,6 +62,7 @@ class ODInput extends StatelessWidget {
               vertical: 16.h,
             ),
             hintText: hintText,
+            counterText: "",
             hintStyle: SpoqaHanSansNeo.regular.set(
               size: 15,
               height: 20,
@@ -61,7 +81,7 @@ class ODInput extends StatelessWidget {
         AnimatedContainer(
           duration: const Duration(milliseconds: 300),
           curve: Curves.fastOutSlowIn,
-          height: errorText?.isEmpty ?? true ? 0.h : 35.h,
+          height: message?.isEmpty ?? true ? 0.h : 35.h,
           child: ClipRect(
             child: Wrap(
               children: [
@@ -71,12 +91,12 @@ class ODInput extends StatelessWidget {
                       height: 35.h,
                       alignment: Alignment.centerLeft,
                       child: Text(
-                        errorText ?? '',
+                        message ?? '',
                         style: SpoqaHanSansNeo.medium.set(
                           size: 13,
                           height: 35,
                           letter: -1,
-                          color: ColorStyles.messageError,
+                          color: messageType.toColor(),
                         ),
                       ),
                     ),

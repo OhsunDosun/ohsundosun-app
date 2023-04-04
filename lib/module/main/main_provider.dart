@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
 import 'package:ohsundosun/data/provider/service_provider.dart';
+import 'package:ohsundosun/enum/loading_type.dart';
 import 'package:ohsundosun/enum/mbti.dart';
 import 'package:ohsundosun/enum/post_sort.dart';
 import 'package:ohsundosun/enum/post_type.dart';
@@ -183,12 +184,6 @@ class Paging extends _$Paging {
   }
 }
 
-enum LoadingType {
-  load,
-  reload,
-  refresh,
-  init,
-}
 
 // Future<void> getPosts(
 //   WidgetRef ref, {

@@ -23,6 +23,7 @@ class SvgImage {
   static const String icLogoPurple = 'asset/svg/ic_logo_purple.svg';
   static const String icMainEmpty = 'asset/svg/ic_main_empty.svg';
   static const String icMenu = 'asset/svg/ic_menu.svg';
+  static const String icSend = 'asset/svg/ic_send.svg';
   static const String icSetting = 'asset/svg/ic_setting.svg';
   static const String icSort = 'asset/svg/ic_sort.svg';
   static const String icWrite14 = 'asset/svg/ic_write_14.svg';

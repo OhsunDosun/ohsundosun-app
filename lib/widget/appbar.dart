@@ -34,7 +34,7 @@ class ODMainAppBar extends ConsumerWidget {
               onTap: () => Scaffold.of(context).openEndDrawer(),
               child: const ODSvgImage(
                 SvgImage.icMenu,
-                size: 20,
+                size: 28,
               ),
             ),
           )

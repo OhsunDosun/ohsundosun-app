@@ -1,4 +1,7 @@
 import 'dart:async';
+import 'package:ohsundosun/model/request/user/update_mbti_request.dart';
+import 'package:ohsundosun/model/request/user/update_nickname_request.dart';
+import 'package:ohsundosun/model/request/user/update_notification_request.dart';
 import 'package:ohsundosun/model/response/common/data_response.dart';
 import 'package:ohsundosun/model/response/users/get_user_info_response.dart';
 import 'package:retrofit/retrofit.dart';
@@ -12,4 +15,19 @@ abstract class UsersApi {
 
   @GET("/v1/users")
   Future<DataResponse<GetUserInfoData>> getUserInfo();
+
+  @PATCH("/v1/users/nickname")
+  Future<DataResponse> updateNickname(
+    @Body() UpdateNicknameRequest body,
+  );
+
+  @PATCH("/v1/users/mbti")
+  Future<DataResponse> updateMBTI(
+    @Body() UpdateMBTIRequest body,
+  );
+
+  @PATCH("/v1/users/notification")
+  Future<DataResponse> updateNotification(
+    @Body() UpdateNotificationRequest body,
+  );
 }

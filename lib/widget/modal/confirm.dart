@@ -6,6 +6,7 @@ class ODConfirmModal extends StatelessWidget {
   final String cancelText;
   final void Function()? onCancelTap;
   final String okText;
+  final bool okEnabled;
   final void Function()? onOkTap;
 
   const ODConfirmModal({
@@ -14,6 +15,7 @@ class ODConfirmModal extends StatelessWidget {
     this.cancelText = "취소",
     this.onCancelTap,
     this.okText = "확인",
+    this.okEnabled = true,
     this.onOkTap,
     super.key,
   }) : super();
@@ -35,10 +37,10 @@ class ODConfirmModal extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.stretch,
               mainAxisSize: MainAxisSize.min,
               children: [
-                Padding(
-                  padding: EdgeInsets.only(top: 39.h, bottom: 45.h, left: 10.w, right: 10.w),
-                  child: content ??
-                      Text(
+                content ??
+                    Padding(
+                      padding: EdgeInsets.only(top: 39.h, bottom: 45.h, left: 10.w, right: 10.w),
+                      child: Text(
                         text ?? "",
                         textAlign: TextAlign.center,
                         style: SpoqaHanSansNeo.medium.set(
@@ -47,7 +49,7 @@ class ODConfirmModal extends StatelessWidget {
                           color: ColorStyles.black100,
                         ),
                       ),
-                ),
+                    ),
                 Row(
                   children: [
                     ODButton(
@@ -60,6 +62,7 @@ class ODConfirmModal extends StatelessWidget {
                     Expanded(
                       child: ODButton(
                         okText,
+                        enabled: okEnabled,
                         type: ODButtonType.red,
                         onTap: onOkTap,
                       ),
