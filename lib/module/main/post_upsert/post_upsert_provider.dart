@@ -5,6 +5,7 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:ohsundosun/data/provider/service_provider.dart';
 import 'package:ohsundosun/enum/post_type.dart';
 import 'package:ohsundosun/provider/app_provider.dart';
+import 'package:ohsundosun/provider/router_provider.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 part 'post_upsert_provider.g.dart';
@@ -104,8 +105,7 @@ Future<void> upsertPost(
     );
 
     loading.update(false);
-    // ref.watch(routerProvider).pop();
-    Navigator.of(context).pop(true);
+    ref.watch(routerProvider).pop();
   } on String catch (error) {
     debugPrint(error);
 

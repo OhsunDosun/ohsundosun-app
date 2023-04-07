@@ -9,6 +9,7 @@ import 'package:image_picker/image_picker.dart';
 import 'package:ohsundosun/asset/index.dart';
 import 'package:ohsundosun/module/main/post_upsert/post_upsert_provider.dart';
 import 'package:ohsundosun/provider/app_provider.dart';
+import 'package:ohsundosun/provider/router_provider.dart';
 import 'package:ohsundosun/style/index.dart';
 import 'package:ohsundosun/widget/index.dart';
 
@@ -260,9 +261,7 @@ class PostUpsertView extends HookConsumerWidget {
                                               }
                                             }
 
-                                            Navigator.of(context).pop();
-
-                                            // if (context.mounted) context.pop();
+                                            ref.watch(routerProvider).pop();
                                           },
                                           onGalleryTap: () async {
                                             if (ref.read(imagesProvider).length < 3) {
@@ -282,9 +281,7 @@ class PostUpsertView extends HookConsumerWidget {
                                               }
                                             }
 
-                                            Navigator.of(context).pop();
-
-                                            // if (context.mounted) context.pop();
+                                            ref.watch(routerProvider).pop();
                                           },
                                         );
                                       },

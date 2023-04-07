@@ -20,15 +20,19 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 Future<void> main() async {
   WidgetsBinding widgetsBinding = WidgetsFlutterBinding.ensureInitialized();
+  // 가로 모드 세팅
   SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp]);
+  // 스플래쉬 화면 유지
   FlutterNativeSplash.preserve(widgetsBinding: widgetsBinding);
 
+  // .env 가져옴
   await dotenv.load(fileName: ".env");
 
   await Firebase.initializeApp(
     options: await currentPlatform(),
   );
 
+  // 에러 시 FirebaseCrashlytics 로 에러 값 보냄
   FlutterError.onError = (errorDetails) {
     FirebaseCrashlytics.instance.recordFlutterFatalError(errorDetails);
   };
@@ -51,6 +55,7 @@ Future<void> main() async {
   }
 
   return runApp(
+    // 프로바이더 세팅
     ProviderScope(
       overrides: [
         appModeProvider.overrideWithValue(await getAppMode()),
@@ -72,6 +77,7 @@ class MyApp extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final router = ref.watch(routerProvider);
 
+    // 반응형 화면을 위해 ScreenUtilInit 세팅
     return ScreenUtilInit(
       designSize: const Size(375, 765),
       builder: (BuildContext context, Widget? child) {

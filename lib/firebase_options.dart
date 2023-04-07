@@ -4,6 +4,7 @@ import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:ohsundosun/enum/app_mode.dart';
 import 'package:ohsundosun/util/mode.dart';
 
+// env 를 통해 firebase option 세팅
 Future<FirebaseOptions> currentPlatform() async {
   final appMode = await getAppMode();
 

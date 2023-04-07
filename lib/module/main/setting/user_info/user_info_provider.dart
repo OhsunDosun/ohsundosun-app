@@ -4,6 +4,7 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:ohsundosun/data/provider/service_provider.dart';
 import 'package:ohsundosun/model/response/auth/verify_response.dart';
 import 'package:ohsundosun/provider/app_provider.dart';
+import 'package:ohsundosun/provider/router_provider.dart';
 import 'package:ohsundosun/util/valid.dart';
 import 'package:ohsundosun/widget/index.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
@@ -125,7 +126,7 @@ onUpdateNickname(
 
     loading.update(false);
 
-    Navigator.of(context).pop();
+    ref.watch(routerProvider).pop();
   } catch (e) {
     loading.update(false);
   }
