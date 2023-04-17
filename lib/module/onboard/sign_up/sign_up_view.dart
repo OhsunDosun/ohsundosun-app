@@ -7,6 +7,7 @@ import 'package:ohsundosun/style/index.dart';
 
 part 'sign_up_info_view.dart';
 part 'sign_up_mbti_view.dart';
+part 'sign_up_complete_view.dart';
 
 class SignUpView extends ConsumerWidget {
   const SignUpView({super.key});
@@ -24,6 +25,7 @@ class SignUpView extends ConsumerWidget {
           children: const [
             SignUpInfoView(),
             SignUpMBTIView(),
+            SignUpCompleteView(),
           ],
         ),
       ),
