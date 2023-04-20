@@ -1,3 +1,5 @@
+import 'dart:ffi';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
@@ -7,6 +9,7 @@ import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:ohsundosun/asset/index.dart';
 import 'package:ohsundosun/enum/loading_type.dart';
+import 'package:ohsundosun/enum/mbti.dart';
 import 'package:ohsundosun/enum/post_sort.dart';
 import 'package:ohsundosun/enum/post_type.dart';
 import 'package:ohsundosun/module/main/main_provider.dart';

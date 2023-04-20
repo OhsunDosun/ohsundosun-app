@@ -6,6 +6,7 @@ class SignUpMBTIView extends ConsumerWidget {
   @override
   Widget build(BuildContext context, ref) {
     final pageController = ref.watch(pageControllerProvider);
+    final mbti = ref.watch(signUpMBTIProvider);
 
     return Column(
       children: [
@@ -122,95 +123,19 @@ class SignUpMBTIView extends ConsumerWidget {
                   ),
                   Row(
                     children: [
-                      Flexible(
-                        flex: 1,
-                        child: Container(
-                          height: 98.h,
-                          padding: EdgeInsets.symmetric(horizontal: 25.w),
-                          decoration: BoxDecoration(
-                            color: ColorStyles.black10,
-                            borderRadius: BorderRadius.circular(8),
-                          ),
-                          child: Center(
-                            child: RichText(
-                              textAlign: TextAlign.center,
-                              text: TextSpan(
-                                text: "INTJ",
-                                style: SpoqaHanSansNeo.bold.set(
-                                  size: 22,
-                                  height: 35,
-                                  letter: -1,
-                                  color: ColorStyles.black100,
-                                ),
-                                children: <TextSpan>[
-                                  TextSpan(
-                                    text: "\n용의주도한 전략가",
-                                    style: SpoqaHanSansNeo.light.set(
-                                      size: 12,
-                                      height: 15,
-                                      letter: -1,
-                                      color: ColorStyles.black100,
-                                    ),
-                                  ),
-                                  TextSpan(
-                                    text: "\n과학자형",
-                                    style: SpoqaHanSansNeo.medium.set(
-                                      size: 12,
-                                      height: 20,
-                                      letter: -1,
-                                      color: ColorStyles.black100,
-                                    ),
-                                  ),
-                                ],
-                              ),
-                            ),
-                          ),
+                      Expanded(
+                        child: ODMBTIButton(
+                          MBTI.intj,
+                          checked: mbti == MBTI.intj,
+                          onTap: () => ref.read(signUpMBTIProvider.notifier).update(MBTI.intj),
                         ),
                       ),
-                      ODWidth(7),
-                      Flexible(
-                        flex: 1,
-                        child: Container(
-                          height: 98.h,
-                          padding: EdgeInsets.symmetric(horizontal: 25.w),
-                          decoration: BoxDecoration(
-                            color: ColorStyles.black10,
-                            borderRadius: BorderRadius.circular(8),
-                          ),
-                          child: Center(
-                            child: RichText(
-                              textAlign: TextAlign.center,
-                              text: TextSpan(
-                                text: "ENTJ",
-                                style: SpoqaHanSansNeo.bold.set(
-                                  size: 22,
-                                  height: 35,
-                                  letter: -1,
-                                  color: ColorStyles.black100,
-                                ),
-                                children: <TextSpan>[
-                                  TextSpan(
-                                    text: "\n대담한 통솔자",
-                                    style: SpoqaHanSansNeo.light.set(
-                                      size: 12,
-                                      height: 15,
-                                      letter: -1,
-                                      color: ColorStyles.black100,
-                                    ),
-                                  ),
-                                  TextSpan(
-                                    text: "\n지도자형",
-                                    style: SpoqaHanSansNeo.medium.set(
-                                      size: 12,
-                                      height: 20,
-                                      letter: -1,
-                                      color: ColorStyles.black100,
-                                    ),
-                                  ),
-                                ],
-                              ),
-                            ),
-                          ),
+                      ODWidth(10),
+                      Expanded(
+                        child: ODMBTIButton(
+                          MBTI.entj,
+                          checked: mbti == MBTI.entj,
+                          onTap: () => ref.read(signUpMBTIProvider.notifier).update(MBTI.entj),
                         ),
                       ),
                     ],
@@ -218,95 +143,19 @@ class SignUpMBTIView extends ConsumerWidget {
                   ODHeight(7),
                   Row(
                     children: [
-                      Flexible(
-                        flex: 1,
-                        child: Container(
-                          height: 98.h,
-                          padding: EdgeInsets.symmetric(horizontal: 25.w),
-                          decoration: BoxDecoration(
-                            color: ColorStyles.black10,
-                            borderRadius: BorderRadius.circular(8),
-                          ),
-                          child: Center(
-                            child: RichText(
-                              textAlign: TextAlign.center,
-                              text: TextSpan(
-                                text: "INTP",
-                                style: SpoqaHanSansNeo.bold.set(
-                                  size: 22,
-                                  height: 35,
-                                  letter: -1,
-                                  color: ColorStyles.black100,
-                                ),
-                                children: <TextSpan>[
-                                  TextSpan(
-                                    text: "\n논리적인 사색가",
-                                    style: SpoqaHanSansNeo.light.set(
-                                      size: 12,
-                                      height: 15,
-                                      letter: -1,
-                                      color: ColorStyles.black100,
-                                    ),
-                                  ),
-                                  TextSpan(
-                                    text: "\n아이디어 뱅크형",
-                                    style: SpoqaHanSansNeo.medium.set(
-                                      size: 12,
-                                      height: 20,
-                                      letter: -1,
-                                      color: ColorStyles.black100,
-                                    ),
-                                  ),
-                                ],
-                              ),
-                            ),
-                          ),
+                      Expanded(
+                        child: ODMBTIButton(
+                          MBTI.intp,
+                          checked: mbti == MBTI.intp,
+                          onTap: () => ref.read(signUpMBTIProvider.notifier).update(MBTI.intp),
                         ),
                       ),
-                      ODWidth(7),
-                      Flexible(
-                        flex: 1,
-                        child: Container(
-                          height: 98.h,
-                          padding: EdgeInsets.symmetric(horizontal: 15.w),
-                          decoration: BoxDecoration(
-                            color: ColorStyles.black10,
-                            borderRadius: BorderRadius.circular(8),
-                          ),
-                          child: Center(
-                            child: RichText(
-                              textAlign: TextAlign.center,
-                              text: TextSpan(
-                                text: "ENTP",
-                                style: SpoqaHanSansNeo.bold.set(
-                                  size: 22,
-                                  height: 35,
-                                  letter: -1,
-                                  color: ColorStyles.black100,
-                                ),
-                                children: <TextSpan>[
-                                  TextSpan(
-                                    text: "\n뜨거운 논쟁을 즐기는 변론가",
-                                    style: SpoqaHanSansNeo.light.set(
-                                      size: 12,
-                                      height: 15,
-                                      letter: -1,
-                                      color: ColorStyles.black100,
-                                    ),
-                                  ),
-                                  TextSpan(
-                                    text: "\n발명가형",
-                                    style: SpoqaHanSansNeo.medium.set(
-                                      size: 12,
-                                      height: 20,
-                                      letter: -1,
-                                      color: ColorStyles.black100,
-                                    ),
-                                  ),
-                                ],
-                              ),
-                            ),
-                          ),
+                      ODWidth(10),
+                      Expanded(
+                        child: ODMBTIButton(
+                          MBTI.entp,
+                          checked: mbti == MBTI.entp,
+                          onTap: () => ref.read(signUpMBTIProvider.notifier).update(MBTI.entp),
                         ),
                       ),
                     ],
@@ -341,95 +190,19 @@ class SignUpMBTIView extends ConsumerWidget {
                   ),
                   Row(
                     children: [
-                      Flexible(
-                        flex: 1,
-                        child: Container(
-                          height: 98.h,
-                          padding: EdgeInsets.symmetric(horizontal: 25.w),
-                          decoration: BoxDecoration(
-                            color: ColorStyles.black10,
-                            borderRadius: BorderRadius.circular(8),
-                          ),
-                          child: Center(
-                            child: RichText(
-                              textAlign: TextAlign.center,
-                              text: TextSpan(
-                                text: "INFJ",
-                                style: SpoqaHanSansNeo.bold.set(
-                                  size: 22,
-                                  height: 35,
-                                  letter: -1,
-                                  color: ColorStyles.black100,
-                                ),
-                                children: <TextSpan>[
-                                  TextSpan(
-                                    text: "\n통찰력 있는 선지자",
-                                    style: SpoqaHanSansNeo.light.set(
-                                      size: 12,
-                                      height: 15,
-                                      letter: -1,
-                                      color: ColorStyles.black100,
-                                    ),
-                                  ),
-                                  TextSpan(
-                                    text: "\n예언자형",
-                                    style: SpoqaHanSansNeo.medium.set(
-                                      size: 12,
-                                      height: 20,
-                                      letter: -1,
-                                      color: ColorStyles.black100,
-                                    ),
-                                  ),
-                                ],
-                              ),
-                            ),
-                          ),
+                      Expanded(
+                        child: ODMBTIButton(
+                          MBTI.infj,
+                          checked: mbti == MBTI.infj,
+                          onTap: () => ref.read(signUpMBTIProvider.notifier).update(MBTI.infj),
                         ),
                       ),
-                      ODWidth(7),
-                      Flexible(
-                        flex: 1,
-                        child: Container(
-                          height: 98.h,
-                          padding: EdgeInsets.symmetric(horizontal: 25.w),
-                          decoration: BoxDecoration(
-                            color: ColorStyles.black10,
-                            borderRadius: BorderRadius.circular(8),
-                          ),
-                          child: Center(
-                            child: RichText(
-                              textAlign: TextAlign.center,
-                              text: TextSpan(
-                                text: "ENFJ",
-                                style: SpoqaHanSansNeo.bold.set(
-                                  size: 22,
-                                  height: 35,
-                                  letter: -1,
-                                  color: ColorStyles.black100,
-                                ),
-                                children: <TextSpan>[
-                                  TextSpan(
-                                    text: "\n정의로운 사회운동가",
-                                    style: SpoqaHanSansNeo.light.set(
-                                      size: 12,
-                                      height: 15,
-                                      letter: -1,
-                                      color: ColorStyles.black100,
-                                    ),
-                                  ),
-                                  TextSpan(
-                                    text: "\n언변능숙형",
-                                    style: SpoqaHanSansNeo.medium.set(
-                                      size: 12,
-                                      height: 20,
-                                      letter: -1,
-                                      color: ColorStyles.black100,
-                                    ),
-                                  ),
-                                ],
-                              ),
-                            ),
-                          ),
+                      ODWidth(10),
+                      Expanded(
+                        child: ODMBTIButton(
+                          MBTI.enfj,
+                          checked: mbti == MBTI.enfj,
+                          onTap: () => ref.read(signUpMBTIProvider.notifier).update(MBTI.enfj),
                         ),
                       ),
                     ],
@@ -437,95 +210,19 @@ class SignUpMBTIView extends ConsumerWidget {
                   ODHeight(7),
                   Row(
                     children: [
-                      Flexible(
-                        flex: 1,
-                        child: Container(
-                          height: 98.h,
-                          padding: EdgeInsets.symmetric(horizontal: 25.w),
-                          decoration: BoxDecoration(
-                            color: ColorStyles.black10,
-                            borderRadius: BorderRadius.circular(8),
-                          ),
-                          child: Center(
-                            child: RichText(
-                              textAlign: TextAlign.center,
-                              text: TextSpan(
-                                text: "INFP",
-                                style: SpoqaHanSansNeo.bold.set(
-                                  size: 22,
-                                  height: 35,
-                                  letter: -1,
-                                  color: ColorStyles.black100,
-                                ),
-                                children: <TextSpan>[
-                                  TextSpan(
-                                    text: "\n열정적인 중재자",
-                                    style: SpoqaHanSansNeo.light.set(
-                                      size: 12,
-                                      height: 15,
-                                      letter: -1,
-                                      color: ColorStyles.black100,
-                                    ),
-                                  ),
-                                  TextSpan(
-                                    text: "\n잔다르크형",
-                                    style: SpoqaHanSansNeo.medium.set(
-                                      size: 12,
-                                      height: 20,
-                                      letter: -1,
-                                      color: ColorStyles.black100,
-                                    ),
-                                  ),
-                                ],
-                              ),
-                            ),
-                          ),
+                      Expanded(
+                        child: ODMBTIButton(
+                          MBTI.infp,
+                          checked: mbti == MBTI.infp,
+                          onTap: () => ref.read(signUpMBTIProvider.notifier).update(MBTI.infp),
                         ),
                       ),
-                      ODWidth(7),
-                      Flexible(
-                        flex: 1,
-                        child: Container(
-                          height: 98.h,
-                          padding: EdgeInsets.symmetric(horizontal: 25.w),
-                          decoration: BoxDecoration(
-                            color: ColorStyles.black10,
-                            borderRadius: BorderRadius.circular(8),
-                          ),
-                          child: Center(
-                            child: RichText(
-                              textAlign: TextAlign.center,
-                              text: TextSpan(
-                                text: "ENFP",
-                                style: SpoqaHanSansNeo.bold.set(
-                                  size: 22,
-                                  height: 35,
-                                  letter: -1,
-                                  color: ColorStyles.black100,
-                                ),
-                                children: <TextSpan>[
-                                  TextSpan(
-                                    text: "\n재기발랄한 활동가",
-                                    style: SpoqaHanSansNeo.light.set(
-                                      size: 12,
-                                      height: 15,
-                                      letter: -1,
-                                      color: ColorStyles.black100,
-                                    ),
-                                  ),
-                                  TextSpan(
-                                    text: "\n스파크형",
-                                    style: SpoqaHanSansNeo.medium.set(
-                                      size: 12,
-                                      height: 20,
-                                      letter: -1,
-                                      color: ColorStyles.black100,
-                                    ),
-                                  ),
-                                ],
-                              ),
-                            ),
-                          ),
+                      ODWidth(10),
+                      Expanded(
+                        child: ODMBTIButton(
+                          MBTI.enfp,
+                          checked: mbti == MBTI.enfp,
+                          onTap: () => ref.read(signUpMBTIProvider.notifier).update(MBTI.enfp),
                         ),
                       ),
                     ],
@@ -560,95 +257,19 @@ class SignUpMBTIView extends ConsumerWidget {
                   ),
                   Row(
                     children: [
-                      Flexible(
-                        flex: 1,
-                        child: Container(
-                          height: 98.h,
-                          padding: EdgeInsets.symmetric(horizontal: 25.w),
-                          decoration: BoxDecoration(
-                            color: ColorStyles.black10,
-                            borderRadius: BorderRadius.circular(8),
-                          ),
-                          child: Center(
-                            child: RichText(
-                              textAlign: TextAlign.center,
-                              text: TextSpan(
-                                text: "ISFJ",
-                                style: SpoqaHanSansNeo.bold.set(
-                                  size: 22,
-                                  height: 35,
-                                  letter: -1,
-                                  color: ColorStyles.black100,
-                                ),
-                                children: <TextSpan>[
-                                  TextSpan(
-                                    text: "\n용감한 수호자",
-                                    style: SpoqaHanSansNeo.light.set(
-                                      size: 12,
-                                      height: 15,
-                                      letter: -1,
-                                      color: ColorStyles.black100,
-                                    ),
-                                  ),
-                                  TextSpan(
-                                    text: "\n수호자형",
-                                    style: SpoqaHanSansNeo.medium.set(
-                                      size: 12,
-                                      height: 20,
-                                      letter: -1,
-                                      color: ColorStyles.black100,
-                                    ),
-                                  ),
-                                ],
-                              ),
-                            ),
-                          ),
+                      Expanded(
+                        child: ODMBTIButton(
+                          MBTI.isfj,
+                          checked: mbti == MBTI.isfj,
+                          onTap: () => ref.read(signUpMBTIProvider.notifier).update(MBTI.isfj),
                         ),
                       ),
-                      ODWidth(7),
-                      Flexible(
-                        flex: 1,
-                        child: Container(
-                          height: 98.h,
-                          padding: EdgeInsets.symmetric(horizontal: 25.w),
-                          decoration: BoxDecoration(
-                            color: ColorStyles.black10,
-                            borderRadius: BorderRadius.circular(8),
-                          ),
-                          child: Center(
-                            child: RichText(
-                              textAlign: TextAlign.center,
-                              text: TextSpan(
-                                text: "ESFJ",
-                                style: SpoqaHanSansNeo.bold.set(
-                                  size: 22,
-                                  height: 35,
-                                  letter: -1,
-                                  color: ColorStyles.black100,
-                                ),
-                                children: <TextSpan>[
-                                  TextSpan(
-                                    text: "\n사교적인 외교관",
-                                    style: SpoqaHanSansNeo.light.set(
-                                      size: 12,
-                                      height: 15,
-                                      letter: -1,
-                                      color: ColorStyles.black100,
-                                    ),
-                                  ),
-                                  TextSpan(
-                                    text: "\n친선도모형",
-                                    style: SpoqaHanSansNeo.medium.set(
-                                      size: 12,
-                                      height: 20,
-                                      letter: -1,
-                                      color: ColorStyles.black100,
-                                    ),
-                                  ),
-                                ],
-                              ),
-                            ),
-                          ),
+                      ODWidth(10),
+                      Expanded(
+                        child: ODMBTIButton(
+                          MBTI.esfj,
+                          checked: mbti == MBTI.esfj,
+                          onTap: () => ref.read(signUpMBTIProvider.notifier).update(MBTI.esfj),
                         ),
                       ),
                     ],
@@ -656,95 +277,19 @@ class SignUpMBTIView extends ConsumerWidget {
                   ODHeight(7),
                   Row(
                     children: [
-                      Flexible(
-                        flex: 1,
-                        child: Container(
-                          height: 98.h,
-                          padding: EdgeInsets.symmetric(horizontal: 25.w),
-                          decoration: BoxDecoration(
-                            color: ColorStyles.black10,
-                            borderRadius: BorderRadius.circular(8),
-                          ),
-                          child: Center(
-                            child: RichText(
-                              textAlign: TextAlign.center,
-                              text: TextSpan(
-                                text: "ISTJ",
-                                style: SpoqaHanSansNeo.bold.set(
-                                  size: 22,
-                                  height: 35,
-                                  letter: -1,
-                                  color: ColorStyles.black100,
-                                ),
-                                children: <TextSpan>[
-                                  TextSpan(
-                                    text: "\n청렴결백한 논리주의자",
-                                    style: SpoqaHanSansNeo.light.set(
-                                      size: 12,
-                                      height: 15,
-                                      letter: -1,
-                                      color: ColorStyles.black100,
-                                    ),
-                                  ),
-                                  TextSpan(
-                                    text: "\n세상의 소금형",
-                                    style: SpoqaHanSansNeo.medium.set(
-                                      size: 12,
-                                      height: 20,
-                                      letter: -1,
-                                      color: ColorStyles.black100,
-                                    ),
-                                  ),
-                                ],
-                              ),
-                            ),
-                          ),
+                      Expanded(
+                        child: ODMBTIButton(
+                          MBTI.istj,
+                          checked: mbti == MBTI.istj,
+                          onTap: () => ref.read(signUpMBTIProvider.notifier).update(MBTI.istj),
                         ),
                       ),
-                      ODWidth(7),
-                      Flexible(
-                        flex: 1,
-                        child: Container(
-                          height: 98.h,
-                          padding: EdgeInsets.symmetric(horizontal: 25.w),
-                          decoration: BoxDecoration(
-                            color: ColorStyles.black10,
-                            borderRadius: BorderRadius.circular(8),
-                          ),
-                          child: Center(
-                            child: RichText(
-                              textAlign: TextAlign.center,
-                              text: TextSpan(
-                                text: "ESTJ",
-                                style: SpoqaHanSansNeo.bold.set(
-                                  size: 22,
-                                  height: 35,
-                                  letter: -1,
-                                  color: ColorStyles.black100,
-                                ),
-                                children: <TextSpan>[
-                                  TextSpan(
-                                    text: "\n엄격한 관리자",
-                                    style: SpoqaHanSansNeo.light.set(
-                                      size: 12,
-                                      height: 15,
-                                      letter: -1,
-                                      color: ColorStyles.black100,
-                                    ),
-                                  ),
-                                  TextSpan(
-                                    text: "\n사업자형",
-                                    style: SpoqaHanSansNeo.medium.set(
-                                      size: 12,
-                                      height: 20,
-                                      letter: -1,
-                                      color: ColorStyles.black100,
-                                    ),
-                                  ),
-                                ],
-                              ),
-                            ),
-                          ),
+                      ODWidth(10),
+                      Expanded(
+                        child: ODMBTIButton(
+                          MBTI.estj,
+                          checked: mbti == MBTI.estj,
+                          onTap: () => ref.read(signUpMBTIProvider.notifier).update(MBTI.estj),
                         ),
                       ),
                     ],
@@ -779,95 +324,19 @@ class SignUpMBTIView extends ConsumerWidget {
                   ),
                   Row(
                     children: [
-                      Flexible(
-                        flex: 1,
-                        child: Container(
-                          height: 98.h,
-                          padding: EdgeInsets.symmetric(horizontal: 25.w),
-                          decoration: BoxDecoration(
-                            color: ColorStyles.black10,
-                            borderRadius: BorderRadius.circular(8),
-                          ),
-                          child: Center(
-                            child: RichText(
-                              textAlign: TextAlign.center,
-                              text: TextSpan(
-                                text: "ISFP",
-                                style: SpoqaHanSansNeo.bold.set(
-                                  size: 22,
-                                  height: 35,
-                                  letter: -1,
-                                  color: ColorStyles.black100,
-                                ),
-                                children: <TextSpan>[
-                                  TextSpan(
-                                    text: "\n호기심 많은 예술가",
-                                    style: SpoqaHanSansNeo.light.set(
-                                      size: 12,
-                                      height: 15,
-                                      letter: -1,
-                                      color: ColorStyles.black100,
-                                    ),
-                                  ),
-                                  TextSpan(
-                                    text: "\n성인군자형",
-                                    style: SpoqaHanSansNeo.medium.set(
-                                      size: 12,
-                                      height: 20,
-                                      letter: -1,
-                                      color: ColorStyles.black100,
-                                    ),
-                                  ),
-                                ],
-                              ),
-                            ),
-                          ),
+                      Expanded(
+                        child: ODMBTIButton(
+                          MBTI.isfp,
+                          checked: mbti == MBTI.isfp,
+                          onTap: () => ref.read(signUpMBTIProvider.notifier).update(MBTI.isfp),
                         ),
                       ),
-                      ODWidth(7),
-                      Flexible(
-                        flex: 1,
-                        child: Container(
-                          height: 98.h,
-                          padding: EdgeInsets.symmetric(horizontal: 25.w),
-                          decoration: BoxDecoration(
-                            color: ColorStyles.black10,
-                            borderRadius: BorderRadius.circular(8),
-                          ),
-                          child: Center(
-                            child: RichText(
-                              textAlign: TextAlign.center,
-                              text: TextSpan(
-                                text: "ESFP",
-                                style: SpoqaHanSansNeo.bold.set(
-                                  size: 22,
-                                  height: 35,
-                                  letter: -1,
-                                  color: ColorStyles.black100,
-                                ),
-                                children: <TextSpan>[
-                                  TextSpan(
-                                    text: "\n자유로운 영혼의 연예인",
-                                    style: SpoqaHanSansNeo.light.set(
-                                      size: 12,
-                                      height: 15,
-                                      letter: -1,
-                                      color: ColorStyles.black100,
-                                    ),
-                                  ),
-                                  TextSpan(
-                                    text: "\n사교형",
-                                    style: SpoqaHanSansNeo.medium.set(
-                                      size: 12,
-                                      height: 20,
-                                      letter: -1,
-                                      color: ColorStyles.black100,
-                                    ),
-                                  ),
-                                ],
-                              ),
-                            ),
-                          ),
+                      ODWidth(10),
+                      Expanded(
+                        child: ODMBTIButton(
+                          MBTI.esfp,
+                          checked: mbti == MBTI.esfp,
+                          onTap: () => ref.read(signUpMBTIProvider.notifier).update(MBTI.esfp),
                         ),
                       ),
                     ],
@@ -875,95 +344,19 @@ class SignUpMBTIView extends ConsumerWidget {
                   ODHeight(7),
                   Row(
                     children: [
-                      Flexible(
-                        flex: 1,
-                        child: Container(
-                          height: 98.h,
-                          padding: EdgeInsets.symmetric(horizontal: 25.w),
-                          decoration: BoxDecoration(
-                            color: ColorStyles.black10,
-                            borderRadius: BorderRadius.circular(8),
-                          ),
-                          child: Center(
-                            child: RichText(
-                              textAlign: TextAlign.center,
-                              text: TextSpan(
-                                text: "ISTP",
-                                style: SpoqaHanSansNeo.bold.set(
-                                  size: 22,
-                                  height: 35,
-                                  letter: -1,
-                                  color: ColorStyles.black100,
-                                ),
-                                children: <TextSpan>[
-                                  TextSpan(
-                                    text: "\n논리적인 실용주의자",
-                                    style: SpoqaHanSansNeo.light.set(
-                                      size: 12,
-                                      height: 15,
-                                      letter: -1,
-                                      color: ColorStyles.black100,
-                                    ),
-                                  ),
-                                  TextSpan(
-                                    text: "\n백과사전형",
-                                    style: SpoqaHanSansNeo.medium.set(
-                                      size: 12,
-                                      height: 20,
-                                      letter: -1,
-                                      color: ColorStyles.black100,
-                                    ),
-                                  ),
-                                ],
-                              ),
-                            ),
-                          ),
+                      Expanded(
+                        child: ODMBTIButton(
+                          MBTI.istp,
+                          checked: mbti == MBTI.istp,
+                          onTap: () => ref.read(signUpMBTIProvider.notifier).update(MBTI.istp),
                         ),
                       ),
-                      ODWidth(7),
-                      Flexible(
-                        flex: 1,
-                        child: Container(
-                          height: 98.h,
-                          padding: EdgeInsets.symmetric(horizontal: 25.w),
-                          decoration: BoxDecoration(
-                            color: ColorStyles.black10,
-                            borderRadius: BorderRadius.circular(8),
-                          ),
-                          child: Center(
-                            child: RichText(
-                              textAlign: TextAlign.center,
-                              text: TextSpan(
-                                text: "ESTP",
-                                style: SpoqaHanSansNeo.bold.set(
-                                  size: 22,
-                                  height: 35,
-                                  letter: -1,
-                                  color: ColorStyles.black100,
-                                ),
-                                children: <TextSpan>[
-                                  TextSpan(
-                                    text: "\n모험을 즐기는 사업가",
-                                    style: SpoqaHanSansNeo.light.set(
-                                      size: 12,
-                                      height: 15,
-                                      letter: -1,
-                                      color: ColorStyles.black100,
-                                    ),
-                                  ),
-                                  TextSpan(
-                                    text: "\n활동가형",
-                                    style: SpoqaHanSansNeo.medium.set(
-                                      size: 12,
-                                      height: 20,
-                                      letter: -1,
-                                      color: ColorStyles.black100,
-                                    ),
-                                  ),
-                                ],
-                              ),
-                            ),
-                          ),
+                      ODWidth(10),
+                      Expanded(
+                        child: ODMBTIButton(
+                          MBTI.estp,
+                          checked: mbti == MBTI.estp,
+                          onTap: () => ref.read(signUpMBTIProvider.notifier).update(MBTI.estp),
                         ),
                       ),
                     ],

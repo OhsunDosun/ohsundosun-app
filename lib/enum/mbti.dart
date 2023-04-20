@@ -97,6 +97,34 @@ enum MBTI {
     }
   }
 
+  Color toCheckedColor() {
+    switch (this) {
+      case MBTI.intj:
+      case MBTI.intp:
+      case MBTI.entj:
+      case MBTI.entp:
+        return ColorStyles.purple100;
+
+      case MBTI.infj:
+      case MBTI.infp:
+      case MBTI.enfj:
+      case MBTI.enfp:
+        return ColorStyles.green100;
+
+      case MBTI.isfj:
+      case MBTI.istj:
+      case MBTI.esfj:
+      case MBTI.estj:
+        return ColorStyles.blue100;
+
+      case MBTI.isfp:
+      case MBTI.istp:
+      case MBTI.esfp:
+      case MBTI.estp:
+        return ColorStyles.orange100;
+    }
+  }
+
   ODBadgeType toODBadgeType() {
     switch (this) {
       case MBTI.intj:

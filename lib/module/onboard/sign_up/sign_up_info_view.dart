@@ -112,9 +112,10 @@ class SignUpInfoView extends ConsumerWidget {
                 ),
                 Row(
                   children: [
-                    const Expanded(
+                    Expanded(
                       child: ODInput(
                         hintText: "사용중인 이메일을 입력하세요.",
+                        onChanged: (value) => ref.read(signUpEmailProvider.notifier).update(value),
                       ),
                     ),
                     ODWidth(7),

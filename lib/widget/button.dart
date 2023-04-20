@@ -64,3 +64,61 @@ class ODButton extends StatelessWidget {
     );
   }
 }
+
+class ODMBTIButton extends StatelessWidget {
+  final MBTI mbti;
+  final bool checked;
+  final void Function()? onTap;
+
+  const ODMBTIButton(
+    this.mbti, {
+    super.key,
+    this.checked = false,
+    this.onTap,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return InkWell(
+      onTap: onTap,
+      child: Container(
+        height: 98.h,
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(8.r),
+          color: checked ? mbti.toCheckedColor() : ColorStyles.black5,
+        ),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Text(
+              mbti.toString(),
+              style: SpoqaHanSansNeo.bold.set(
+                size: 22,
+                height: 35,
+                color: checked ? ColorStyles.white : ColorStyles.black80,
+              ),
+            ),
+            Text(
+              mbti.toSubTitle(),
+              style: SpoqaHanSansNeo.medium.set(
+                size: 12,
+                height: 18,
+                letter: -1,
+                color: checked ? ColorStyles.white : ColorStyles.black60,
+              ),
+            ),
+            Text(
+              mbti.toTitle(),
+              style: SpoqaHanSansNeo.bold.set(
+                size: 12,
+                height: 18,
+                letter: -1,
+                color: checked ? ColorStyles.white : ColorStyles.black60,
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+}
