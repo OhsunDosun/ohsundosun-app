@@ -21,8 +21,8 @@ class ODMainAppBar extends ConsumerWidget {
               padding: EdgeInsets.all(10.r),
               child: const ODPngImage(
                 PngImage.mainLogo,
-                width: 50,
-                fit: BoxFit.fitWidth,
+                height: 25,
+                fit: BoxFit.fitHeight,
               ),
             ),
           ),

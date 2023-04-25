@@ -105,7 +105,7 @@ Future<void> upsertPost(
     );
 
     loading.update(false);
-    ref.watch(routerProvider).pop();
+    ref.watch(routerProvider).pop(true);
   } on String catch (error) {
     debugPrint(error);
 

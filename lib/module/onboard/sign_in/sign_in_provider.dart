@@ -75,12 +75,7 @@ bool signInEnabled(SignInEnabledRef ref) {
   return true;
 }
 
-Future<void> onSignIn(
-  BuildContext context,
-  WidgetRef ref, {
-  required String email,
-  required String password,
-}) async {
+Future<void> onSignIn(BuildContext context, WidgetRef ref) async {
   FocusScope.of(context).unfocus();
 
   final loading = ref.read(loadingProvider.notifier);
@@ -90,6 +85,9 @@ Future<void> onSignIn(
 
     final authService = ref.watch(authServiceProvider);
     final usersService = ref.read(usersServiceProvider);
+
+    final email = ref.watch(emailProvider);
+    final password = ref.watch(passwordProvider);
 
     final data = await authService.signIn(
       email: email,

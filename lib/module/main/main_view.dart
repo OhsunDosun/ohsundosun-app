@@ -410,7 +410,7 @@ class MainView extends HookConsumerWidget {
                   ),
                 ),
                 CupertinoSliverRefreshControl(
-                  onRefresh: () => ref.read(pagingProvider.notifier).load(type: LoadingType.refresh),
+                  onRefresh: () async => await ref.read(pagingProvider.notifier).load(type: LoadingType.refresh),
                 ),
                 PagedSliverList<String?, Post>(
                   pagingController: pagingController,

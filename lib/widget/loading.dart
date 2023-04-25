@@ -31,3 +31,30 @@ class ODLoading extends StatelessWidget {
     );
   }
 }
+
+class ODInitLoading extends StatelessWidget {
+  const ODInitLoading({
+    super.key,
+  }) : super();
+
+  @override
+  Widget build(BuildContext context) {
+    return Positioned.fill(
+      child: Container(
+        color: ColorStyles.white,
+        child: AbsorbPointer(
+          child: SafeArea(
+            child: Center(
+              child: Center(
+                child: CupertinoActivityIndicator(
+                  color: ColorStyles.black,
+                  radius: 15.r,
+                ),
+              ),
+            ),
+          ),
+        ),
+      ),
+    );
+  }
+}

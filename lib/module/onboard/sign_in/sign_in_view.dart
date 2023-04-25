@@ -13,8 +13,8 @@ class SignInView extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, ref) {
-    final email = ref.watch(emailProvider);
-    final password = ref.watch(passwordProvider);
+    ref.watch(emailProvider);
+    ref.watch(passwordProvider);
 
     return GestureDetector(
       onTap: () => FocusScope.of(context).unfocus(),
@@ -60,12 +60,7 @@ class SignInView extends ConsumerWidget {
                             ODButton(
                               '로그인',
                               enabled: ref.watch(signInEnabledProvider),
-                              onTap: () => onSignIn(
-                                context,
-                                ref,
-                                email: email,
-                                password: password,
-                              ),
+                              onTap: () => onSignIn(context, ref),
                             ),
                             ODHeight(30),
                             Row(

@@ -1,4 +1,3 @@
-import 'package:flutter/material.dart';
 import 'package:ohsundosun/data/provider/service_provider.dart';
 import 'package:ohsundosun/enum/loading_type.dart';
 import 'package:ohsundosun/model/common/post.dart';
@@ -14,6 +13,12 @@ class Loading extends _$Loading {
   void update(LoadingType value) {
     state = value;
   }
+
+  Future<void> init(String id) async {
+    state = LoadingType.init;
+    await ref.read(postDetailProvider.notifier).load(id);
+    state = LoadingType.none;
+  }
 }
 
 @riverpod
@@ -22,21 +27,20 @@ class PostDetail extends _$PostDetail {
   Post? build() => null;
 
   Future<void> load(String id) async {
-    final loading = ref.read(loadingProvider.notifier);
     final postsService = ref.read(postsServiceProvider);
 
-    if (ref.read(loadingProvider) != LoadingType.init) {
-      loading.update(LoadingType.refresh);
-    }
+    state = await postsService.getPost(postId: id);
+  }
+}
 
-    try {
-      state = await postsService.getPost(postId: id);
+@riverpod
+class PostComments extends _$PostComments {
+  @override
+  Post? build() => null;
 
-      loading.update(LoadingType.none);
-    } on String catch (error) {
-      debugPrint(error);
+  Future<void> load(String id) async {
+    final postsService = ref.read(postsServiceProvider);
 
-      loading.update(LoadingType.none);
-    }
+    state = await postsService.getPost(postId: id);
   }
 }
