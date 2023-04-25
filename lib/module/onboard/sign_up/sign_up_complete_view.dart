@@ -5,7 +5,7 @@ class SignUpCompleteView extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, ref) {
-    final pageController = ref.watch(pageControllerProvider);
+    ref.watch(pageControllerProvider);
 
     return Column(
       children: [

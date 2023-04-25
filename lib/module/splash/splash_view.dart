@@ -1,3 +1,4 @@
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:flutter_native_splash/flutter_native_splash.dart';
@@ -14,6 +15,18 @@ class SplashView extends HookConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     init() async {
+      await FirebaseMessaging.instance.requestPermission(
+        alert: true,
+        announcement: false,
+        badge: true,
+        carPlay: false,
+        criticalAlert: false,
+        provisional: false,
+        sound: true,
+      );
+
+      await ref.read(fcmTokenProvider.notifier).update(await FirebaseMessaging.instance.getToken());
+
       final signInType = (await ref.read(secureStorageProvider).read(key: StorageKey.signInType))?.toSignInType();
 
       await ref.read(appSignInTypeProvider.notifier).update(signInType);
@@ -25,6 +38,12 @@ class SplashView extends HookConsumerWidget {
 
       final authService = ref.read(authServiceProvider);
       final usersService = ref.read(usersServiceProvider);
+
+      FirebaseMessaging.instance.onTokenRefresh.listen(
+        (fcmToken) {
+          debugPrint("onTokenRefresh: $fcmToken");
+        },
+      );
 
       try {
         await authService.signCheck();

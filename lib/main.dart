@@ -1,9 +1,13 @@
+import 'dart:math';
+
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_crashlytics/firebase_crashlytics.dart';
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
+import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:flutter_native_splash/flutter_native_splash.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
@@ -30,6 +34,58 @@ Future<void> main() async {
 
   await Firebase.initializeApp(
     options: await currentPlatform(),
+  );
+
+  final notification = FlutterLocalNotificationsPlugin();
+
+  const initSettingsAndroid = AndroidInitializationSettings('@drawable/ic_notification');
+  const initSettingsIOS = DarwinInitializationSettings(
+    requestSoundPermission: false,
+    requestBadgePermission: false,
+    requestAlertPermission: false,
+  );
+
+  const initSettings = InitializationSettings(
+    android: initSettingsAndroid,
+    iOS: initSettingsIOS,
+  );
+
+  await notification.initialize(initSettings);
+
+  const notificationSettingAndroid = AndroidNotificationDetails(
+    "OhsunDosun",
+    "오순도순",
+    channelDescription: "오순도순",
+    playSound: true,
+    importance: Importance.max,
+    priority: Priority.high,
+  );
+
+  const notificationSettingIOS = DarwinNotificationDetails(
+    presentSound: false,
+  );
+
+  const notificationSetting = NotificationDetails(
+    android: notificationSettingAndroid,
+    iOS: notificationSettingIOS,
+  );
+
+  FirebaseMessaging.onMessage.listen(
+    (RemoteMessage message) {
+      debugPrint('Got a message whilst in the foreground!');
+      debugPrint('Message data: ${message.toMap()}');
+
+      final messageNotification = message.notification;
+
+      if (messageNotification != null && messageNotification.title != null && messageNotification.body != null) {
+        notification.show(
+          Random().nextInt(1000),
+          messageNotification.title,
+          messageNotification.body,
+          notificationSetting,
+        );
+      }
+    },
   );
 
   // 에러 시 FirebaseCrashlytics 로 에러 값 보냄

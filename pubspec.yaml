@@ -80,6 +80,10 @@ dependencies:
   firebase_analytics: ^10.1.6
   firebase_crashlytics: ^3.0.17
   firebase_remote_config: ^3.0.15
+  firebase_messaging: ^14.4.1
+
+  # Notification
+  flutter_local_notifications: ^13.0.0
 
 dev_dependencies:
   flutter_test:

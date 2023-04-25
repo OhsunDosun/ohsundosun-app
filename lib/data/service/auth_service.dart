@@ -15,6 +15,7 @@ class AuthService {
     SignInType type = SignInType.defaultSignIn,
     required String email,
     required String password,
+    String? fcmToken,
   }) async {
     try {
       final response = await _authApi.signIn(
@@ -22,6 +23,7 @@ class AuthService {
           type: type,
           email: email,
           password: password,
+          fcm: fcmToken,
         ),
       );
 

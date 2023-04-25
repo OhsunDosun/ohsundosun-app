@@ -10,6 +10,7 @@ class SignInRequest with _$SignInRequest {
     required SignInType type,
     required String email,
     required String password,
+    String? fcm,
   }) = _SignInRequest;
 
   factory SignInRequest.fromJson(Map<String, dynamic> json) => _$SignInRequestFromJson(json);

@@ -92,6 +92,7 @@ Future<void> onSignIn(BuildContext context, WidgetRef ref) async {
     final data = await authService.signIn(
       email: email,
       password: password,
+      fcmToken: ref.read(fcmTokenProvider),
     );
 
     ref.read(appSignInTypeProvider.notifier).update(SignInType.defaultSignIn);

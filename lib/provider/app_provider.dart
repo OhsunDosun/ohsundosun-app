@@ -42,6 +42,18 @@ String appKey(AppKeyRef ref) {
 }
 
 @Riverpod(keepAlive: true)
+class FcmToken extends _$FcmToken {
+  @override
+  String? build() {
+    return null;
+  }
+
+  Future<void> update(String? value) async {
+    state = value;
+  }
+}
+
+@Riverpod(keepAlive: true)
 class AccessToken extends _$AccessToken {
   @override
   String? build() {

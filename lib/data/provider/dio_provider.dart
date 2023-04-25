@@ -92,6 +92,7 @@ Dio dio(DioRef ref) {
                         type: ref.read(appSignInTypeProvider) ?? SignInType.defaultSignIn,
                         email: ref.read(appEmailProvider) ?? "",
                         password: ref.read(appPasswordProvider) ?? "",
+                        fcm: ref.read(fcmTokenProvider),
                       ),
                     );
 

@@ -14,7 +14,7 @@ class UserInfoView extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, ref) {
-    final loading = ref.watch(loadingProvider);
+    ref.watch(loadingProvider);
     final userInfo = ref.watch(userInfoProvider);
     ref.watch(nicknameProvider);
     ref.watch(nicknameCancelableOperationProvider);
