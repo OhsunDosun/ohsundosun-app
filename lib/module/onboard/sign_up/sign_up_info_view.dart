@@ -90,8 +90,15 @@ class SignUpInfoView extends ConsumerWidget {
                     ),
                   ],
                 ),
-                const ODInput(
-                  hintText: "한글, 영어 최대 8자",
+                Row(
+                  children: [
+                    Expanded(
+                      child: ODInput(
+                        hintText: "한글,영어 최대 8자",
+                        onChanged: (value) => ref.read(nicknameProvider.notifier).update(value),
+                      ),
+                    ),
+                  ],
                 ),
                 ODHeight(10),
                 Row(
@@ -157,9 +164,16 @@ class SignUpInfoView extends ConsumerWidget {
                     ),
                   ],
                 ),
-                const ODInput(
-                  obscureText: true,
-                  hintText: "영문+숫자 조합 8~16자",
+                Row(
+                  children: [
+                    Expanded(
+                      child: ODInput(
+                        obscureText: true,
+                        hintText: "영문+숫자 조합 8~16자",
+                        onChanged: (value) => ref.read(passwordProvider.notifier).update(value),
+                      ),
+                    ),
+                  ],
                 ),
                 ODHeight(10),
                 Row(
@@ -178,11 +192,14 @@ class SignUpInfoView extends ConsumerWidget {
                     ),
                   ],
                 ),
-                const ODInput(
+                ODInput(
                   obscureText: true,
                   hintText: "영문+숫자 조합 8~16자",
+                  message: ref.watch(passwordcheckProvider),
+                  onChanged: (value) => ref.read(passwordProvider.notifier).update(value),
+                  messageType: ref.watch(passwordMessageTypeProvider),
                 ),
-                ODHeight(40),
+                ODHeight(30),
                 ODButton(
                   "다음 단계로",
                   onTap: () => pageController.jumpToPage(1),
