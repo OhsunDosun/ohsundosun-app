@@ -5,6 +5,7 @@ import 'package:ohsundosun/model/request/auth/sign_in_request.dart';
 import 'package:ohsundosun/model/response/auth/sign_in_response.dart';
 import 'package:ohsundosun/model/response/auth/verify_response.dart';
 import 'package:ohsundosun/model/response/common/default_response.dart';
+import 'package:ohsundosun/util/error.dart';
 
 class AuthService {
   final AuthApi _authApi;
@@ -29,18 +30,7 @@ class AuthService {
 
       return response.data;
     } on DioError catch (e) {
-      final errorResponse = e.response;
-
-      if (errorResponse != null) {
-        try {
-          final response = DefaultResponse.fromJson(errorResponse.data);
-          return Future.error(response.message);
-        } catch (e) {
-          return Future.error("error");
-        }
-      } else {
-        return Future.error("error");
-      }
+      return Future.error(getErrorMessage(e));
     } catch (e) {
       return Future.error("error");
     }
@@ -50,17 +40,7 @@ class AuthService {
     try {
       return await _authApi.signCheck();
     } on DioError catch (e) {
-      final errorResponse = e.response;
-      if (errorResponse != null) {
-        try {
-          final response = DefaultResponse.fromJson(errorResponse.data);
-          return Future.error(response.message);
-        } catch (e) {
-          return Future.error("error");
-        }
-      } else {
-        return Future.error("error");
-      }
+      return Future.error(getErrorMessage(e));
     } catch (e) {
       return Future.error("error");
     }
@@ -74,17 +54,7 @@ class AuthService {
 
       return response.data;
     } on DioError catch (e) {
-      final errorResponse = e.response;
-      if (errorResponse != null) {
-        try {
-          final response = DefaultResponse.fromJson(errorResponse.data);
-          return Future.error(response.message);
-        } catch (e) {
-          return Future.error("error");
-        }
-      } else {
-        return Future.error("error");
-      }
+      return Future.error(getErrorMessage(e));
     } catch (e) {
       return Future.error("error");
     }
@@ -98,17 +68,7 @@ class AuthService {
 
       return response.data;
     } on DioError catch (e) {
-      final errorResponse = e.response;
-      if (errorResponse != null) {
-        try {
-          final response = DefaultResponse.fromJson(errorResponse.data);
-          return Future.error(response.message);
-        } catch (e) {
-          return Future.error("error");
-        }
-      } else {
-        return Future.error("error");
-      }
+      return Future.error(getErrorMessage(e));
     } catch (e) {
       return Future.error("error");
     }

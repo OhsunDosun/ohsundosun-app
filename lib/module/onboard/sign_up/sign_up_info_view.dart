@@ -122,7 +122,7 @@ class SignUpInfoView extends ConsumerWidget {
                     Expanded(
                       child: ODInput(
                         hintText: "사용중인 이메일을 입력하세요.",
-                        onChanged: (value) => ref.read(signUpEmailProvider.notifier).update(value),
+                        onChanged: (value) => ref.read(emailProvider.notifier).update(value),
                       ),
                     ),
                     ODWidth(7),
@@ -171,6 +171,8 @@ class SignUpInfoView extends ConsumerWidget {
                         obscureText: true,
                         hintText: "영문+숫자 조합 8~16자",
                         onChanged: (value) => ref.read(passwordProvider.notifier).update(value),
+                        message: ref.watch(passwordCheckProvider),
+                        messageType: ref.watch(passwordMessageTypeProvider),
                       ),
                     ),
                   ],
@@ -195,9 +197,7 @@ class SignUpInfoView extends ConsumerWidget {
                 ODInput(
                   obscureText: true,
                   hintText: "영문+숫자 조합 8~16자",
-                  message: ref.watch(passwordcheckProvider),
-                  onChanged: (value) => ref.read(passwordProvider.notifier).update(value),
-                  messageType: ref.watch(passwordMessageTypeProvider),
+                  onChanged: (value) => ref.read(passwordVerifyProvider.notifier).update(value),
                 ),
                 ODHeight(30),
                 ODButton(

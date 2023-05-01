@@ -47,11 +47,13 @@ class ODMainAppBar extends ConsumerWidget {
 class ODBackAppBar extends StatelessWidget {
   final String? text;
   final Widget right;
+  final void Function()? onTap;
 
   const ODBackAppBar({
     super.key,
     this.text,
     this.right = const SizedBox.shrink(),
+    this.onTap,
   });
 
   @override
@@ -63,7 +65,11 @@ class ODBackAppBar extends StatelessWidget {
           InkWell(
             onTap: () {
               FocusScope.of(context).unfocus();
-              context.pop();
+              if (onTap != null) {
+                onTap!();
+              } else {
+                context.pop();
+              }
             },
             child: Padding(
               padding: EdgeInsets.all(10.r),

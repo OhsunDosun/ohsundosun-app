@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'package:ohsundosun/model/request/user/sign_up_request.dart';
 import 'package:ohsundosun/model/request/user/update_mbti_request.dart';
 import 'package:ohsundosun/model/request/user/update_nickname_request.dart';
 import 'package:ohsundosun/model/request/user/update_notification_request.dart';
@@ -15,6 +16,11 @@ abstract class UsersApi {
 
   @GET("/v1/users")
   Future<DataResponse<GetUserInfoData>> getUserInfo();
+
+  @POST("/v1/users")
+  Future<DataResponse> signUp(
+    @Body() SignUpRequest body,
+  );
 
   @PATCH("/v1/users/nickname")
   Future<DataResponse> updateNickname(

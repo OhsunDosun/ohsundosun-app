@@ -1,9 +1,12 @@
 import 'package:dio/dio.dart';
 import 'package:ohsundosun/data/api/users_api.dart';
+import 'package:ohsundosun/enum/mbti.dart';
+import 'package:ohsundosun/model/request/user/sign_up_request.dart';
 import 'package:ohsundosun/model/request/user/update_nickname_request.dart';
 import 'package:ohsundosun/model/request/user/update_notification_request.dart';
 import 'package:ohsundosun/model/response/common/default_response.dart';
 import 'package:ohsundosun/model/response/users/get_user_info_response.dart';
+import 'package:ohsundosun/util/error.dart';
 
 class UsersService {
   final UsersApi _usersApi;
@@ -16,18 +19,7 @@ class UsersService {
 
       return response.data;
     } on DioError catch (e) {
-      final errorResponse = e.response;
-
-      if (errorResponse != null) {
-        try {
-          final response = DefaultResponse.fromJson(errorResponse.data);
-          return Future.error(response.message);
-        } catch (e) {
-          return Future.error("error");
-        }
-      } else {
-        return Future.error("error");
-      }
+      return Future.error(getErrorMessage(e));
     } catch (e) {
       return Future.error("error");
     }
@@ -39,18 +31,7 @@ class UsersService {
 
       return response.data;
     } on DioError catch (e) {
-      final errorResponse = e.response;
-
-      if (errorResponse != null) {
-        try {
-          final response = DefaultResponse.fromJson(errorResponse.data);
-          return Future.error(response.message);
-        } catch (e) {
-          return Future.error("error");
-        }
-      } else {
-        return Future.error("error");
-      }
+      return Future.error(getErrorMessage(e));
     } catch (e) {
       return Future.error("error");
     }
@@ -62,18 +43,29 @@ class UsersService {
 
       return response.data;
     } on DioError catch (e) {
-      final errorResponse = e.response;
+      return Future.error(getErrorMessage(e));
+    } catch (e) {
+      return Future.error("error");
+    }
+  }
 
-      if (errorResponse != null) {
-        try {
-          final response = DefaultResponse.fromJson(errorResponse.data);
-          return Future.error(response.message);
-        } catch (e) {
-          return Future.error("error");
-        }
-      } else {
-        return Future.error("error");
-      }
+  Future<void> signUp({
+    required String email,
+    required MBTI mbti,
+    required String nickname,
+    required String password,
+  }) async {
+    try {
+      await _usersApi.signUp(
+        SignUpRequest(
+          email: email,
+          mbti: mbti.toString(),
+          nickname: nickname,
+          password: password,
+        ),
+      );
+    } on DioError catch (e) {
+      return Future.error(getErrorMessage(e));
     } catch (e) {
       return Future.error("error");
     }

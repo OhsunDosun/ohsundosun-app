@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:ohsundosun/enum/mbti.dart';
 import 'package:ohsundosun/module/onboard/sign_up/sign_up_provider.dart';
+import 'package:ohsundosun/provider/router_provider.dart';
 import 'package:ohsundosun/widget/index.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:ohsundosun/style/index.dart';
@@ -16,8 +18,11 @@ class SignUpView extends ConsumerWidget {
   @override
   Widget build(BuildContext context, ref) {
     final pageController = ref.watch(pageControllerProvider);
+    ref.watch(nicknameProvider);
+    ref.watch(emailProvider);
+    ref.watch(passwordProvider);
+
     ref.watch(signUpMBTIProvider);
-    ref.watch(signUpEmailProvider);
 
     return Scaffold(
       body: ODSafeBox(

@@ -7,6 +7,7 @@ class SignUpMBTIView extends ConsumerWidget {
   Widget build(BuildContext context, ref) {
     final pageController = ref.watch(pageControllerProvider);
     final mbti = ref.watch(signUpMBTIProvider);
+    final nickname = ref.watch(nicknameProvider);
 
     return Column(
       children: [
@@ -81,7 +82,7 @@ class SignUpMBTIView extends ConsumerWidget {
                       Expanded(
                         child: Text(
                           textAlign: TextAlign.start,
-                          "님의\nMBTI 유형을 선택해주세요.",
+                          "$nickname님의\nMBTI 유형을 선택해주세요.",
                           style: SpoqaHanSansNeo.light.set(
                             size: 20,
                             height: 28,
@@ -361,17 +362,21 @@ class SignUpMBTIView extends ConsumerWidget {
                       ),
                     ],
                   ),
-                  ODHeight(40),
-                  ODButton(
-                    "가입완료",
-                    onTap: () => pageController.jumpToPage(2),
-                  ),
-                  ODHeight(40),
+                  ODHeight(24),
                 ],
               ),
             ),
           ),
         ),
+        Padding(
+          padding: EdgeInsets.symmetric(horizontal: 20.w),
+          child: ODButton(
+            "가입완료",
+            enabled: mbti != null,
+            onTap: () => onSignUp(context, ref),
+          ),
+        ),
+        ODHeight(24),
       ],
     );
   }
