@@ -4,7 +4,6 @@ import 'package:ohsundosun/enum/mbti.dart';
 import 'package:ohsundosun/model/request/user/sign_up_request.dart';
 import 'package:ohsundosun/model/request/user/update_nickname_request.dart';
 import 'package:ohsundosun/model/request/user/update_notification_request.dart';
-import 'package:ohsundosun/model/response/common/default_response.dart';
 import 'package:ohsundosun/model/response/users/get_user_info_response.dart';
 import 'package:ohsundosun/util/error.dart';
 
