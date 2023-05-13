@@ -6,6 +6,7 @@ class SignUpInfoView extends ConsumerWidget {
   @override
   Widget build(BuildContext context, ref) {
     final pageController = ref.watch(pageControllerProvider);
+    ref.watch(nicknameProvider);
     ref.watch(nicknameCancelableOperationProvider);
 
     return Stack(

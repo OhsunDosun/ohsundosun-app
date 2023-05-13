@@ -63,7 +63,7 @@ class PostDetailView extends HookConsumerWidget {
                       parent: BouncingScrollPhysics(),
                     ),
                     slivers: [
-                      CupertinoSliverRefreshControl(
+                      const CupertinoSliverRefreshControl(
                           // onRefresh: () async => await ref.read(postDetailProvider.notifier).load(id),
                           ),
                       SliverFillRemaining(

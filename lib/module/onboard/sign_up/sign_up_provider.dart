@@ -119,7 +119,7 @@ class Nickname extends _$Nickname {
   String build() => "";
 
   Future<void> update(String value) async {
-    final authService = ref.watch(authServiceProvider);
+    final authService = ref.read(authServiceProvider);
     final nicknameCancelableOperation = ref.read(nicknameCancelableOperationProvider);
     nicknameCancelableOperation?.cancel();
     ref.read(nicknameMessageTypeProvider.notifier).update(MessageType.error);

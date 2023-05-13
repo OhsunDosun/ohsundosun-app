@@ -5,7 +5,7 @@ class SignUpCompleteView extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, ref) {
-    final userInfo = ref.watch(userInfoProvider);
+    final nickname = ref.watch(nicknameProvider);
 
     return WillPopScope(
       onWillPop: () async => true,
@@ -84,7 +84,7 @@ class SignUpCompleteView extends ConsumerWidget {
                         child: RichText(
                           textAlign: TextAlign.center,
                           text: TextSpan(
-                            text: '${userInfo.nickname} ',
+                            text: '$nickname ',
                             style: SpoqaHanSansNeo.bold.set(
                               size: 20,
                               height: 35,
