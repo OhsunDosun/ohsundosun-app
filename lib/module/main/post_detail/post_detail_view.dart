@@ -29,7 +29,9 @@ class PostDetailView extends HookConsumerWidget {
 
     useEffect(() {
       SchedulerBinding.instance.addPostFrameCallback((_) {
-        ref.read(loadingProvider.notifier).init(id);
+        ref.read(postIdProvider.notifier).update(id);
+
+        ref.read(pagingProvider.notifier).load(type: LoadingType.init);
       });
 
       return null;
@@ -62,8 +64,8 @@ class PostDetailView extends HookConsumerWidget {
                     ),
                     slivers: [
                       CupertinoSliverRefreshControl(
-                        onRefresh: () async => await ref.read(postDetailProvider.notifier).load(id),
-                      ),
+                          // onRefresh: () async => await ref.read(postDetailProvider.notifier).load(id),
+                          ),
                       SliverFillRemaining(
                         child: SingleChildScrollView(
                           child: Column(

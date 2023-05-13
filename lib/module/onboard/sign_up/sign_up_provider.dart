@@ -46,6 +46,9 @@ class Email extends _$Email {
   String build() => "";
 
   void update(String value) {
+    ref.read(emailMessageProvider.notifier).update(null);
+    ref.read(emailMessageTypeProvider.notifier).update(MessageType.error);
+
     state = value;
   }
 }
@@ -71,33 +74,13 @@ class EmailMessage extends _$EmailMessage {
 }
 
 @riverpod
-class EmailCancelableOperation extends _$EmailCancelableOperation {
-  @override
-  CancelableOperation<VerifyData>? build() => null;
-
-  void update(CancelableOperation<VerifyData>? value) {
-    state = value;
-  }
-}
-
-@riverpod
-class EmailEnabled extends _$EmailEnabled {
-  @override
-  bool build() => false;
-
-  void update(bool value) {
-    state = value;
-  }
-}
-
-@riverpod
-String? emailError(EmailErrorRef ref) {
+bool emailVerifyEnabled(EmailVerifyEnabledRef ref) {
   final email = ref.watch(emailProvider);
 
-  if (email.isNotEmpty && !EmailValidator.validate(email)) {
-    return "유효하지 않은 이메일입니다.";
+  if (!EmailValidator.validate(email)) {
+    return false;
   }
-  return null;
+  return true;
 }
 
 @riverpod
@@ -131,30 +114,20 @@ class NicknameMessageType extends _$NicknameMessageType {
 }
 
 @riverpod
-class NicknameEnabled extends _$NicknameEnabled {
-  @override
-  bool build() => false;
-
-  void update(bool value) {
-    state = value;
-  }
-}
-
-@riverpod
 class Nickname extends _$Nickname {
   @override
   String build() => "";
 
   Future<void> update(String value) async {
     final authService = ref.watch(authServiceProvider);
-    final nicknameCancelableOperation = ref.watch(nicknameCancelableOperationProvider);
+    final nicknameCancelableOperation = ref.read(nicknameCancelableOperationProvider);
     nicknameCancelableOperation?.cancel();
+    ref.read(nicknameMessageTypeProvider.notifier).update(MessageType.error);
 
     if (value.isNotEmpty) {
       if (!Valid.nickname.hasMatch(value)) {
         ref.read(nicknameMessageProvider.notifier).update("유효하지 않은 닉네임입니다. (한글, 영어 최대 8자)");
         ref.read(nicknameMessageTypeProvider.notifier).update(MessageType.error);
-        ref.read(nicknameEnabledProvider.notifier).update(false);
       } else {
         final nicknameCancelableOperation = CancelableOperation.fromFuture(
           authService.verifyNickname(nickname: value),
@@ -163,11 +136,9 @@ class Nickname extends _$Nickname {
             if (verify.available) {
               ref.read(nicknameMessageProvider.notifier).update("사용 가능한 닉네임입니다.");
               ref.read(nicknameMessageTypeProvider.notifier).update(MessageType.success);
-              ref.read(nicknameEnabledProvider.notifier).update(true);
             } else {
               ref.read(nicknameMessageProvider.notifier).update("이미 사용중인 닉네임입니다.");
               ref.read(nicknameMessageTypeProvider.notifier).update(MessageType.error);
-              ref.read(nicknameEnabledProvider.notifier).update(false);
             }
 
             state = value;
@@ -178,7 +149,6 @@ class Nickname extends _$Nickname {
       }
     } else {
       ref.read(nicknameMessageProvider.notifier).update(null);
-      ref.read(nicknameEnabledProvider.notifier).update(false);
     }
     state = value;
   }
@@ -195,6 +165,16 @@ class Password extends _$Password {
 }
 
 @riverpod
+String? passwordError(PasswordErrorRef ref) {
+  final password = ref.watch(passwordProvider);
+
+  if (password.isNotEmpty && !Valid.password.hasMatch(password)) {
+    return "유효하지 않은 비밀번호입니다. (영문+숫자 8~16)";
+  }
+  return null;
+}
+
+@riverpod
 class PasswordVerify extends _$PasswordVerify {
   @override
   String build() => "";
@@ -205,33 +185,47 @@ class PasswordVerify extends _$PasswordVerify {
 }
 
 @riverpod
-class Emailverify extends _$Emailverify {
-  @override
-  String build() => "";
+MessageType passwordVerifyMessageType(PasswordVerifyMessageTypeRef ref) {
+  final password = ref.watch(passwordProvider);
+  final passwordVerify = ref.watch(passwordVerifyProvider);
 
-  void update(String value) {
-    state = value;
+  if (password.isNotEmpty && passwordVerify.isNotEmpty) {
+    if (password != passwordVerify) {
+      return MessageType.error;
+    } else {
+      return MessageType.success;
+    }
   }
+  return MessageType.error;
 }
 
 @riverpod
-String? passwordCheck(PasswordCheckRef ref) {
+String? passwordVerifyMessage(PasswordVerifyMessageRef ref) {
   final password = ref.watch(passwordProvider);
+  final passwordVerify = ref.watch(passwordVerifyProvider);
 
-  if (password.isEmpty && !Valid.password.hasMatch(password)) {
-    return "비밀번호가 일치합니다.";
+  if (password.isNotEmpty && passwordVerify.isNotEmpty) {
+    if (password != passwordVerify) {
+      return "비밀번호가 일치하지 않습니다.";
+    } else {
+      return "비밀번호가 일치합니다.";
+    }
   }
   return null;
 }
 
 @riverpod
-class PasswordMessageType extends _$PasswordMessageType {
-  @override
-  MessageType build() => MessageType.success;
+bool nextEnabled(NextEnabledRef ref) {
+  final nickname = ref.watch(nicknameMessageTypeProvider);
+  final email = ref.watch(emailMessageTypeProvider);
+  final password = ref.watch(passwordErrorProvider);
+  final passwordVerify = ref.watch(passwordVerifyMessageTypeProvider);
 
-  void update(MessageType value) {
-    state = value;
+  if (nickname == MessageType.success && email == MessageType.success && password == null && passwordVerify == MessageType.success) {
+    return true;
   }
+
+  return false;
 }
 
 Future<void> onSignUp(BuildContext context, WidgetRef ref) async {
@@ -293,5 +287,46 @@ Future<void> onSignUp(BuildContext context, WidgetRef ref) async {
         );
       },
     );
+  }
+}
+
+Future<void> onEmailVerify(WidgetRef ref) async {
+  final loading = ref.read(loadingProvider.notifier);
+  final emailMessage = ref.read(emailMessageProvider.notifier);
+  final emailMessageType = ref.read(emailMessageTypeProvider.notifier);
+
+  try {
+    loading.update(true);
+
+    final authService = ref.read(authServiceProvider);
+
+    final email = ref.read(emailProvider);
+
+    final data = await authService.verifyEmail(
+      email: email,
+    );
+
+    loading.update(false);
+
+    if (data.available) {
+      emailMessage.update("사용 가능한 이메일입니다.");
+      emailMessageType.update(MessageType.success);
+    } else {
+      emailMessage.update("이미 사용중인 이메일입니다.");
+      emailMessageType.update(MessageType.error);
+    }
+  } on String catch (errorCode) {
+    loading.update(false);
+
+    late String errorText;
+
+    switch (errorCode) {
+      default:
+        errorText = "알 수 없는 에러가 발생헀습니다.";
+        break;
+    }
+
+    emailMessage.update(errorText);
+    emailMessageType.update(MessageType.error);
   }
 }

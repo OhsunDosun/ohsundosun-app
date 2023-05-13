@@ -22,6 +22,7 @@ class ODButton extends StatelessWidget {
   final double? width;
   final bool enabled;
   final String text;
+  final EdgeInsetsGeometry? padding;
   final void Function()? onTap;
 
   const ODButton(
@@ -30,6 +31,7 @@ class ODButton extends StatelessWidget {
     this.type = ODButtonType.black,
     this.enabled = true,
     this.width,
+    this.padding,
     this.onTap,
   });
 
@@ -45,6 +47,7 @@ class ODButton extends StatelessWidget {
       child: Container(
         height: 50.h,
         width: width,
+        padding: padding,
         decoration: BoxDecoration(
           color: buttonType.toColor(),
           borderRadius: BorderRadius.circular(8),

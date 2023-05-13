@@ -5,6 +5,7 @@ import 'package:ohsundosun/data/api/posts_api.dart';
 import 'package:ohsundosun/enum/mbti.dart';
 import 'package:ohsundosun/enum/post_sort.dart';
 import 'package:ohsundosun/enum/post_type.dart';
+import 'package:ohsundosun/model/common/comment.dart';
 import 'package:ohsundosun/model/common/post.dart';
 import 'package:ohsundosun/util/error.dart';
 
@@ -45,6 +46,26 @@ class PostsService {
     try {
       final response = await _postsApi.getPost(
         postId: postId,
+      );
+
+      return response.data;
+    } on DioError catch (e) {
+      return Future.error(getErrorMessage(e));
+    } catch (e) {
+      return Future.error("error");
+    }
+  }
+
+  Future<List<Comment>> getComments({
+    required String postId,
+    int? limit,
+    String? lastKey,
+  }) async {
+    try {
+      final response = await _postsApi.getComments(
+        postId: postId,
+        limit: limit?.toString() ?? "",
+        lastKey: lastKey ?? "",
       );
 
       return response.data;

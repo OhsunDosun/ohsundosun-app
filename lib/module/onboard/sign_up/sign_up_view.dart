@@ -3,6 +3,7 @@ import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:ohsundosun/enum/mbti.dart';
 import 'package:ohsundosun/module/onboard/sign_up/sign_up_provider.dart';
+import 'package:ohsundosun/provider/app_provider.dart';
 import 'package:ohsundosun/provider/router_provider.dart';
 import 'package:ohsundosun/widget/index.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -21,7 +22,6 @@ class SignUpView extends ConsumerWidget {
     ref.watch(nicknameProvider);
     ref.watch(emailProvider);
     ref.watch(passwordProvider);
-
     ref.watch(signUpMBTIProvider);
 
     return Scaffold(

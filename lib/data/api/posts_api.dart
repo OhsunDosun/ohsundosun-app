@@ -1,5 +1,6 @@
 import 'dart:async';
 import 'dart:io';
+import 'package:ohsundosun/model/common/comment.dart';
 import 'package:ohsundosun/model/common/post.dart';
 import 'package:ohsundosun/model/response/common/data_response.dart';
 import 'package:retrofit/retrofit.dart';
@@ -24,6 +25,13 @@ abstract class PostsApi {
   @GET("/v1/posts/{postId}")
   Future<DataResponse<Post>> getPost({
     @Path('postId') required String postId,
+  });
+
+  @GET("/v1/posts/{postId}/comments")
+  Future<DataResponse<List<Comment>>> getComments({
+    @Path('postId') required String postId,
+    @Query("limit") required String limit,
+    @Query("lastKey") required String lastKey,
   });
 
   @POST("/v1/posts")

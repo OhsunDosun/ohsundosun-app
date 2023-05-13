@@ -23,6 +23,8 @@ import 'package:ohsundosun/util/mode.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 Future<void> main() async {
+  SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle.dark);
+
   WidgetsBinding widgetsBinding = WidgetsFlutterBinding.ensureInitialized();
   // 가로 모드 세팅
   SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp]);
@@ -135,7 +137,9 @@ class MyApp extends ConsumerWidget {
 
     // 반응형 화면을 위해 ScreenUtilInit 세팅
     return ScreenUtilInit(
-      designSize: const Size(375, 765),
+      designSize: const Size(375, 812),
+      minTextAdapt: true,
+      splitScreenMode: true,
       builder: (BuildContext context, Widget? child) {
         return MaterialApp.router(
           theme: ThemeData(
@@ -145,6 +149,12 @@ class MyApp extends ConsumerWidget {
           ),
           routerConfig: router,
           debugShowCheckedModeBanner: false,
+          builder: (context, widget) {
+            return MediaQuery(
+              data: MediaQuery.of(context).copyWith(textScaleFactor: 1.0),
+              child: widget ?? const SizedBox.shrink(),
+            );
+          },
         );
       },
     );

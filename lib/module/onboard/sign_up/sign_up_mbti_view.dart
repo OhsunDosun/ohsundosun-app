@@ -5,11 +5,11 @@ class SignUpMBTIView extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, ref) {
-    final pageController = ref.watch(pageControllerProvider);
     final mbti = ref.watch(signUpMBTIProvider);
     final nickname = ref.watch(nicknameProvider);
 
-    return Column(
+    return ODSafeColumn(
+      bottom: true,
       children: [
         const ODBackAppBar(),
         Expanded(
@@ -17,6 +17,7 @@ class SignUpMBTIView extends ConsumerWidget {
             child: Padding(
               padding: EdgeInsets.symmetric(horizontal: 20.w),
               child: Column(
+                crossAxisAlignment: CrossAxisAlignment.stretch,
                 children: [
                   Text(
                     textAlign: TextAlign.center,
@@ -77,12 +78,20 @@ class SignUpMBTIView extends ConsumerWidget {
                     backgroundColor: ColorStyles.black10,
                   ),
                   ODHeight(12),
-                  Row(
-                    children: [
-                      Expanded(
-                        child: Text(
-                          textAlign: TextAlign.start,
-                          "$nickname님의\nMBTI 유형을 선택해주세요.",
+                  RichText(
+                    text: TextSpan(
+                      children: [
+                        TextSpan(
+                          text: nickname,
+                          style: SpoqaHanSansNeo.bold.set(
+                            size: 20,
+                            height: 28,
+                            letter: -1,
+                            color: ColorStyles.black100,
+                          ),
+                        ),
+                        TextSpan(
+                          text: " 님의\nMBTI 유형을 선택해주세요.",
                           style: SpoqaHanSansNeo.light.set(
                             size: 20,
                             height: 28,
@@ -90,8 +99,8 @@ class SignUpMBTIView extends ConsumerWidget {
                             color: ColorStyles.black100,
                           ),
                         ),
-                      ),
-                    ],
+                      ],
+                    ),
                   ),
                   ODHeight(51),
                   Row(
@@ -362,7 +371,7 @@ class SignUpMBTIView extends ConsumerWidget {
                       ),
                     ],
                   ),
-                  ODHeight(24),
+                  ODHeight(20),
                 ],
               ),
             ),
@@ -376,7 +385,7 @@ class SignUpMBTIView extends ConsumerWidget {
             onTap: () => onSignUp(context, ref),
           ),
         ),
-        ODHeight(24),
+        ODHeight(20),
       ],
     );
   }
