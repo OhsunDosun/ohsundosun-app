@@ -17,6 +17,7 @@ part 'dio_provider.g.dart';
 Dio dio(DioRef ref) {
   final dio = Dio();
   dio
+    ..options.contentType = Headers.jsonContentType
     ..options.headers["App-Key"] = ref.watch(appKeyProvider)
     ..options.headers["Cookie"] = "access-token=${ref.watch(accessTokenProvider)};"
     ..interceptors.add(InterceptorsWrapper(onRequest: (options, handler) {
