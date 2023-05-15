@@ -45,7 +45,7 @@ platform :ios do
     match(type: "adhoc", readonly: true, git_private_key: ENV['MATCH_GIT_PRIVATE_KEY'], app_identifier: [ENV["APP_IDENTIFIER"]])
     
     Dir.chdir "../.." do
-      sh("fvm", "flutter", "build", "ipa", "--release", "--flavor", "prod", "--bundle-sksl-path", "flutter_01.sksl.json", "--export-options-plist=ios/Runner/ProdExportOptions.plist")
+      sh("fvm", "flutter", "build", "ipa", "--release", "--flavor", "prod", "--export-options-plist=ios/Runner/ProdExportOptions.plist")
     end
 
     firebase_app_distribution(
