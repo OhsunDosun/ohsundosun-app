@@ -40,7 +40,7 @@ class SignUpCompleteView extends ConsumerWidget {
                             size: 16,
                             height: 35,
                             letter: -1,
-                            color: ColorStyles.black100,
+                            color: ColorStyles.black40,
                           ),
                         ),
                       ),
@@ -52,7 +52,7 @@ class SignUpCompleteView extends ConsumerWidget {
                             size: 16,
                             height: 35,
                             letter: -1,
-                            color: ColorStyles.black100,
+                            color: ColorStyles.black40,
                           ),
                         ),
                       ),
@@ -71,11 +71,31 @@ class SignUpCompleteView extends ConsumerWidget {
                     ],
                   ),
                   ODHeight(7),
-                  const LinearProgressIndicator(
-                    minHeight: 8,
-                    value: 1,
-                    color: ColorStyles.red100,
-                    backgroundColor: ColorStyles.black10,
+                  Stack(
+                    children: [
+                      Container(
+                        width: double.infinity,
+                        height: 10.h,
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(5.r),
+                          color: ColorStyles.black10,
+                        ),
+                      ),
+                      Container(
+                        height: 10.h,
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(5.r),
+                          gradient: const LinearGradient(
+                            begin: Alignment.centerLeft,
+                            end: Alignment.centerRight,
+                            colors: [
+                              Color(0xFFFF8540),
+                              Color(0xFFFF4040),
+                            ],
+                          ),
+                        ),
+                      ),
+                    ],
                   ),
                   ODHeight(197),
                   Row(
