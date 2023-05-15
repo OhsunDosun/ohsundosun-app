@@ -107,7 +107,7 @@ class SignUpCompleteView extends ConsumerWidget {
                       ),
                     ],
                   ),
-                  ODHeight(40),
+                  ODHeight(84),
                   ODButton(
                     "메인으로",
                     onTap: () => context.go(AppRoute.main),

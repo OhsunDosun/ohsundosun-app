@@ -119,10 +119,10 @@ class MainView extends HookConsumerWidget {
                   height: 6.h,
                   color: ColorStyles.black5,
                 ),
-                Expanded(
+                const Expanded(
                   child: ODSingleScroll(
                     child: Column(
-                      children: const [
+                      children: [
                         MBTIMenu(
                           icon: SvgImage.icLogoPurple,
                           title: '분석형',

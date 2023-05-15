@@ -77,7 +77,7 @@ class SignUpMBTIView extends ConsumerWidget {
                     color: ColorStyles.red100,
                     backgroundColor: ColorStyles.black10,
                   ),
-                  ODHeight(12),
+                  ODHeight(48),
                   RichText(
                     text: TextSpan(
                       children: [
@@ -131,6 +131,7 @@ class SignUpMBTIView extends ConsumerWidget {
                       ),
                     ],
                   ),
+                  ODHeight(18),
                   Row(
                     children: [
                       Expanded(
@@ -150,7 +151,7 @@ class SignUpMBTIView extends ConsumerWidget {
                       ),
                     ],
                   ),
-                  ODHeight(7),
+                  ODHeight(10),
                   Row(
                     children: [
                       Expanded(
@@ -170,6 +171,7 @@ class SignUpMBTIView extends ConsumerWidget {
                       ),
                     ],
                   ),
+                  ODHeight(40),
                   Row(
                     children: [
                       Expanded(
@@ -198,6 +200,7 @@ class SignUpMBTIView extends ConsumerWidget {
                       ),
                     ],
                   ),
+                  ODHeight(18),
                   Row(
                     children: [
                       Expanded(
@@ -237,6 +240,7 @@ class SignUpMBTIView extends ConsumerWidget {
                       ),
                     ],
                   ),
+                  ODHeight(40),
                   Row(
                     children: [
                       Expanded(
@@ -265,6 +269,7 @@ class SignUpMBTIView extends ConsumerWidget {
                       ),
                     ],
                   ),
+                  ODHeight(18),
                   Row(
                     children: [
                       Expanded(
@@ -304,6 +309,7 @@ class SignUpMBTIView extends ConsumerWidget {
                       ),
                     ],
                   ),
+                  ODHeight(40),
                   Row(
                     children: [
                       Expanded(
@@ -332,6 +338,7 @@ class SignUpMBTIView extends ConsumerWidget {
                       ),
                     ],
                   ),
+                  ODHeight(18),
                   Row(
                     children: [
                       Expanded(

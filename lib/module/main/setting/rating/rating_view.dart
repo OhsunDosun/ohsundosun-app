@@ -9,11 +9,11 @@ class RatingView extends ConsumerWidget {
   Widget build(BuildContext context, ref) {
     // final userInfo = ref.watch(userInfoProvider);
 
-    return Scaffold(
+    return const Scaffold(
       body: ODSafeBox(
         top: true,
         child: Column(
-          children: const [
+          children: [
             ODBackAppBar(
               text: "평가하기",
             ),

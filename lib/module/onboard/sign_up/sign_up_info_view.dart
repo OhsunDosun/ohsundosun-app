@@ -79,7 +79,7 @@ class SignUpInfoView extends ConsumerWidget {
                         color: ColorStyles.red100,
                         backgroundColor: ColorStyles.black10,
                       ),
-                      ODHeight(10),
+                      ODHeight(40),
                       Row(
                         children: [
                           Expanded(
@@ -108,7 +108,7 @@ class SignUpInfoView extends ConsumerWidget {
                           ),
                         ],
                       ),
-                      ODHeight(10),
+                      ODHeight(15),
                       Row(
                         children: [
                           Expanded(
@@ -146,7 +146,7 @@ class SignUpInfoView extends ConsumerWidget {
                           ),
                         ],
                       ),
-                      ODHeight(10),
+                      ODHeight(15),
                       Row(
                         children: [
                           Expanded(
@@ -175,7 +175,7 @@ class SignUpInfoView extends ConsumerWidget {
                           ),
                         ],
                       ),
-                      ODHeight(10),
+                      ODHeight(15),
                       Row(
                         children: [
                           Expanded(
