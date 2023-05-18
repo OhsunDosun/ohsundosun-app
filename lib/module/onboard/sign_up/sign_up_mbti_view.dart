@@ -133,6 +133,11 @@ class SignUpMBTIView extends ConsumerWidget {
                   ODHeight(51),
                   Row(
                     children: [
+                      const ODSvgImage(
+                        SvgImage.icLogoPurple,
+                        size: 18,
+                      ),
+                      ODWidth(5),
                       Expanded(
                         child: RichText(
                           text: TextSpan(
@@ -202,6 +207,11 @@ class SignUpMBTIView extends ConsumerWidget {
                   ODHeight(40),
                   Row(
                     children: [
+                      const ODSvgImage(
+                        SvgImage.icLogoGreen,
+                        size: 18,
+                      ),
+                      ODWidth(5),
                       Expanded(
                         child: RichText(
                           text: TextSpan(
@@ -271,6 +281,11 @@ class SignUpMBTIView extends ConsumerWidget {
                   ODHeight(40),
                   Row(
                     children: [
+                      const ODSvgImage(
+                        SvgImage.icLogoBlue,
+                        size: 18,
+                      ),
+                      ODWidth(5),
                       Expanded(
                         child: RichText(
                           text: TextSpan(
@@ -340,6 +355,11 @@ class SignUpMBTIView extends ConsumerWidget {
                   ODHeight(40),
                   Row(
                     children: [
+                      const ODSvgImage(
+                        SvgImage.icLogoOrange,
+                        size: 18,
+                      ),
+                      ODWidth(5),
                       Expanded(
                         child: RichText(
                           text: TextSpan(

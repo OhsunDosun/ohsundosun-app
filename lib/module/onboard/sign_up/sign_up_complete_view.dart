@@ -97,9 +97,15 @@ class SignUpCompleteView extends ConsumerWidget {
                       ),
                     ],
                   ),
-                  ODHeight(197),
+                  ODHeight(64),
+                  const ODPngImage(
+                    PngImage.signUp,
+                    height: 110,
+                    fit: BoxFit.fitHeight,
+                  ),
                   Row(
                     children: [
+                      ODWidth(5),
                       Expanded(
                         child: RichText(
                           textAlign: TextAlign.center,

@@ -5,4 +5,5 @@ class PngImage {
 
   static const String mainLogo = 'asset/png/main_logo.png';
   static const String onboardLogo = 'asset/png/onboard_logo.png';
+  static const String signUp = 'asset/png/sign_up.png';
 }
