@@ -11,9 +11,6 @@ class SignUpCompleteView extends ConsumerWidget {
       onWillPop: () async => true,
       child: Column(
         children: [
-          ODBackAppBar(
-            onTap: () => context.go(AppRoute.main),
-          ),
           Expanded(
             child: Padding(
               padding: EdgeInsets.symmetric(horizontal: 20.w),

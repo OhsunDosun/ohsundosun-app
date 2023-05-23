@@ -11,7 +11,6 @@ class SignUpMBTIView extends ConsumerWidget {
     return ODSafeColumn(
       bottom: true,
       children: [
-        const ODBackAppBar(),
         Expanded(
           child: ODSingleScroll(
             child: Padding(

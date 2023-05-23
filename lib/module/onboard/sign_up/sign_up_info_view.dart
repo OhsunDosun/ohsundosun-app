@@ -13,7 +13,6 @@ class SignUpInfoView extends ConsumerWidget {
       children: [
         Column(
           children: [
-            const ODBackAppBar(),
             Expanded(
               child: ODSingleScroll(
                 child: Padding(

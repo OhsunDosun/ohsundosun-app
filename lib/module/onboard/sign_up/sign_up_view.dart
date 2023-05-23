@@ -25,17 +25,25 @@ class SignUpView extends ConsumerWidget {
     ref.watch(signUpMBTIProvider);
 
     return Scaffold(
-      body: ODSafeBox(
+      body: ODSafeColumn(
         top: true,
-        child: PageView(
-          physics: const NeverScrollableScrollPhysics(),
-          controller: pageController,
-          children: const [
-            SignUpInfoView(),
-            SignUpMBTIView(),
-            SignUpCompleteView(),
-          ],
-        ),
+        children: [
+          ODBackAppBar(
+            text: '회원가입',
+            onTap: () => context.go(AppRoute.main),
+          ),
+          Expanded(
+            child: PageView(
+              physics: const NeverScrollableScrollPhysics(),
+              controller: pageController,
+              children: const [
+                SignUpInfoView(),
+                SignUpMBTIView(),
+                SignUpCompleteView(),
+              ],
+            ),
+          ),
+        ],
       ),
     );
   }
