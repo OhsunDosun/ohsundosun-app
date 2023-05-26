@@ -28,9 +28,8 @@ class SignUpView extends ConsumerWidget {
       body: ODSafeColumn(
         top: true,
         children: [
-          ODBackAppBar(
+          const ODBackAppBar(
             text: '회원가입',
-            onTap: () => context.go(AppRoute.main),
           ),
           Expanded(
             child: PageView(
