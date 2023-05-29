@@ -33,11 +33,22 @@ class PostDetail extends _$PostDetail {
   @override
   Post? build() => null;
 
-  Future<void> load() async {
+  Future<void> init() async {
     final postId = ref.read(postIdProvider);
     final postsService = ref.read(postsServiceProvider);
 
     state = await postsService.getPost(postId: postId!);
+
+    ref.read(pagingProvider.notifier).load();
+  }
+
+  Future<void> refresh() async {
+    final postId = ref.read(postIdProvider);
+    final postsService = ref.read(postsServiceProvider);
+
+    state = await postsService.getPost(postId: postId!);
+
+    ref.read(pagingProvider.notifier).load(type: LoadingType.refresh);
   }
 }
 

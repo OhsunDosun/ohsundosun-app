@@ -24,6 +24,8 @@ class PostDetailView extends HookConsumerWidget {
 
   @override
   Widget build(BuildContext context, ref) {
+    ref.watch(postIdProvider);
+
     final loading = ref.watch(loadingProvider);
     final post = ref.watch(postDetailProvider);
 
@@ -31,18 +33,18 @@ class PostDetailView extends HookConsumerWidget {
       SchedulerBinding.instance.addPostFrameCallback((_) {
         ref.read(postIdProvider.notifier).update(id);
 
-        ref.read(pagingProvider.notifier).load(type: LoadingType.init);
+        ref.read(postDetailProvider.notifier).init();
       });
 
       return null;
     }, []);
 
-    return GestureDetector(
-      onTap: () => FocusScope.of(context).unfocus(),
-      child: Scaffold(
-        body: Stack(
-          children: [
-            ODSafeColumn(
+    return Stack(
+      children: [
+        GestureDetector(
+          onTap: () => FocusScope.of(context).unfocus(),
+          child: Scaffold(
+            body: ODSafeColumn(
               top: true,
               children: [
                 ODBackAppBar(
@@ -63,9 +65,9 @@ class PostDetailView extends HookConsumerWidget {
                       parent: BouncingScrollPhysics(),
                     ),
                     slivers: [
-                      const CupertinoSliverRefreshControl(
-                          // onRefresh: () async => await ref.read(postDetailProvider.notifier).load(id),
-                          ),
+                      CupertinoSliverRefreshControl(
+                        onRefresh: () async => await ref.read(postDetailProvider.notifier).refresh(),
+                      ),
                       SliverFillRemaining(
                         child: SingleChildScrollView(
                           child: Column(
@@ -205,7 +207,7 @@ class PostDetailView extends HookConsumerWidget {
                 Container(
                   color: ColorStyles.black10,
                   child: ODSafeBox(
-                    bottom: true,
+                    // bottom: true,
                     child: Container(
                       height: 40.h,
                       margin: EdgeInsets.all(5.r),
@@ -251,11 +253,11 @@ class PostDetailView extends HookConsumerWidget {
                 )
               ],
             ),
-            if (loading == LoadingType.load) const ODLoading(),
-            if (loading == LoadingType.init) const ODInitLoading(),
-          ],
+          ),
         ),
-      ),
+        if (loading == LoadingType.load) const ODLoading(),
+        if (loading == LoadingType.init) const ODInitLoading(),
+      ],
     );
   }
 }
