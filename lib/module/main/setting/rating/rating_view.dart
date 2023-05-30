@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:ohsundosun/asset/index.dart';
@@ -88,6 +89,34 @@ class RatingView extends ConsumerWidget {
                             ),
                           ),
                         ),
+                        Expanded(
+                          flex: 2,
+                          child: RatingBar(
+                            initialRating: 3,
+                            direction: Axis.horizontal,
+                            allowHalfRating: true,
+                            itemCount: 5,
+                            ratingWidget: RatingWidget(
+                              full: const ODPngImage(
+                                PngImage.fullstar,
+                                height: 40,
+                                fit: BoxFit.fitHeight,
+                              ),
+                              half: const ODPngImage(
+                                PngImage.halfstar,
+                                height: 40,
+                                fit: BoxFit.fitHeight,
+                              ),
+                              empty: const ODPngImage(
+                                PngImage.emptystar,
+                                height: 40,
+                                fit: BoxFit.fitHeight,
+                              ),
+                            ),
+                            itemPadding: const EdgeInsets.symmetric(horizontal: 4.0),
+                            onRatingUpdate: (rating) {},
+                          ),
+                        ),
                       ],
                     ),
                     ODHeight(20),
@@ -95,10 +124,54 @@ class RatingView extends ConsumerWidget {
                       height: 6.h,
                       color: ColorStyles.black5,
                     ),
+                    ODHeight(17.62),
+                    Row(
+                      children: [
+                        ODWidth(20),
+                        Text(
+                          textAlign: TextAlign.start,
+                          "의견 남기기",
+                          style: SpoqaHanSansNeo.bold.set(
+                            size: 18,
+                            height: 27,
+                            letter: -1,
+                          ),
+                        ),
+                      ],
+                    ),
+                    ODHeight(22.53),
+                    Padding(
+                      padding: EdgeInsets.symmetric(horizontal: 20.w),
+                      child: TextField(
+                        minLines: 10,
+                        maxLines: null,
+                        maxLength: 1000,
+                        decoration: InputDecoration(
+                          border: InputBorder.none,
+                          hintText: "내용을 입력하세요.",
+                          hintStyle: SpoqaHanSansNeo.regular.set(
+                            size: 15,
+                            height: 22.5,
+                            letter: -1,
+                            color: ColorStyles.black10,
+                          ),
+                        ),
+                      ),
+                    ),
+                    Container(
+                      height: 1.h,
+                      color: ColorStyles.black5,
+                    ),
+                    ODHeight(48),
                   ],
                 ),
               ),
             ),
+            Padding(
+              padding: EdgeInsets.symmetric(horizontal: 20.w),
+              child: const ODButton("평가 완료"),
+            ),
+            ODHeight(20),
           ],
         ),
       ),
