@@ -82,6 +82,7 @@ Future<void> upsertPost(
   WidgetRef ref,
 ) async {
   FocusScope.of(context).unfocus();
+  FocusScope.of(context).requestFocus(FocusNode());
 
   final postsService = ref.read(postsServiceProvider);
 

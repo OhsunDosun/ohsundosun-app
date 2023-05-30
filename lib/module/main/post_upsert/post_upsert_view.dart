@@ -37,7 +37,10 @@ class PostUpsertView extends HookConsumerWidget {
     }, []);
 
     return GestureDetector(
-      onTap: () => FocusScope.of(context).unfocus(),
+      onTap: () {
+        FocusScope.of(context).unfocus();
+        FocusScope.of(context).requestFocus(FocusNode());
+      },
       child: Scaffold(
         resizeToAvoidBottomInset: true,
         body: Stack(
@@ -79,6 +82,7 @@ class PostUpsertView extends HookConsumerWidget {
                             InkWell(
                               onTap: () {
                                 FocusScope.of(context).unfocus();
+                                FocusScope.of(context).requestFocus(FocusNode());
                                 showModalBottomSheet(
                                   enableDrag: false,
                                   isScrollControlled: true,

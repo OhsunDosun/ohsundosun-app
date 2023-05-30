@@ -17,7 +17,10 @@ class SignInView extends ConsumerWidget {
     ref.watch(passwordProvider);
 
     return GestureDetector(
-      onTap: () => FocusScope.of(context).unfocus(),
+      onTap: () {
+        FocusScope.of(context).unfocus();
+        FocusScope.of(context).requestFocus(FocusNode());
+      },
       child: Scaffold(
         body: Stack(
           children: [

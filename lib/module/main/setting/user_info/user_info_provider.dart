@@ -110,6 +110,7 @@ onUpdateNickname(
   WidgetRef ref,
 ) async {
   FocusScope.of(context).unfocus();
+  FocusScope.of(context).requestFocus(FocusNode());
 
   final loading = ref.read(loadingProvider.notifier);
 

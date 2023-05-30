@@ -65,6 +65,7 @@ class ODBackAppBar extends StatelessWidget {
           InkWell(
             onTap: () {
               FocusScope.of(context).unfocus();
+              FocusScope.of(context).requestFocus(FocusNode());
               if (onTap != null) {
                 onTap!();
               } else {

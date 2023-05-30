@@ -42,7 +42,10 @@ class PostDetailView extends HookConsumerWidget {
     return Stack(
       children: [
         GestureDetector(
-          onTap: () => FocusScope.of(context).unfocus(),
+          onTap: () {
+            FocusScope.of(context).unfocus();
+            FocusScope.of(context).requestFocus(FocusNode());
+          },
           child: Scaffold(
             body: ODSafeColumn(
               top: true,
@@ -207,7 +210,7 @@ class PostDetailView extends HookConsumerWidget {
                 Container(
                   color: ColorStyles.black10,
                   child: ODSafeBox(
-                    // bottom: true,
+                    bottom: true,
                     child: Container(
                       height: 40.h,
                       margin: EdgeInsets.all(5.r),
