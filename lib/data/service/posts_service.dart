@@ -7,6 +7,7 @@ import 'package:ohsundosun/enum/post_sort.dart';
 import 'package:ohsundosun/enum/post_type.dart';
 import 'package:ohsundosun/model/common/comment.dart';
 import 'package:ohsundosun/model/common/post.dart';
+import 'package:ohsundosun/model/request/post/add_comment_request.dart';
 import 'package:ohsundosun/util/error.dart';
 
 class PostsService {
@@ -88,6 +89,24 @@ class PostsService {
         title: title,
         content: content,
         images: images,
+      );
+    } on DioError catch (e) {
+      return Future.error(getErrorMessage(e));
+    } catch (e) {
+      return Future.error("error");
+    }
+  }
+
+  Future<void> addComment({
+    required String postId,
+    required String content,
+  }) async {
+    try {
+      await _postsApi.addComment(
+        postId: postId,
+        body: AddCommentRequest(
+          content: content,
+        ),
       );
     } on DioError catch (e) {
       return Future.error(getErrorMessage(e));

@@ -6,6 +6,7 @@ import 'package:ohsundosun/data/provider/service_provider.dart';
 import 'package:ohsundosun/enum/post_type.dart';
 import 'package:ohsundosun/provider/app_provider.dart';
 import 'package:ohsundosun/provider/router_provider.dart';
+import 'package:ohsundosun/util/extension.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 part 'post_upsert_provider.g.dart';
@@ -81,8 +82,7 @@ Future<void> upsertPost(
   BuildContext context,
   WidgetRef ref,
 ) async {
-  FocusScope.of(context).unfocus();
-  FocusScope.of(context).requestFocus(FocusNode());
+  FocusScope.of(context).unFocus();
 
   final postsService = ref.read(postsServiceProvider);
 

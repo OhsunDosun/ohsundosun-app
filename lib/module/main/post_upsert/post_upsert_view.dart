@@ -11,6 +11,7 @@ import 'package:ohsundosun/module/main/post_upsert/post_upsert_provider.dart';
 import 'package:ohsundosun/provider/app_provider.dart';
 import 'package:ohsundosun/provider/router_provider.dart';
 import 'package:ohsundosun/style/index.dart';
+import 'package:ohsundosun/util/extension.dart';
 import 'package:ohsundosun/widget/index.dart';
 
 class PostUpsertView extends HookConsumerWidget {
@@ -38,8 +39,7 @@ class PostUpsertView extends HookConsumerWidget {
 
     return GestureDetector(
       onTap: () {
-        FocusScope.of(context).unfocus();
-        FocusScope.of(context).requestFocus(FocusNode());
+        FocusScope.of(context).unFocus();
       },
       child: Scaffold(
         resizeToAvoidBottomInset: true,
@@ -81,8 +81,7 @@ class PostUpsertView extends HookConsumerWidget {
                             ODHeight(9),
                             InkWell(
                               onTap: () {
-                                FocusScope.of(context).unfocus();
-                                FocusScope.of(context).requestFocus(FocusNode());
+                                FocusScope.of(context).unFocus();
                                 showModalBottomSheet(
                                   enableDrag: false,
                                   isScrollControlled: true,

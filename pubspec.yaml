@@ -35,7 +35,7 @@ dependencies:
 
   # Core
   go_router: ^7.0.1
-  flutter_screenutil: ^5.8.1
+  flutter_screenutil: ^5.8.4
 
   # State
   flutter_hooks: ^0.18.6

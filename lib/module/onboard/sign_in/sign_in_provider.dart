@@ -6,6 +6,7 @@ import 'package:ohsundosun/data/provider/service_provider.dart';
 import 'package:ohsundosun/enum/sign_in_type.dart';
 import 'package:ohsundosun/provider/app_provider.dart';
 import 'package:ohsundosun/provider/router_provider.dart';
+import 'package:ohsundosun/util/extension.dart';
 import 'package:ohsundosun/util/valid.dart';
 import 'package:ohsundosun/widget/index.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
@@ -76,8 +77,7 @@ bool signInEnabled(SignInEnabledRef ref) {
 }
 
 Future<void> onSignIn(BuildContext context, WidgetRef ref) async {
-  FocusScope.of(context).unfocus();
-  FocusScope.of(context).requestFocus(FocusNode());
+  FocusScope.of(context).unFocus();
 
   final loading = ref.read(loadingProvider.notifier);
 

@@ -22,7 +22,10 @@ class ODConfirmModal extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return SafeArea(
+    return Padding(
+      padding: EdgeInsets.only(
+        bottom: MediaQuery.of(context).viewInsets.bottom,
+      ),
       child: Center(
         child: Container(
           margin: EdgeInsets.symmetric(horizontal: 30.w),

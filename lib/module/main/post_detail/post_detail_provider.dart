@@ -1,9 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
 import 'package:ohsundosun/data/provider/service_provider.dart';
 import 'package:ohsundosun/enum/loading_type.dart';
 import 'package:ohsundosun/model/common/comment.dart';
 import 'package:ohsundosun/model/common/post.dart';
+import 'package:ohsundosun/util/extension.dart';
+import 'package:ohsundosun/widget/index.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 part 'post_detail_provider.g.dart';
@@ -39,7 +43,7 @@ class PostDetail extends _$PostDetail {
 
     state = await postsService.getPost(postId: postId!);
 
-    ref.read(pagingProvider.notifier).load();
+    await ref.read(pagingProvider.notifier).load();
   }
 
   Future<void> refresh() async {
@@ -48,18 +52,13 @@ class PostDetail extends _$PostDetail {
 
     state = await postsService.getPost(postId: postId!);
 
-    ref.read(pagingProvider.notifier).load(type: LoadingType.refresh);
+    await ref.read(pagingProvider.notifier).load(type: LoadingType.refresh);
   }
 }
 
 @riverpod
 int limit(LimitRef ref) {
   return 20;
-}
-
-@riverpod
-ScrollController scrollController(ScrollControllerRef ref) {
-  return ScrollController();
 }
 
 @riverpod
@@ -83,10 +82,10 @@ class Paging extends _$Paging {
 
     final loading = ref.read(loadingProvider.notifier);
 
-    final limit = ref.watch(limitProvider);
+    final limit = ref.read(limitProvider);
 
-    if (type == LoadingType.refresh) {
-      state.removePageRequestListener(ref.watch(pageRequestListenerProvider));
+    if (type == LoadingType.reload || type == LoadingType.refresh) {
+      state.removePageRequestListener(ref.read(pageRequestListenerProvider));
     }
 
     try {
@@ -95,6 +94,10 @@ class Paging extends _$Paging {
         limit: limit,
         lastKey: lastKey,
       );
+
+      if (type == LoadingType.reload || type == LoadingType.refresh) {
+        state.itemList = [];
+      }
 
       if (comments.length < limit) {
         state.appendLastPage(comments);
@@ -110,7 +113,7 @@ class Paging extends _$Paging {
       }
     } on String catch (error) {
       debugPrint(error);
-      if (type == LoadingType.reload || type == LoadingType.refresh) {
+      if (type == LoadingType.init || type == LoadingType.reload || type == LoadingType.refresh) {
         state.itemList = null;
         state.appendLastPage([]);
       }
@@ -119,5 +122,70 @@ class Paging extends _$Paging {
         loading.update(LoadingType.none);
       }
     }
+  }
+}
+
+@riverpod
+TextEditingController postDetailCommentController(PostDetailCommentControllerRef ref) {
+  return TextEditingController();
+}
+
+@riverpod
+class PostDetailComment extends _$PostDetailComment {
+  @override
+  String build() => "";
+
+  void reset() {
+    state = "";
+    ref.read(postDetailCommentControllerProvider).clear();
+  }
+
+  void update(String value) {
+    state = value;
+  }
+}
+
+Future<void> onAddComment(BuildContext context, WidgetRef ref) async {
+  FocusScope.of(context).unFocus();
+
+  final loading = ref.read(loadingProvider.notifier);
+
+  try {
+    loading.update(LoadingType.load);
+
+    final postService = ref.read(postsServiceProvider);
+
+    final postId = ref.read(postIdProvider);
+    final comment = ref.read(postDetailCommentProvider);
+
+    await postService.addComment(
+      postId: postId!,
+      content: comment,
+    );
+
+    await ref.read(pagingProvider.notifier).load(type: LoadingType.reload);
+    ref.read(postDetailCommentProvider.notifier).reset();
+
+    loading.update(LoadingType.none);
+  } on String catch (errorCode) {
+    loading.update(LoadingType.none);
+
+    late String errorText;
+
+    switch (errorCode) {
+      default:
+        errorText = "알 수 없는 에러가 발생헀습니다.";
+        break;
+    }
+
+    showDialog(
+      context: context,
+      builder: (context) {
+        return ODAlertModal(
+          text: errorText,
+          onTap: () => context.pop(),
+        );
+      },
+    );
   }
 }

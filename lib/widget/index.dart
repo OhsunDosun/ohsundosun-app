@@ -12,6 +12,7 @@ import 'package:ohsundosun/enum/post_sort.dart';
 import 'package:ohsundosun/enum/post_type.dart';
 import 'package:ohsundosun/module/main/main_provider.dart';
 import 'package:ohsundosun/style/index.dart';
+import 'package:ohsundosun/util/extension.dart';
 
 part 'appbar.dart';
 part 'badge.dart';

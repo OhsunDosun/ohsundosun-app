@@ -2,6 +2,7 @@ import 'dart:async';
 import 'dart:io';
 import 'package:ohsundosun/model/common/comment.dart';
 import 'package:ohsundosun/model/common/post.dart';
+import 'package:ohsundosun/model/request/post/add_comment_request.dart';
 import 'package:ohsundosun/model/response/common/data_response.dart';
 import 'package:retrofit/retrofit.dart';
 import 'package:dio/dio.dart';
@@ -27,13 +28,6 @@ abstract class PostsApi {
     @Path('postId') required String postId,
   });
 
-  @GET("/v1/posts/{postId}/comments")
-  Future<DataResponse<List<Comment>>> getComments({
-    @Path('postId') required String postId,
-    @Query("limit") required String limit,
-    @Query("lastKey") required String lastKey,
-  });
-
   @POST("/v1/posts")
   @MultiPart()
   Future<DataResponse> addPost({
@@ -41,5 +35,18 @@ abstract class PostsApi {
     @Part() required String title,
     @Part() required String content,
     @Part() required List<File> images,
+  });
+
+  @GET("/v1/posts/{postId}/comments")
+  Future<DataResponse<List<Comment>>> getComments({
+    @Path('postId') required String postId,
+    @Query("limit") required String limit,
+    @Query("lastKey") required String lastKey,
+  });
+
+  @POST("/v1/posts/{postId}/comments")
+  Future<DataResponse> addComment({
+    @Path('postId') required String postId,
+    @Body() required AddCommentRequest body,
   });
 }

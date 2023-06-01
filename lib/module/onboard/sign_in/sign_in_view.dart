@@ -4,6 +4,7 @@ import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:ohsundosun/provider/router_provider.dart';
 import 'package:ohsundosun/style/index.dart';
+import 'package:ohsundosun/util/extension.dart';
 import 'package:ohsundosun/widget/index.dart';
 
 import 'sign_in_provider.dart';
@@ -18,8 +19,7 @@ class SignInView extends ConsumerWidget {
 
     return GestureDetector(
       onTap: () {
-        FocusScope.of(context).unfocus();
-        FocusScope.of(context).requestFocus(FocusNode());
+        FocusScope.of(context).unFocus();
       },
       child: Scaffold(
         body: Stack(
