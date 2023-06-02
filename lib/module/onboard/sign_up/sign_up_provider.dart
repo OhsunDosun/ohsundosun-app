@@ -234,13 +234,13 @@ Future<void> onSignUp(BuildContext context, WidgetRef ref) async {
   try {
     loading.update(true);
 
-    final authService = ref.watch(authServiceProvider);
+    final authService = ref.read(authServiceProvider);
     final usersService = ref.read(usersServiceProvider);
 
-    final mbti = ref.watch(signUpMBTIProvider);
-    final email = ref.watch(emailProvider);
-    final nickname = ref.watch(nicknameProvider);
-    final password = ref.watch(passwordProvider);
+    final mbti = ref.read(signUpMBTIProvider);
+    final email = ref.read(emailProvider);
+    final nickname = ref.read(nicknameProvider);
+    final password = ref.read(passwordProvider);
 
     await usersService.signUp(
       email: email,

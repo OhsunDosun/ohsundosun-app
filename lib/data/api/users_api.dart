@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'package:ohsundosun/model/request/user/add_rating_request.dart';
 import 'package:ohsundosun/model/request/user/sign_up_request.dart';
 import 'package:ohsundosun/model/request/user/update_mbti_request.dart';
 import 'package:ohsundosun/model/request/user/update_nickname_request.dart';
@@ -35,5 +36,10 @@ abstract class UsersApi {
   @PATCH("/v1/users/notification")
   Future<DataResponse> updateNotification(
     @Body() UpdateNotificationRequest body,
+  );
+
+  @POST("/v1/users/rating")
+  Future<DataResponse> addRating(
+    @Body() AddRatingRequest body,
   );
 }
