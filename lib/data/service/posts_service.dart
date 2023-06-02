@@ -114,4 +114,24 @@ class PostsService {
       return Future.error("error");
     }
   }
+
+  Future<void> addCommentReply({
+    required String postId,
+    required String commentId,
+    required String content,
+  }) async {
+    try {
+      await _postsApi.addCommentReply(
+        postId: postId,
+        commentId: commentId,
+        body: AddCommentRequest(
+          content: content,
+        ),
+      );
+    } on DioError catch (e) {
+      return Future.error(getErrorMessage(e));
+    } catch (e) {
+      return Future.error("error");
+    }
+  }
 }

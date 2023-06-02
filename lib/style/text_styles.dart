@@ -47,6 +47,7 @@ extension TextStyleExtension on TextStyle {
     double? height,
     Color? color,
     double? letter,
+    TextDecoration? decoration,
   }) {
     return copyWith(
       fontSize: size.sp,
@@ -54,6 +55,7 @@ extension TextStyleExtension on TextStyle {
       leadingDistribution: TextLeadingDistribution.even,
       color: color,
       letterSpacing: letter,
+      decoration: decoration,
     );
   }
 }

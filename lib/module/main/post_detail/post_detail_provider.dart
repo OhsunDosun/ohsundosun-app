@@ -33,6 +33,16 @@ class PostId extends _$PostId {
 }
 
 @riverpod
+class CommentId extends _$CommentId {
+  @override
+  String? build() => null;
+
+  void update(String? value) {
+    state = value;
+  }
+}
+
+@riverpod
 class PostDetail extends _$PostDetail {
   @override
   Post? build() => null;
@@ -131,6 +141,16 @@ TextEditingController postDetailCommentController(PostDetailCommentControllerRef
 }
 
 @riverpod
+FocusNode postDetailCommentFocusNode(PostDetailCommentFocusNodeRef ref) {
+  return FocusNode();
+}
+
+@riverpod
+ScrollController scrollController(ScrollControllerRef ref) {
+  return ScrollController();
+}
+
+@riverpod
 class PostDetailComment extends _$PostDetailComment {
   @override
   String build() => "";
@@ -138,6 +158,9 @@ class PostDetailComment extends _$PostDetailComment {
   void reset() {
     state = "";
     ref.read(postDetailCommentControllerProvider).clear();
+    ref.read(postDetailCommentProvider.notifier).update("");
+    ref.read(commentIdProvider.notifier).update(null);
+    ref.read(scrollControllerProvider).jumpTo(0);
   }
 
   void update(String value) {
@@ -156,12 +179,21 @@ Future<void> onAddComment(BuildContext context, WidgetRef ref) async {
     final postService = ref.read(postsServiceProvider);
 
     final postId = ref.read(postIdProvider);
+    final commentId = ref.read(commentIdProvider);
     final comment = ref.read(postDetailCommentProvider);
 
-    await postService.addComment(
-      postId: postId!,
-      content: comment,
-    );
+    if (commentId != null) {
+      await postService.addCommentReply(
+        postId: postId!,
+        commentId: commentId,
+        content: comment,
+      );
+    } else {
+      await postService.addComment(
+        postId: postId!,
+        content: comment,
+      );
+    }
 
     await ref.read(pagingProvider.notifier).load(type: LoadingType.reload);
     ref.read(postDetailCommentProvider.notifier).reset();

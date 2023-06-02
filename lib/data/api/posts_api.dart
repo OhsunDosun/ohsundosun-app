@@ -49,4 +49,11 @@ abstract class PostsApi {
     @Path('postId') required String postId,
     @Body() required AddCommentRequest body,
   });
+
+  @POST("/v1/posts/{postId}/comments/{commentId}/reply")
+  Future<DataResponse> addCommentReply({
+    @Path('postId') required String postId,
+    @Path('commentId') required String commentId,
+    @Body() required AddCommentRequest body,
+  });
 }

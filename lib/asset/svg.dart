@@ -12,6 +12,7 @@ class SvgImage {
   static const String icComment = 'asset/svg/ic_comment.svg';
   static const String icDelete = 'asset/svg/ic_delete.svg';
   static const String icDot = 'asset/svg/ic_dot.svg';
+  static const String icDotCircle = 'asset/svg/ic_dot_circle.svg';
   static const String icDrop = 'asset/svg/ic_drop.svg';
   static const String icGallery = 'asset/svg/ic_gallery.svg';
   static const String icLeave = 'asset/svg/ic_leave.svg';
@@ -23,6 +24,7 @@ class SvgImage {
   static const String icLogoPurple = 'asset/svg/ic_logo_purple.svg';
   static const String icMainEmpty = 'asset/svg/ic_main_empty.svg';
   static const String icMenu = 'asset/svg/ic_menu.svg';
+  static const String icReply = 'asset/svg/ic_reply.svg';
   static const String icSend = 'asset/svg/ic_send.svg';
   static const String icSetting = 'asset/svg/ic_setting.svg';
   static const String icSort = 'asset/svg/ic_sort.svg';

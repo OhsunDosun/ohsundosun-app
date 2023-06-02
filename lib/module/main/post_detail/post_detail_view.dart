@@ -51,6 +51,7 @@ class PostDetailView extends HookConsumerWidget {
         GestureDetector(
           onTap: () {
             FocusScope.of(context).unFocus();
+            ref.read(commentIdProvider.notifier).update(null);
           },
           child: Scaffold(
             body: ODSafeColumn(
@@ -70,6 +71,7 @@ class PostDetailView extends HookConsumerWidget {
                 ),
                 Expanded(
                   child: CustomScrollView(
+                    controller: ref.watch(scrollControllerProvider),
                     physics: const AlwaysScrollableScrollPhysics(
                       parent: BouncingScrollPhysics(),
                     ),
@@ -294,12 +296,13 @@ class PostDetailView extends HookConsumerWidget {
                           Expanded(
                             child: TextField(
                               controller: ref.watch(postDetailCommentControllerProvider),
+                              focusNode: ref.watch(postDetailCommentFocusNodeProvider),
                               decoration: InputDecoration(
                                 isDense: true,
                                 border: InputBorder.none,
                                 enabledBorder: InputBorder.none,
                                 focusedBorder: InputBorder.none,
-                                hintText: "댓글을 입력해주세요.",
+                                hintText: "${ref.watch(commentIdProvider) != null ? "답글" : "댓글"}을 입력해주세요.",
                                 hintStyle: SpoqaHanSansNeo.regular.set(
                                   size: 14,
                                   height: 15,
