@@ -4,6 +4,7 @@ import 'package:ohsundosun/module/main/post_detail/post_detail_view.dart';
 import 'package:ohsundosun/module/main/post_upsert/post_upsert_view.dart';
 import 'package:ohsundosun/module/main/setting/rating/rating_view.dart';
 import 'package:ohsundosun/module/main/setting/setting_view.dart';
+import 'package:ohsundosun/module/main/setting/user_info/update_mbti/update_mbti_view.dart';
 import 'package:ohsundosun/module/main/setting/user_info/user_info_view.dart';
 import 'package:ohsundosun/module/onboard/sign_in/sign_in_view.dart';
 import 'package:ohsundosun/module/onboard/onboard_view.dart';
@@ -32,6 +33,7 @@ class AppRoute {
 
   static const setting = '$main/setting';
   static const userInfo = '$setting/user/info';
+  static const updateMBTI = '$userInfo/mbti';
   static const rating = '$setting/rating';
 
   static const init = AppRoute.splash;
@@ -86,6 +88,12 @@ class AppRoute {
             GoRoute(
               path: AppRoute.userInfo.replaceAll("$setting/", ""),
               builder: (context, state) => const UserInfoView(),
+              routes: [
+                GoRoute(
+                  path: AppRoute.updateMBTI.replaceAll("$userInfo/", ""),
+                  builder: (context, state) => const UpdateMBTIView(),
+                ),
+              ],
             ),
             GoRoute(
               path: AppRoute.rating.replaceAll("$setting/", ""),

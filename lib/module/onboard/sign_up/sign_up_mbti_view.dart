@@ -434,7 +434,7 @@ class SignUpMBTIView extends ConsumerWidget {
         Padding(
           padding: EdgeInsets.symmetric(horizontal: 20.w),
           child: ODButton(
-            "가입완료",
+            "가입 완료",
             enabled: mbti != null,
             onTap: () => onSignUp(context, ref),
           ),

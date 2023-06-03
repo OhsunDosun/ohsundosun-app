@@ -4,6 +4,7 @@ import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:ohsundosun/module/main/setting/user_info/user_info_provider.dart';
 import 'package:ohsundosun/provider/app_provider.dart';
+import 'package:ohsundosun/provider/router_provider.dart';
 import 'package:ohsundosun/style/index.dart';
 import 'package:ohsundosun/widget/index.dart';
 
@@ -33,6 +34,7 @@ class UserInfoView extends ConsumerWidget {
                 userInfo.mbti.toString(),
                 type: userInfo.mbti.toODBadgeType(),
               ),
+              onTap: () => context.go(AppRoute.updateMBTI),
             ),
             InfoItem(
               "닉네임",

@@ -2,12 +2,13 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:ohsundosun/data/provider/service_provider.dart';
+import 'package:ohsundosun/enum/mbti.dart';
+import 'package:ohsundosun/provider/app_provider.dart';
 import 'package:ohsundosun/provider/router_provider.dart';
-import 'package:ohsundosun/util/extension.dart';
 import 'package:ohsundosun/widget/index.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
-part 'rating_provider.g.dart';
+part 'update_mbti_provider.g.dart';
 
 @riverpod
 class Loading extends _$Loading {
@@ -20,38 +21,26 @@ class Loading extends _$Loading {
 }
 
 @riverpod
-class Star extends _$Star {
+class UpdateMBTI extends _$UpdateMBTI {
   @override
-  double build() => 5;
+  MBTI build() => ref.read(userInfoProvider).mbti;
 
-  void update(double value) {
+  void update(MBTI value) {
     state = value;
   }
 }
 
-@riverpod
-class Feedback extends _$Feedback {
-  @override
-  String build() => "";
-
-  void update(String value) {
-    state = value;
-  }
-}
-
-onAddRating(BuildContext context, WidgetRef ref) async {
+onUpdateMBTI(BuildContext context, WidgetRef ref) async {
   final usersService = ref.read(usersServiceProvider);
   final loading = ref.read(loadingProvider.notifier);
-
-  FocusScope.of(context).unFocus();
 
   loading.update(true);
 
   try {
-    await usersService.addRating(
-      feedback: ref.read(feedbackProvider),
-      rating: ref.read(starProvider),
+    await usersService.updateMBTI(
+      mbti: ref.read(updateMBTIProvider),
     );
+    ref.read(userInfoProvider.notifier).update(await usersService.getUserInfo());
 
     loading.update(false);
 

@@ -3,6 +3,7 @@ import 'package:ohsundosun/data/api/users_api.dart';
 import 'package:ohsundosun/enum/mbti.dart';
 import 'package:ohsundosun/model/request/user/add_rating_request.dart';
 import 'package:ohsundosun/model/request/user/sign_up_request.dart';
+import 'package:ohsundosun/model/request/user/update_mbti_request.dart';
 import 'package:ohsundosun/model/request/user/update_nickname_request.dart';
 import 'package:ohsundosun/model/request/user/update_notification_request.dart';
 import 'package:ohsundosun/model/response/users/get_user_info_response.dart';
@@ -39,9 +40,29 @@ class UsersService {
 
   Future<void> updateNotification({required bool notification}) async {
     try {
-      final response = await _usersApi.updateNotification(UpdateNotificationRequest(notification: notification));
+      final response = await _usersApi.updateNotification(
+        UpdateNotificationRequest(
+          notification: notification,
+        ),
+      );
 
       return response.data;
+    } on DioError catch (e) {
+      return Future.error(getErrorMessage(e));
+    } catch (e) {
+      return Future.error("error");
+    }
+  }
+
+  Future<void> updateMBTI({
+    required MBTI mbti,
+  }) async {
+    try {
+      await _usersApi.updateMBTI(
+        UpdateMBTIRequest(
+          mbti: mbti.toString(),
+        ),
+      );
     } on DioError catch (e) {
       return Future.error(getErrorMessage(e));
     } catch (e) {
