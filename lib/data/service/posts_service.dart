@@ -7,7 +7,8 @@ import 'package:ohsundosun/enum/post_sort.dart';
 import 'package:ohsundosun/enum/post_type.dart';
 import 'package:ohsundosun/model/common/comment.dart';
 import 'package:ohsundosun/model/common/post.dart';
-import 'package:ohsundosun/model/request/post/add_comment_request.dart';
+import 'package:ohsundosun/model/request/posts/add_comment_request.dart';
+import 'package:ohsundosun/model/request/posts/upsert_post_request.dart';
 import 'package:ohsundosun/util/error.dart';
 
 class PostsService {
@@ -81,14 +82,16 @@ class PostsService {
     required PostType type,
     required String title,
     required String content,
-    required List<File> images,
+    required List<String> images,
   }) async {
     try {
       await _postsApi.addPost(
-        type: type.toValue(),
-        title: title,
-        content: content,
-        images: images,
+        body: UpsertPostRequest(
+          type: type.toValue(),
+          title: title,
+          content: content,
+          images: images,
+        ),
       );
     } on DioError catch (e) {
       return Future.error(getErrorMessage(e));

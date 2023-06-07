@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -26,7 +27,7 @@ class PostUpsertView extends HookConsumerWidget {
   Widget build(BuildContext context, ref) {
     final userInfo = ref.watch(userInfoProvider);
     final title = ref.watch(titleProvider);
-    // final content = ref.watch(contentProvider);
+    ref.watch(contentProvider);
     final images = ref.watch(imagesProvider);
 
     final isInsert = useState(id?.isEmpty ?? true);
@@ -322,8 +323,8 @@ class PostUpsertView extends HookConsumerWidget {
                                             ),
                                             child: ClipRRect(
                                               borderRadius: BorderRadius.circular(5),
-                                              child: Image.file(
-                                                image,
+                                              child: CachedNetworkImage(
+                                                imageUrl: image,
                                                 fit: BoxFit.cover,
                                               ),
                                             ),

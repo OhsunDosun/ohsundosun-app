@@ -2,7 +2,8 @@ import 'dart:async';
 import 'dart:io';
 import 'package:ohsundosun/model/common/comment.dart';
 import 'package:ohsundosun/model/common/post.dart';
-import 'package:ohsundosun/model/request/post/add_comment_request.dart';
+import 'package:ohsundosun/model/request/posts/add_comment_request.dart';
+import 'package:ohsundosun/model/request/posts/upsert_post_request.dart';
 import 'package:ohsundosun/model/response/common/data_response.dart';
 import 'package:retrofit/retrofit.dart';
 import 'package:dio/dio.dart';
@@ -29,12 +30,14 @@ abstract class PostsApi {
   });
 
   @POST("/v1/posts")
-  @MultiPart()
   Future<DataResponse> addPost({
-    @Part() required String type,
-    @Part() required String title,
-    @Part() required String content,
-    @Part() required List<File> images,
+    @Body() required UpsertPostRequest body,
+  });
+
+  @PUT("/v1/posts/{postId}")
+  Future<DataResponse> updatePost({
+    @Path('postId') required String postId,
+    @Body() required UpsertPostRequest body,
   });
 
   @GET("/v1/posts/{postId}/comments")

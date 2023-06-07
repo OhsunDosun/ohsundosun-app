@@ -1,9 +1,9 @@
 import 'dart:async';
-import 'package:ohsundosun/model/request/user/add_rating_request.dart';
-import 'package:ohsundosun/model/request/user/sign_up_request.dart';
-import 'package:ohsundosun/model/request/user/update_mbti_request.dart';
-import 'package:ohsundosun/model/request/user/update_nickname_request.dart';
-import 'package:ohsundosun/model/request/user/update_notification_request.dart';
+import 'package:ohsundosun/model/request/users/add_rating_request.dart';
+import 'package:ohsundosun/model/request/users/sign_up_request.dart';
+import 'package:ohsundosun/model/request/users/update_mbti_request.dart';
+import 'package:ohsundosun/model/request/users/update_nickname_request.dart';
+import 'package:ohsundosun/model/request/users/update_notification_request.dart';
 import 'package:ohsundosun/model/response/common/data_response.dart';
 import 'package:ohsundosun/model/response/users/get_user_info_response.dart';
 import 'package:retrofit/retrofit.dart';

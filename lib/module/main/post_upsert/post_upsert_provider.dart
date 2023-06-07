@@ -3,6 +3,7 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:ohsundosun/data/provider/service_provider.dart';
+import 'package:ohsundosun/enum/image_category.dart';
 import 'package:ohsundosun/enum/post_type.dart';
 import 'package:ohsundosun/provider/app_provider.dart';
 import 'package:ohsundosun/provider/router_provider.dart';
@@ -54,13 +55,32 @@ class Content extends _$Content {
 @riverpod
 class Images extends _$Images {
   @override
-  List<File> build() => [];
+  List<String> build() => [];
 
-  void add(File value) {
-    state = [...state, value];
+  Future<void> add(File value) async {
+    final imagesService = ref.read(imagesServiceProvider);
+
+    final loading = ref.read(loadingProvider.notifier);
+
+    loading.update(true);
+
+    try {
+      final images = await imagesService.addImage(
+        category: ImageCategory.post,
+        images: [value],
+      );
+
+      state = [...state, ...images];
+
+      loading.update(false);
+    } on String catch (error) {
+      debugPrint(error);
+
+      loading.update(false);
+    }
   }
 
-  void delete(File value) {
+  void delete(String value) {
     final tmp = [...state];
     tmp.remove(value);
     state = tmp;
