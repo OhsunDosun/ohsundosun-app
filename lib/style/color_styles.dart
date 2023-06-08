@@ -8,6 +8,8 @@ class ColorStyles {
   static const messageError = Color(0xFFF0685F);
   static const messageComp = Color(0xFF00C66C);
 
+  static const cardBG = Color(0x0D232330);
+
   static const red100 = Color(0xFFFF4040);
   static const red80 = Color(0xFFFF6465);
   static const red60 = Color(0xFFFF8C8C);

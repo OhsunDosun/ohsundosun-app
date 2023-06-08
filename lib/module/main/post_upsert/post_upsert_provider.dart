@@ -43,6 +43,11 @@ class Title extends _$Title {
 }
 
 @riverpod
+TextEditingController titleController(TitleControllerRef ref) {
+  return TextEditingController();
+}
+
+@riverpod
 class Content extends _$Content {
   @override
   String build() => "";
@@ -53,9 +58,18 @@ class Content extends _$Content {
 }
 
 @riverpod
+TextEditingController contentController(ContentControllerRef ref) {
+  return TextEditingController();
+}
+
+@riverpod
 class Images extends _$Images {
   @override
   List<String> build() => [];
+
+  void update(List<String> value) {
+    state = value;
+  }
 
   Future<void> add(File value) async {
     final imagesService = ref.read(imagesServiceProvider);
@@ -98,10 +112,33 @@ bool upsertEnabled(UpsertEnabledRef ref) {
   return true;
 }
 
+Future<void> getPost(
+  WidgetRef ref, {
+  required String postId,
+}) async {
+  final postsService = ref.read(postsServiceProvider);
+
+  final loading = ref.read(loadingProvider.notifier);
+
+  loading.update(true);
+
+  final post = await postsService.getPost(postId: postId);
+
+  ref.read(imagesProvider.notifier).update(post.images);
+  ref.read(titleControllerProvider).text = post.title;
+  ref.read(titleProvider.notifier).update(post.title);
+  ref.read(contentControllerProvider).text = post.content;
+  ref.read(contentProvider.notifier).update(post.content);
+  ref.read(postWritePostTypeProvider.notifier).update(post.type);
+
+  loading.update(false);
+}
+
 Future<void> upsertPost(
   BuildContext context,
-  WidgetRef ref,
-) async {
+  WidgetRef ref, {
+  String? postId,
+}) async {
   FocusScope.of(context).unFocus();
 
   final postsService = ref.read(postsServiceProvider);
@@ -118,12 +155,22 @@ Future<void> upsertPost(
   loading.update(true);
 
   try {
-    await postsService.addPost(
-      type: type,
-      title: title,
-      content: content,
-      images: images,
-    );
+    if (postId != null) {
+      await postsService.updatePost(
+        postId: postId,
+        type: type,
+        title: title,
+        content: content,
+        images: images,
+      );
+    } else {
+      await postsService.addPost(
+        type: type,
+        title: title,
+        content: content,
+        images: images,
+      );
+    }
 
     loading.update(false);
     ref.watch(routerProvider).pop(true);

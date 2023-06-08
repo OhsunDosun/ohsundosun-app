@@ -56,6 +56,18 @@ class PostDetail extends _$PostDetail {
     await ref.read(pagingProvider.notifier).load();
   }
 
+  Future<void> reload() async {
+    final postId = ref.read(postIdProvider);
+    final postsService = ref.read(postsServiceProvider);
+
+    ref.read(loadingProvider.notifier).update(LoadingType.load);
+    ref.read(scrollControllerProvider).jumpTo(0);
+
+    state = await postsService.getPost(postId: postId!);
+
+    await ref.read(pagingProvider.notifier).load(type: LoadingType.reload);
+  }
+
   Future<void> refresh() async {
     final postId = ref.read(postIdProvider);
     final postsService = ref.read(postsServiceProvider);

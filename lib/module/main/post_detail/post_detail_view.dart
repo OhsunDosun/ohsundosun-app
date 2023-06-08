@@ -1,9 +1,11 @@
+import 'package:dropdown_button2/dropdown_button2.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
+import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
 import 'package:intl/intl.dart';
@@ -11,6 +13,8 @@ import 'package:ohsundosun/asset/index.dart';
 import 'package:ohsundosun/enum/loading_type.dart';
 import 'package:ohsundosun/model/common/comment.dart';
 import 'package:ohsundosun/module/main/post_detail/post_detail_provider.dart';
+import 'package:ohsundosun/provider/app_provider.dart';
+import 'package:ohsundosun/provider/router_provider.dart';
 import 'package:ohsundosun/style/index.dart';
 import 'package:ohsundosun/util/extension.dart';
 import 'package:ohsundosun/widget/index.dart';
@@ -33,6 +37,7 @@ class PostDetailView extends HookConsumerWidget {
     ref.watch(postDetailCommentProvider);
 
     final loading = ref.watch(loadingProvider);
+    final userInfo = ref.watch(userInfoProvider);
     final post = ref.watch(postDetailProvider);
     final pagingController = ref.watch(pagingProvider);
 
@@ -58,15 +63,37 @@ class PostDetailView extends HookConsumerWidget {
               top: true,
               children: [
                 ODBackAppBar(
-                  right: InkWell(
-                    onTap: () {},
-                    child: Padding(
+                  right: ODPopupMenuButton(
+                    button: Padding(
                       padding: EdgeInsets.all(10.r),
                       child: const ODSvgImage(
                         SvgImage.icDot,
                         size: 20,
                       ),
                     ),
+                    offset: Offset(-70.w, 4.h),
+                    menus: [
+                      if (post?.userKey == userInfo.key) ...[
+                        ("edit", "수정하기"),
+                        ("delete", "삭제하기"),
+                      ],
+                      ("url", "URL 복사"),
+                    ],
+                    onTap: (value) async {
+                      switch (value) {
+                        case "edit":
+                          final result = await context.push(AppRoute.postUpdate, extra: post?.key);
+
+                          if (result == true) {
+                            ref.read(postDetailProvider.notifier).reload();
+                          }
+                          break;
+                        case "delete":
+                          break;
+                        case "url":
+                          break;
+                      }
+                    },
                   ),
                 ),
                 Expanded(
@@ -342,6 +369,94 @@ class PostDetailView extends HookConsumerWidget {
         if (loading == LoadingType.load) const ODLoading(),
         if (loading == LoadingType.init) const ODInitLoading(),
       ],
+    );
+  }
+}
+
+class ODPopupMenuButton extends StatelessWidget {
+  final Widget button;
+  final List<(String, String)> menus;
+  final Offset offset;
+  final void Function(String)? onTap;
+
+  const ODPopupMenuButton({
+    super.key,
+    required this.button,
+    required this.menus,
+    required this.offset,
+    this.onTap,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    final List<DropdownMenuItem<String>> items = [];
+    final List<double> customHeights = [];
+
+    menus.forEachIndexed(
+      (index, menu) {
+        if (index != 0) {
+          items.add(
+            DropdownMenuItem(
+              enabled: false,
+              child: Container(
+                margin: EdgeInsets.symmetric(horizontal: 10.w),
+                color: ColorStyles.black10,
+              ),
+            ),
+          );
+          customHeights.add(1.h);
+        }
+
+        items.add(
+          DropdownMenuItem(
+            value: menu.$1,
+            child: Center(
+              child: Text(
+                menu.$2,
+                style: SpoqaHanSansNeo.regular.set(
+                  size: 12,
+                  letter: -1,
+                  color: ColorStyles.black100,
+                ),
+              ),
+            ),
+          ),
+        );
+        customHeights.add(35.h);
+      },
+    );
+
+    return DropdownButtonHideUnderline(
+      child: DropdownButton2(
+        customButton: button,
+        items: items,
+        onChanged: (value) {
+          if (onTap != null && value != null) {
+            onTap!(value);
+          }
+        },
+        dropdownStyleData: DropdownStyleData(
+          width: 100.w,
+          padding: EdgeInsets.zero,
+          offset: offset,
+          elevation: 0,
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(5.r),
+            color: ColorStyles.white,
+            boxShadow: [
+              BoxShadow(
+                color: ColorStyles.cardBG,
+                blurRadius: 20.r,
+                offset: Offset(0, 6.h),
+              ),
+            ],
+          ),
+        ),
+        menuItemStyleData: MenuItemStyleData(
+          customHeights: customHeights,
+          padding: EdgeInsets.zero,
+        ),
+      ),
     );
   }
 }

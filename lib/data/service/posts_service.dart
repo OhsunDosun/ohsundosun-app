@@ -1,5 +1,3 @@
-import 'dart:io';
-
 import 'package:dio/dio.dart';
 import 'package:ohsundosun/data/api/posts_api.dart';
 import 'package:ohsundosun/enum/mbti.dart';
@@ -86,6 +84,30 @@ class PostsService {
   }) async {
     try {
       await _postsApi.addPost(
+        body: UpsertPostRequest(
+          type: type.toValue(),
+          title: title,
+          content: content,
+          images: images,
+        ),
+      );
+    } on DioError catch (e) {
+      return Future.error(getErrorMessage(e));
+    } catch (e) {
+      return Future.error("error");
+    }
+  }
+
+  Future<void> updatePost({
+    required String postId,
+    required PostType type,
+    required String title,
+    required String content,
+    required List<String> images,
+  }) async {
+    try {
+      await _postsApi.updatePost(
+        postId: postId,
         body: UpsertPostRequest(
           type: type.toValue(),
           title: title,

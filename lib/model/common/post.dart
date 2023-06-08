@@ -9,6 +9,7 @@ part 'post.g.dart';
 class Post with _$Post {
   const factory Post({
     required String key,
+    required String userKey,
     required MBTI mbti,
     required PostType type,
     required String nickname,

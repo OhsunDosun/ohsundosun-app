@@ -28,8 +28,8 @@ class AppRoute {
   static const main = '/main';
 
   static const postWrite = '$main/post/write';
-  static const postUpdate = '$setting/post/update';
-  static const postDetail = '$setting/post/detail';
+  static const postDetail = '$main/post/detail';
+  static const postUpdate = '$postDetail/update';
 
   static const setting = '$main/setting';
   static const userInfo = '$setting/user/info';
@@ -70,16 +70,18 @@ class AppRoute {
           builder: (context, state) => const PostUpsertView(),
         ),
         GoRoute(
-          path: AppRoute.postUpdate.replaceAll("$main/", ""),
-          builder: (context, state) => PostUpsertView(
-            id: state.extra as String?,
-          ),
-        ),
-        GoRoute(
           path: AppRoute.postDetail.replaceAll("$main/", ""),
           builder: (context, state) => PostDetailView(
             id: state.extra as String,
           ),
+          routes: [
+            GoRoute(
+              path: AppRoute.postUpdate.replaceAll("$postDetail/", ""),
+              builder: (context, state) => PostUpsertView(
+                id: state.extra as String?,
+              ),
+            ),
+          ],
         ),
         GoRoute(
           path: AppRoute.setting.replaceAll("$main/", ""),

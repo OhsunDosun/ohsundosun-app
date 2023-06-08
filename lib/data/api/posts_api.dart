@@ -1,5 +1,4 @@
 import 'dart:async';
-import 'dart:io';
 import 'package:ohsundosun/model/common/comment.dart';
 import 'package:ohsundosun/model/common/post.dart';
 import 'package:ohsundosun/model/request/posts/add_comment_request.dart';

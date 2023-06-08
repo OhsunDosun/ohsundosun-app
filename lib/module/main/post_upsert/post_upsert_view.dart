@@ -2,6 +2,7 @@ import 'dart:io';
 
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/scheduler.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
@@ -34,7 +35,11 @@ class PostUpsertView extends HookConsumerWidget {
     final mbti = useState(userInfo.mbti);
 
     useEffect(() {
-      if (!isInsert.value) {}
+      if (!isInsert.value) {
+        SchedulerBinding.instance.addPostFrameCallback((_) {
+          getPost(ref, postId: id!);
+        });
+      }
       return null;
     }, []);
 
@@ -134,6 +139,7 @@ class PostUpsertView extends HookConsumerWidget {
                             ),
                             ODHeight(11),
                             TextField(
+                              controller: ref.watch(titleControllerProvider),
                               onChanged: (value) => ref.read(titleProvider.notifier).update(value),
                               decoration: InputDecoration(
                                 isDense: true,
@@ -170,6 +176,7 @@ class PostUpsertView extends HookConsumerWidget {
                               child: TextField(
                                 maxLines: null,
                                 maxLength: 6000,
+                                controller: ref.watch(contentControllerProvider),
                                 onChanged: (value) => ref.read(contentProvider.notifier).update(value),
                                 decoration: InputDecoration(
                                   isDense: true,
@@ -358,7 +365,7 @@ class PostUpsertView extends HookConsumerWidget {
                       padding: EdgeInsets.only(bottom: 15.h, left: 20.w, right: 20.w),
                       child: ODButton(
                         isInsert.value ? "등록" : "저장",
-                        onTap: () => upsertPost(context, ref),
+                        onTap: () => upsertPost(context, ref, postId: id),
                         type: ODButtonType.red,
                         enabled: ref.watch(upsertEnabledProvider),
                       ),
