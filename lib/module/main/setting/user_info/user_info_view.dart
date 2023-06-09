@@ -87,7 +87,93 @@ class UserInfoView extends ConsumerWidget {
                 );
               },
             ),
-            const InfoItem("비밀번호 변경"),
+            InfoItem(
+              "비밀번호 변경",
+              onTap: () {
+                showDialog(
+                  context: context,
+                  builder: (context) {
+                    return Consumer(
+                      builder: (BuildContext context, WidgetRef ref, Widget? child) {
+                        return ODConfirmModal(
+                          content: Padding(
+                            padding: EdgeInsets.only(top: 18.h, bottom: 8.h),
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.stretch,
+                              children: [
+                                Text(
+                                  textAlign: TextAlign.center,
+                                  "비밀번호 변경",
+                                  style: SpoqaHanSansNeo.bold.set(
+                                    size: 20,
+                                    height: 30,
+                                    letter: -1,
+                                    color: ColorStyles.black100,
+                                  ),
+                                ),
+                                ODHeight(7),
+                                Text(
+                                  "기존 비밀번호",
+                                  style: SpoqaHanSansNeo.medium.set(
+                                    size: 16,
+                                    height: 35,
+                                    letter: -1,
+                                    color: ColorStyles.black100,
+                                  ),
+                                ),
+                                ODInput(
+                                  hintText: "영문+숫자 조합 8~16자",
+                                  maxLength: 16,
+                                  onChanged: (value) => ref.read(oldpasswordProvider.notifier).update(value),
+                                  message: ref.watch(oldpasswordErrorProvider),
+                                ),
+                                ODHeight(15),
+                                Text(
+                                  "비밀번호",
+                                  style: SpoqaHanSansNeo.medium.set(
+                                    size: 16,
+                                    height: 35,
+                                    letter: -1,
+                                    color: ColorStyles.black100,
+                                  ),
+                                ),
+                                ODInput(
+                                  hintText: "영문+숫자 조합 8~16자",
+                                  maxLength: 16,
+                                  onChanged: (value) => ref.read(passwordProvider.notifier).update(value),
+                                  message: ref.watch(passwordErrorProvider),
+                                ),
+                                ODHeight(15),
+                                Text(
+                                  "비밀번호 확인",
+                                  style: SpoqaHanSansNeo.medium.set(
+                                    size: 16,
+                                    height: 35,
+                                    letter: -1,
+                                    color: ColorStyles.black100,
+                                  ),
+                                ),
+                                ODInput(
+                                  hintText: "영문+숫자 조합 8~16자",
+                                  maxLength: 16,
+                                  onChanged: (value) => ref.read(passwordVerifyProvider.notifier).update(value),
+                                  message: ref.watch(passwordVerifyMessageProvider),
+                                  messageType: ref.watch(passwordVerifyMessageTypeProvider),
+                                ),
+                                ODHeight(43),
+                              ],
+                            ),
+                          ),
+                          okEnabled: ref.watch(okEnabledProvider),
+                          onOkTap: () => onUpdatePassword(context, ref),
+                          onCancelTap: () => context.pop(),
+                        );
+                      },
+                    );
+                  },
+                );
+              },
+            ),
           ],
         ),
       ),

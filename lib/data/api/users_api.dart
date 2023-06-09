@@ -4,6 +4,7 @@ import 'package:ohsundosun/model/request/users/sign_up_request.dart';
 import 'package:ohsundosun/model/request/users/update_mbti_request.dart';
 import 'package:ohsundosun/model/request/users/update_nickname_request.dart';
 import 'package:ohsundosun/model/request/users/update_notification_request.dart';
+import 'package:ohsundosun/model/request/user/update_password_request.dart';
 import 'package:ohsundosun/model/response/common/data_response.dart';
 import 'package:ohsundosun/model/response/users/get_user_info_response.dart';
 import 'package:retrofit/retrofit.dart';
@@ -41,5 +42,10 @@ abstract class UsersApi {
   @POST("/v1/users/rating")
   Future<DataResponse> addRating(
     @Body() AddRatingRequest body,
+  );
+
+  @PATCH("/v1/users/password")
+  Future<DataResponse> updatePassword(
+    @Body() UpdatePasswordRequest body,
   );
 }
