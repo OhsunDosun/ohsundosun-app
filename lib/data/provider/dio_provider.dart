@@ -90,7 +90,7 @@ Dio dio(DioRef ref) {
                         },
                       ),
                       data: SignInRequest(
-                        type: ref.read(appSignInTypeProvider) ?? SignInType.defaultSignIn,
+                        type: ref.read(appSignInTypeProvider),
                         email: ref.read(appEmailProvider) ?? "",
                         password: ref.read(appPasswordProvider) ?? "",
                         fcm: ref.read(fcmTokenProvider),
@@ -117,7 +117,7 @@ Dio dio(DioRef ref) {
 
                     return handler.resolve(reRequest);
                   } on DioError catch (_) {
-                    await ref.read(appSignInTypeProvider.notifier).update(null);
+                    await ref.read(appSignInTypeProvider.notifier).update(SignInType.defaultSignIn);
                     await ref.read(appEmailProvider.notifier).update(null);
                     await ref.read(appPasswordProvider.notifier).update(null);
 

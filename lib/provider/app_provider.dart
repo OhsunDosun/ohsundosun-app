@@ -108,12 +108,12 @@ class AppPassword extends _$AppPassword {
 @Riverpod(keepAlive: true)
 class AppSignInType extends _$AppSignInType {
   @override
-  SignInType? build() {
-    return null;
+  SignInType build() {
+    return SignInType.defaultSignIn;
   }
 
-  Future<void> update(SignInType? value) async {
-    await ref.read(secureStorageProvider).write(key: StorageKey.signInType, value: value?.toString());
+  Future<void> update(SignInType value) async {
+    await ref.read(secureStorageProvider).write(key: StorageKey.signInType, value: value.toString());
     state = value;
   }
 }
@@ -141,7 +141,7 @@ class UserInfo extends _$UserInfo {
 }
 
 onSignOut(WidgetRef ref) {
-  ref.read(appSignInTypeProvider.notifier).update(null);
+  ref.read(appSignInTypeProvider.notifier).update(SignInType.defaultSignIn);
   ref.read(appEmailProvider.notifier).update(null);
   ref.read(appPasswordProvider.notifier).update(null);
 

@@ -29,7 +29,7 @@ class SplashView extends HookConsumerWidget {
 
       final signInType = (await ref.read(secureStorageProvider).read(key: StorageKey.signInType))?.toSignInType();
 
-      await ref.read(appSignInTypeProvider.notifier).update(signInType);
+      await ref.read(appSignInTypeProvider.notifier).update(signInType ?? SignInType.defaultSignIn);
       await ref.read(appEmailProvider.notifier).update(await ref.read(secureStorageProvider).read(key: StorageKey.email));
       await ref.read(appPasswordProvider.notifier).update(await ref.read(secureStorageProvider).read(key: StorageKey.password));
 
