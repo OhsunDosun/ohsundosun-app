@@ -7,6 +7,7 @@ import 'package:ohsundosun/model/common/comment.dart';
 import 'package:ohsundosun/model/common/post.dart';
 import 'package:ohsundosun/model/request/posts/add_comment_request.dart';
 import 'package:ohsundosun/model/request/posts/upsert_post_request.dart';
+import 'package:ohsundosun/model/response/common/paging_response.dart';
 import 'package:ohsundosun/util/error.dart';
 
 class PostsService {
@@ -14,11 +15,11 @@ class PostsService {
 
   PostsService(this._postsApi);
 
-  Future<List<Post>> getPosts({
+  Future<PagingData<PostUI>> getPosts({
     required PostSort sort,
     String? keyword,
     int? limit,
-    String? lastKey,
+    int? lastKey,
     MBTI? mbti,
     PostType? type,
   }) async {
@@ -27,12 +28,15 @@ class PostsService {
         sort: sort.toValue(),
         keyword: keyword ?? "",
         limit: limit?.toString() ?? "",
-        lastKey: lastKey ?? "",
+        lastKey: lastKey?.toString() ?? "",
         mbti: mbti?.toString() ?? "",
         type: type?.toValue() ?? "",
       );
 
-      return response.data;
+      return PagingData(
+        lastKey: response.data.lastKey,
+        list: response.data.list.map((post) => post.toPostUI()).toList(),
+      );
     } on DioError catch (e) {
       return Future.error(getErrorMessage(e));
     } catch (e) {
@@ -40,7 +44,7 @@ class PostsService {
     }
   }
 
-  Future<Post> getPost({
+  Future<PostUI> getPost({
     required String postId,
   }) async {
     try {
@@ -48,7 +52,7 @@ class PostsService {
         postId: postId,
       );
 
-      return response.data;
+      return response.data.toPostUI();
     } on DioError catch (e) {
       return Future.error(getErrorMessage(e));
     } catch (e) {
@@ -56,16 +60,16 @@ class PostsService {
     }
   }
 
-  Future<List<Comment>> getComments({
+  Future<PagingData<Comment>> getComments({
     required String postId,
     int? limit,
-    String? lastKey,
+    int? lastKey,
   }) async {
     try {
       final response = await _postsApi.getComments(
         postId: postId,
         limit: limit?.toString() ?? "",
-        lastKey: lastKey ?? "",
+        lastKey: lastKey?.toString() ?? "",
       );
 
       return response.data;
@@ -146,10 +150,10 @@ class PostsService {
     required String content,
   }) async {
     try {
-      await _postsApi.addCommentReply(
+      await _postsApi.addComment(
         postId: postId,
-        commentId: commentId,
         body: AddCommentRequest(
+          commentId: commentId,
           content: content,
         ),
       );

@@ -1,6 +1,5 @@
 import 'dart:async';
 import 'package:ohsundosun/model/request/auth/sign_in_request.dart';
-import 'package:ohsundosun/model/response/auth/sign_in_response.dart';
 import 'package:ohsundosun/model/response/auth/verify_response.dart';
 import 'package:ohsundosun/model/response/common/data_response.dart';
 import 'package:ohsundosun/model/response/common/default_response.dart';
@@ -14,7 +13,7 @@ abstract class AuthApi {
   factory AuthApi(Dio dio, {String baseUrl}) = _AuthApi;
 
   @POST("/v1/auth/sign")
-  Future<DataResponse<SignInData>> signIn(
+  Future<DefaultResponse> signIn(
     @Body() SignInRequest body,
   );
 

@@ -10,87 +10,102 @@ class CommentItem extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final createdAt = comment.createdAt.unixTimestampToDateTime();
+    final isReply = comment.level > 0;
 
     return Column(
       children: [
         Container(
           padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 18.h),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
+          child: Row(
             children: [
-              SizedBox(
-                height: 20.h,
-                child: Row(
+              if (isReply) ...[
+                const ODSvgImage(
+                  SvgImage.icReply,
+                  size: 10,
+                ),
+                ODWidth(8),
+              ],
+              Expanded(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    ODBadge(
-                      comment.mbti.toString(),
-                      type: comment.mbti.toODBadgeType(),
+                    SizedBox(
+                      height: 20.h,
+                      child: Row(
+                        children: [
+                          ODBadge(
+                            comment.mbti.toString(),
+                            type: comment.mbti.toODBadgeType(),
+                          ),
+                          ODWidth(5),
+                          Text(
+                            comment.nickname,
+                            style: SpoqaHanSansNeo.regular.set(
+                              size: 12,
+                              height: 18,
+                              letter: -1,
+                              color: ColorStyles.black60,
+                            ),
+                          ),
+                          ODWidth(5),
+                          Container(
+                            height: 2.r,
+                            width: 2.r,
+                            decoration: const BoxDecoration(
+                              shape: BoxShape.circle,
+                              color: ColorStyles.black40,
+                            ),
+                          ),
+                          ODWidth(5),
+                          Text(
+                            DateFormat("yyyy.MM.dd").format(comment.createdAt),
+                            style: SpoqaHanSansNeo.regular.set(
+                              size: 12,
+                              height: 18,
+                              color: ColorStyles.black40,
+                            ),
+                          ),
+                          const Spacer(),
+                          InkWell(
+                            onTap: () {},
+                            child: const ODSvgImage(
+                              SvgImage.icDotCircle,
+                              size: 20,
+                            ),
+                          )
+                        ],
+                      ),
                     ),
-                    ODWidth(5),
+                    ODHeight(8),
                     Text(
-                      comment.nickname,
+                      comment.content,
                       style: SpoqaHanSansNeo.regular.set(
-                        size: 12,
-                        height: 18,
+                        size: 13,
+                        height: 19.5,
                         letter: -1,
-                        color: ColorStyles.black60,
+                        color: ColorStyles.black100,
                       ),
                     ),
-                    ODWidth(5),
-                    Container(
-                      height: 2.r,
-                      width: 2.r,
-                      decoration: const BoxDecoration(
-                        shape: BoxShape.circle,
-                        color: ColorStyles.black40,
+                    if (!isReply) ...[
+                      ODHeight(2),
+                      InkWell(
+                        onTap: () {
+                          ref.read(commentIdProvider.notifier).update(comment.uuid);
+                          ref.read(postDetailCommentFocusNodeProvider).requestFocus();
+                        },
+                        child: Text(
+                          "답글달기",
+                          style: SpoqaHanSansNeo.medium.set(
+                            size: 12,
+                            height: 18,
+                            letter: -1,
+                            color: ColorStyles.black40,
+                            decoration: TextDecoration.underline,
+                          ),
+                        ),
                       ),
-                    ),
-                    ODWidth(5),
-                    Text(
-                      DateFormat("yyyy.MM.dd").format(createdAt),
-                      style: SpoqaHanSansNeo.regular.set(
-                        size: 12,
-                        height: 18,
-                        color: ColorStyles.black40,
-                      ),
-                    ),
-                    const Spacer(),
-                    InkWell(
-                      onTap: () {},
-                      child: const ODSvgImage(
-                        SvgImage.icDotCircle,
-                        size: 20,
-                      ),
-                    )
+                    ],
                   ],
-                ),
-              ),
-              ODHeight(8),
-              Text(
-                comment.content,
-                style: SpoqaHanSansNeo.regular.set(
-                  size: 13,
-                  height: 19.5,
-                  letter: -1,
-                  color: ColorStyles.black100,
-                ),
-              ),
-              ODHeight(2),
-              InkWell(
-                onTap: () {
-                  ref.read(commentIdProvider.notifier).update(comment.key);
-                  ref.read(postDetailCommentFocusNodeProvider).requestFocus();
-                },
-                child: Text(
-                  "답글달기",
-                  style: SpoqaHanSansNeo.medium.set(
-                    size: 12,
-                    height: 18,
-                    letter: -1,
-                    color: ColorStyles.black40,
-                    decoration: TextDecoration.underline,
-                  ),
                 ),
               ),
             ],
@@ -100,98 +115,6 @@ class CommentItem extends ConsumerWidget {
           height: 1.h,
           color: ColorStyles.black10,
           margin: EdgeInsets.symmetric(horizontal: 20.w),
-        ),
-        ...comment.replys.map(
-          (reply) {
-            final createdAt = reply.createdAt.unixTimestampToDateTime();
-
-            return Column(
-              children: [
-                Container(
-                  padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 18.h),
-                  child: Row(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      const ODSvgImage(
-                        SvgImage.icReply,
-                        size: 10,
-                      ),
-                      ODWidth(8),
-                      Expanded(
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            SizedBox(
-                              height: 20.h,
-                              child: Row(
-                                children: [
-                                  ODBadge(
-                                    reply.mbti.toString(),
-                                    type: reply.mbti.toODBadgeType(),
-                                  ),
-                                  ODWidth(5),
-                                  Text(
-                                    reply.nickname,
-                                    style: SpoqaHanSansNeo.regular.set(
-                                      size: 12,
-                                      height: 18,
-                                      letter: -1,
-                                      color: ColorStyles.black60,
-                                    ),
-                                  ),
-                                  ODWidth(5),
-                                  Container(
-                                    height: 2.r,
-                                    width: 2.r,
-                                    decoration: const BoxDecoration(
-                                      shape: BoxShape.circle,
-                                      color: ColorStyles.black40,
-                                    ),
-                                  ),
-                                  ODWidth(5),
-                                  Text(
-                                    DateFormat("yyyy.MM.dd").format(createdAt),
-                                    style: SpoqaHanSansNeo.regular.set(
-                                      size: 12,
-                                      height: 18,
-                                      color: ColorStyles.black40,
-                                    ),
-                                  ),
-                                  const Spacer(),
-                                  InkWell(
-                                    onTap: () {},
-                                    child: const ODSvgImage(
-                                      SvgImage.icDotCircle,
-                                      size: 20,
-                                    ),
-                                  )
-                                ],
-                              ),
-                            ),
-                            ODHeight(8),
-                            Text(
-                              reply.content,
-                              style: SpoqaHanSansNeo.regular.set(
-                                size: 13,
-                                height: 19.5,
-                                letter: -1,
-                                color: ColorStyles.black100,
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-                Container(
-                  height: 1.h,
-                  color: ColorStyles.black10,
-                  margin: EdgeInsets.symmetric(horizontal: 20.w),
-                ),
-              ],
-            );
-          },
         ),
       ],
     );

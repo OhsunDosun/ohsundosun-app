@@ -13,7 +13,6 @@ import 'package:ohsundosun/asset/index.dart';
 import 'package:ohsundosun/enum/loading_type.dart';
 import 'package:ohsundosun/model/common/comment.dart';
 import 'package:ohsundosun/module/main/post_detail/post_detail_provider.dart';
-import 'package:ohsundosun/provider/app_provider.dart';
 import 'package:ohsundosun/provider/router_provider.dart';
 import 'package:ohsundosun/style/index.dart';
 import 'package:ohsundosun/util/extension.dart';
@@ -37,7 +36,6 @@ class PostDetailView extends HookConsumerWidget {
     ref.watch(postDetailCommentProvider);
 
     final loading = ref.watch(loadingProvider);
-    final userInfo = ref.watch(userInfoProvider);
     final post = ref.watch(postDetailProvider);
     final pagingController = ref.watch(pagingProvider);
 
@@ -73,7 +71,7 @@ class PostDetailView extends HookConsumerWidget {
                     ),
                     offset: Offset(-70.w, 4.h),
                     menus: [
-                      if (post?.userKey == userInfo.key) ...[
+                      if (post?.isMine == true) ...[
                         ("edit", "수정하기"),
                         ("delete", "삭제하기"),
                       ],
@@ -82,7 +80,7 @@ class PostDetailView extends HookConsumerWidget {
                     onTap: (value) async {
                       switch (value) {
                         case "edit":
-                          final result = await context.push(AppRoute.postUpdate, extra: post?.key);
+                          final result = await context.push(AppRoute.postUpdate, extra: post?.uuid);
 
                           if (result == true) {
                             ref.read(postDetailProvider.notifier).reload();
@@ -215,10 +213,9 @@ class PostDetailView extends HookConsumerWidget {
                                           ),
                                         ),
                                         Text(
-                                          DateTime.now().difference(post.createdAt.unixTimestampToDateTime()) <= const Duration(minutes: 10)
-                                              ? DateFormat('${DateTime.now().difference(post.createdAt.unixTimestampToDateTime()).inMinutes}분전')
-                                                  .format(post.createdAt.unixTimestampToDateTime())
-                                              : DateFormat('yy.MM.dd').format(post.createdAt.unixTimestampToDateTime()),
+                                          DateTime.now().difference(post.createdAt) <= const Duration(minutes: 10)
+                                              ? DateFormat('${DateTime.now().difference(post.createdAt).inMinutes}분전').format(post.createdAt)
+                                              : DateFormat('yy.MM.dd').format(post.createdAt),
                                           style: SpoqaHanSansNeo.medium.set(
                                             size: 12,
                                             height: 18,
@@ -237,7 +234,7 @@ class PostDetailView extends HookConsumerWidget {
                           ],
                         ),
                       ),
-                      PagedSliverList<String?, Comment>(
+                      PagedSliverList<int?, Comment>(
                         pagingController: pagingController,
                         builderDelegate: PagedChildBuilderDelegate<Comment>(
                           itemBuilder: (context, item, index) => CommentItem(item),

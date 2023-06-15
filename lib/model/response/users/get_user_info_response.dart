@@ -7,7 +7,7 @@ part 'get_user_info_response.g.dart';
 @freezed
 class GetUserInfoData with _$GetUserInfoData {
   const factory GetUserInfoData({
-    required String key,
+    required String uuid,
     required String nickname,
     required MBTI mbti,
     required bool notification,

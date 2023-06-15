@@ -57,16 +57,6 @@ class PostUpsertView extends HookConsumerWidget {
                 children: [
                   ODBackAppBar(
                     text: "게시글 ${isInsert.value ? "작성" : "수정"}",
-                    right: InkWell(
-                      onTap: () {},
-                      child: Padding(
-                        padding: EdgeInsets.all(10.r),
-                        child: const ODSvgImage(
-                          SvgImage.icDot,
-                          size: 20,
-                        ),
-                      ),
-                    ),
                   ),
                   Expanded(
                     child: Padding(
@@ -313,43 +303,44 @@ class PostUpsertView extends HookConsumerWidget {
                                     ),
                                   ),
                                   ODWidth(5),
-                                  ...images.map(
-                                    (image) => Container(
-                                      margin: EdgeInsets.only(left: 5.w),
-                                      height: 70.r,
-                                      width: 70.r,
-                                      child: Stack(
-                                        alignment: Alignment.bottomLeft,
-                                        children: [
-                                          Container(
-                                            height: 65.r,
-                                            width: 65.r,
-                                            decoration: BoxDecoration(
-                                              borderRadius: BorderRadius.circular(5),
-                                              border: Border.all(width: 1.r, color: ColorStyles.black20),
-                                            ),
-                                            child: ClipRRect(
-                                              borderRadius: BorderRadius.circular(5),
-                                              child: CachedNetworkImage(
-                                                imageUrl: image,
-                                                fit: BoxFit.cover,
+                                  if (images.isNotEmpty)
+                                    ...images.map(
+                                      (image) => Container(
+                                        margin: EdgeInsets.only(left: 5.w),
+                                        height: 70.r,
+                                        width: 70.r,
+                                        child: Stack(
+                                          alignment: Alignment.bottomLeft,
+                                          children: [
+                                            Container(
+                                              height: 65.r,
+                                              width: 65.r,
+                                              decoration: BoxDecoration(
+                                                borderRadius: BorderRadius.circular(5),
+                                                border: Border.all(width: 1.r, color: ColorStyles.black20),
+                                              ),
+                                              child: ClipRRect(
+                                                borderRadius: BorderRadius.circular(5),
+                                                child: CachedNetworkImage(
+                                                  imageUrl: image,
+                                                  fit: BoxFit.cover,
+                                                ),
                                               ),
                                             ),
-                                          ),
-                                          Container(
-                                            alignment: Alignment.topRight,
-                                            child: InkWell(
-                                              onTap: () => ref.read(imagesProvider.notifier).delete(image),
-                                              child: const ODSvgImage(
-                                                SvgImage.icDelete,
-                                                size: 20,
+                                            Container(
+                                              alignment: Alignment.topRight,
+                                              child: InkWell(
+                                                onTap: () => ref.read(imagesProvider.notifier).delete(image),
+                                                child: const ODSvgImage(
+                                                  SvgImage.icDelete,
+                                                  size: 20,
+                                                ),
                                               ),
                                             ),
-                                          ),
-                                        ],
+                                          ],
+                                        ),
                                       ),
-                                    ),
-                                  )
+                                    )
                                 ],
                               ),
                             ),

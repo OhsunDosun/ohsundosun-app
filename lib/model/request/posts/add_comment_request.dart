@@ -6,6 +6,7 @@ part 'add_comment_request.g.dart';
 @freezed
 class AddCommentRequest with _$AddCommentRequest {
   const factory AddCommentRequest({
+    String? commentId,
     required String content,
   }) = _AddCommentRequest;
 

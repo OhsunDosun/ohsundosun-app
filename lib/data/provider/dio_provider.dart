@@ -1,13 +1,11 @@
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:ohsundosun/model/request/auth/sign_in_request.dart';
-import 'package:ohsundosun/model/response/auth/sign_in_response.dart';
-import 'package:ohsundosun/model/response/auth/sign_new_response.dart';
-import 'package:ohsundosun/model/response/common/data_response.dart';
 import 'package:ohsundosun/model/response/common/default_response.dart';
 import 'package:ohsundosun/provider/app_provider.dart';
 import 'package:ohsundosun/enum/sign_in_type.dart';
 import 'package:ohsundosun/provider/router_provider.dart';
+import 'package:ohsundosun/util/extension.dart';
 import 'package:ohsundosun/util/logger.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
@@ -22,7 +20,18 @@ Dio dio(DioRef ref) {
     ..options.headers["Cookie"] = "access-token=${ref.watch(accessTokenProvider)};"
     ..interceptors.add(InterceptorsWrapper(onRequest: (options, handler) {
       return handler.next(options);
-    }, onResponse: (response, handler) {
+    }, onResponse: (response, handler) async {
+      if ("${response.realUri}" == "${ref.watch(baseUrlProvider)}/v1/auth/sign") {
+        final (accessToken, refreshToken) = response.getToken();
+
+        if (accessToken != null) {
+          await ref.read(accessTokenProvider.notifier).update(accessToken);
+        }
+        if (accessToken != null) {
+          await ref.read(refreshTokenProvider.notifier).update(refreshToken);
+        }
+      }
+
       return handler.next(response);
     }, onError: (DioError e, handler) async {
       final data = e.response?.data;
@@ -43,9 +52,14 @@ Dio dio(DioRef ref) {
                 ),
               );
 
-              final signNewResponse =
-                  DataResponse<SignNewData>.fromJson(signNewResult.data, (json) => SignNewData.fromJson(json as Map<String, dynamic>));
-              await ref.read(accessTokenProvider.notifier).update(signNewResponse.data.accessToken);
+              final (accessToken, refreshToken) = signNewResult.getToken();
+
+              if (accessToken != null) {
+                await ref.read(accessTokenProvider.notifier).update(accessToken);
+              }
+              if (accessToken != null) {
+                await ref.read(refreshTokenProvider.notifier).update(refreshToken);
+              }
 
               if (error.requestOptions.data is FormData) {
                 FormData formData = FormData();
@@ -97,11 +111,14 @@ Dio dio(DioRef ref) {
                       ),
                     );
 
-                    final signInResponse =
-                        DataResponse<SignInData>.fromJson(signInResult.data, (json) => SignInData.fromJson(json as Map<String, dynamic>));
+                    final (accessToken, refreshToken) = signInResult.getToken();
 
-                    await ref.read(accessTokenProvider.notifier).update(signInResponse.data.accessToken);
-                    await ref.read(refreshTokenProvider.notifier).update(signInResponse.data.refreshToken);
+                    if (accessToken != null) {
+                      await ref.read(accessTokenProvider.notifier).update(accessToken);
+                    }
+                    if (accessToken != null) {
+                      await ref.read(refreshTokenProvider.notifier).update(refreshToken);
+                    }
 
                     final reRequest = await dio.request(
                       error.requestOptions.baseUrl + error.requestOptions.path,

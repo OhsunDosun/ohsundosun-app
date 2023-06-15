@@ -45,7 +45,7 @@ class CommentId extends _$CommentId {
 @riverpod
 class PostDetail extends _$PostDetail {
   @override
-  Post? build() => null;
+  PostUI? build() => null;
 
   Future<void> init() async {
     final postId = ref.read(postIdProvider);
@@ -84,7 +84,7 @@ int limit(LimitRef ref) {
 }
 
 @riverpod
-void Function(String?) pageRequestListener(PageRequestListenerRef ref) {
+void Function(int?) pageRequestListener(PageRequestListenerRef ref) {
   return (pageKey) async {
     await ref.read(pagingProvider.notifier).load(type: LoadingType.load, lastKey: pageKey);
   };
@@ -93,11 +93,11 @@ void Function(String?) pageRequestListener(PageRequestListenerRef ref) {
 @riverpod
 class Paging extends _$Paging {
   @override
-  PagingController<String?, Comment> build() => PagingController(firstPageKey: null);
+  PagingController<int?, Comment> build() => PagingController(firstPageKey: null);
 
   Future<void> load({
     LoadingType type = LoadingType.init,
-    String? lastKey,
+    int? lastKey,
   }) async {
     final postId = ref.read(postIdProvider);
     final postsService = ref.read(postsServiceProvider);
@@ -111,7 +111,7 @@ class Paging extends _$Paging {
     }
 
     try {
-      final comments = await postsService.getComments(
+      final commentPaging = await postsService.getComments(
         postId: postId!,
         limit: limit,
         lastKey: lastKey,
@@ -121,13 +121,13 @@ class Paging extends _$Paging {
         state.itemList = [];
       }
 
-      if (comments.length < limit) {
-        state.appendLastPage(comments);
-      } else {
-        state.appendPage(comments, comments.last.key);
+      if (commentPaging.lastKey != null) {
+        state.appendPage(commentPaging.list, commentPaging.lastKey);
         if (type == LoadingType.init || type == LoadingType.reload || type == LoadingType.refresh) {
           state.addPageRequestListener(ref.watch(pageRequestListenerProvider));
         }
+      } else {
+        state.appendLastPage(commentPaging.list);
       }
 
       if (type == LoadingType.init || type == LoadingType.reload) {

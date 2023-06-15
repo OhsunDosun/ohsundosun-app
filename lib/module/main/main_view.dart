@@ -14,7 +14,6 @@ import 'package:ohsundosun/module/main/main_provider.dart';
 import 'package:ohsundosun/provider/app_provider.dart';
 import 'package:ohsundosun/provider/router_provider.dart';
 import 'package:ohsundosun/style/index.dart';
-import 'package:ohsundosun/util/extension.dart';
 import 'package:ohsundosun/widget/index.dart';
 import 'package:intl/intl.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
@@ -412,9 +411,9 @@ class MainView extends HookConsumerWidget {
                 CupertinoSliverRefreshControl(
                   onRefresh: () async => await ref.read(pagingProvider.notifier).load(type: LoadingType.refresh),
                 ),
-                PagedSliverList<String?, Post>(
+                PagedSliverList<int?, PostUI>(
                   pagingController: pagingController,
-                  builderDelegate: PagedChildBuilderDelegate<Post>(
+                  builderDelegate: PagedChildBuilderDelegate<PostUI>(
                     itemBuilder: (context, item, index) => PostItem(item),
                     firstPageErrorIndicatorBuilder: (_) => const SizedBox.shrink(),
                     newPageErrorIndicatorBuilder: (_) => const SizedBox.shrink(),

@@ -4,6 +4,7 @@ import 'package:ohsundosun/model/common/post.dart';
 import 'package:ohsundosun/model/request/posts/add_comment_request.dart';
 import 'package:ohsundosun/model/request/posts/upsert_post_request.dart';
 import 'package:ohsundosun/model/response/common/data_response.dart';
+import 'package:ohsundosun/model/response/common/paging_response.dart';
 import 'package:retrofit/retrofit.dart';
 import 'package:dio/dio.dart';
 
@@ -14,7 +15,7 @@ abstract class PostsApi {
   factory PostsApi(Dio dio, {String baseUrl}) = _PostsApi;
 
   @GET("/v1/posts")
-  Future<DataResponse<List<Post>>> getPosts({
+  Future<DataResponse<PagingData<Post>>> getPosts({
     @Query("sort") required String sort,
     @Query("keyword") required String keyword,
     @Query("limit") required String limit,
@@ -40,7 +41,7 @@ abstract class PostsApi {
   });
 
   @GET("/v1/posts/{postId}/comments")
-  Future<DataResponse<List<Comment>>> getComments({
+  Future<DataResponse<PagingData<Comment>>> getComments({
     @Path('postId') required String postId,
     @Query("limit") required String limit,
     @Query("lastKey") required String lastKey,
@@ -49,13 +50,6 @@ abstract class PostsApi {
   @POST("/v1/posts/{postId}/comments")
   Future<DataResponse> addComment({
     @Path('postId') required String postId,
-    @Body() required AddCommentRequest body,
-  });
-
-  @POST("/v1/posts/{postId}/comments/{commentId}/reply")
-  Future<DataResponse> addCommentReply({
-    @Path('postId') required String postId,
-    @Path('commentId') required String commentId,
     @Body() required AddCommentRequest body,
   });
 }

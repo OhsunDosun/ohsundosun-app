@@ -122,7 +122,7 @@ class AppSignInType extends _$AppSignInType {
 class UserInfo extends _$UserInfo {
   @override
   GetUserInfoData build() {
-    return const GetUserInfoData(key: '', nickname: '', mbti: MBTI.intp, notification: false);
+    return const GetUserInfoData(uuid: '', nickname: '', mbti: MBTI.intp, notification: false);
   }
 
   Future<void> update(GetUserInfoData value) async {

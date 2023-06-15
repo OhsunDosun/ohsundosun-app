@@ -1,7 +1,7 @@
 part of 'main_view.dart';
 
 class PostItem extends StatelessWidget {
-  final Post post;
+  final PostUI post;
 
   const PostItem(
     this.post, {
@@ -10,12 +10,10 @@ class PostItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final createdAt = post.createdAt.unixTimestampToDateTime();
-
     return Container(
       margin: EdgeInsets.only(top: 15.h, left: 20.w, right: 20.w),
       child: InkWell(
-        onTap: () => context.go(AppRoute.postDetail, extra: post.key),
+        onTap: () => context.go(AppRoute.postDetail, extra: post.uuid),
         child: Container(
           padding: EdgeInsets.only(top: 15.h, bottom: 18.h, left: 20.w, right: 20),
           decoration: BoxDecoration(
@@ -114,9 +112,9 @@ class PostItem extends StatelessWidget {
                     ),
                   ),
                   Text(
-                    DateTime.now().difference(createdAt) <= const Duration(minutes: 10)
-                        ? DateFormat('${DateTime.now().difference(createdAt).inMinutes}분전').format(createdAt)
-                        : DateFormat('yy.MM.dd').format(createdAt),
+                    DateTime.now().difference(post.createdAt) <= const Duration(minutes: 10)
+                        ? DateFormat('${DateTime.now().difference(post.createdAt).inMinutes}분전').format(post.createdAt)
+                        : DateFormat('yy.MM.dd').format(post.createdAt),
                     style: SpoqaHanSansNeo.medium.set(
                       size: 12,
                       height: 18,

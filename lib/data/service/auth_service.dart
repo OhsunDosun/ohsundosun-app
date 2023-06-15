@@ -2,7 +2,6 @@ import 'package:dio/dio.dart';
 import 'package:ohsundosun/data/api/auth_api.dart';
 import 'package:ohsundosun/enum/sign_in_type.dart';
 import 'package:ohsundosun/model/request/auth/sign_in_request.dart';
-import 'package:ohsundosun/model/response/auth/sign_in_response.dart';
 import 'package:ohsundosun/model/response/auth/verify_response.dart';
 import 'package:ohsundosun/model/response/common/default_response.dart';
 import 'package:ohsundosun/util/error.dart';
@@ -12,14 +11,14 @@ class AuthService {
 
   AuthService(this._authApi);
 
-  Future<SignInData> signIn({
+  Future<void> signIn({
     SignInType type = SignInType.defaultSignIn,
     required String email,
     required String password,
     String? fcmToken,
   }) async {
     try {
-      final response = await _authApi.signIn(
+      await _authApi.signIn(
         SignInRequest(
           type: type,
           email: email,
@@ -27,8 +26,6 @@ class AuthService {
           fcm: fcmToken,
         ),
       );
-
-      return response.data;
     } on DioError catch (e) {
       return Future.error(getErrorMessage(e));
     } catch (e) {

@@ -90,7 +90,7 @@ Future<void> onSignIn(BuildContext context, WidgetRef ref) async {
     final email = ref.watch(emailProvider);
     final password = ref.watch(passwordProvider);
 
-    final data = await authService.signIn(
+    await authService.signIn(
       email: email,
       password: password,
       fcmToken: ref.read(fcmTokenProvider),
@@ -99,9 +99,6 @@ Future<void> onSignIn(BuildContext context, WidgetRef ref) async {
     ref.read(appSignInTypeProvider.notifier).update(SignInType.defaultSignIn);
     ref.read(appEmailProvider.notifier).update(email);
     ref.read(appPasswordProvider.notifier).update(password);
-
-    ref.read(accessTokenProvider.notifier).update(data.accessToken);
-    ref.read(refreshTokenProvider.notifier).update(data.refreshToken);
 
     ref.read(userInfoProvider.notifier).update(await usersService.getUserInfo());
 

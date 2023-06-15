@@ -109,7 +109,7 @@ double sortPaddingLeft(SortPaddingLeftRef ref) {
 }
 
 @riverpod
-void Function(String?) pageRequestListener(PageRequestListenerRef ref) {
+void Function(int?) pageRequestListener(PageRequestListenerRef ref) {
   return (pageKey) async {
     await ref.read(pagingProvider.notifier).load(type: LoadingType.load, lastKey: pageKey);
   };
@@ -118,11 +118,11 @@ void Function(String?) pageRequestListener(PageRequestListenerRef ref) {
 @riverpod
 class Paging extends _$Paging {
   @override
-  PagingController<String?, Post> build() => PagingController(firstPageKey: null);
+  PagingController<int?, PostUI> build() => PagingController(firstPageKey: null);
 
   Future<void> load({
     LoadingType type = LoadingType.init,
-    String? lastKey,
+    int? lastKey,
   }) async {
     final scrollController = ref.read(scrollControllerProvider);
     final postsService = ref.read(postsServiceProvider);
@@ -144,7 +144,7 @@ class Paging extends _$Paging {
     }
 
     try {
-      final posts = await postsService.getPosts(
+      final postPaging = await postsService.getPosts(
         sort: sort,
         limit: limit,
         lastKey: lastKey,
@@ -157,13 +157,13 @@ class Paging extends _$Paging {
         scrollController.jumpTo(0);
       }
 
-      if (posts.length < limit) {
-        state.appendLastPage(posts);
-      } else {
-        state.appendPage(posts, posts.last.key);
+      if (postPaging.lastKey != null) {
+        state.appendPage(postPaging.list, postPaging.lastKey);
         if (type == LoadingType.init || type == LoadingType.reload || type == LoadingType.refresh) {
           state.addPageRequestListener(ref.watch(pageRequestListenerProvider));
         }
+      } else {
+        state.appendLastPage(postPaging.list);
       }
 
       if (type == LoadingType.init || type == LoadingType.reload) {

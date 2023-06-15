@@ -249,7 +249,7 @@ Future<void> onSignUp(BuildContext context, WidgetRef ref) async {
       password: password,
     );
 
-    final data = await authService.signIn(
+    await authService.signIn(
       email: email,
       password: password,
       fcmToken: ref.read(fcmTokenProvider),
@@ -258,10 +258,6 @@ Future<void> onSignUp(BuildContext context, WidgetRef ref) async {
     ref.read(appSignInTypeProvider.notifier).update(SignInType.defaultSignIn);
     ref.read(appEmailProvider.notifier).update(email);
     ref.read(appPasswordProvider.notifier).update(password);
-
-    ref.read(accessTokenProvider.notifier).update(data.accessToken);
-    ref.read(refreshTokenProvider.notifier).update(data.refreshToken);
-
     ref.read(userInfoProvider.notifier).update(await usersService.getUserInfo());
 
     loading.update(false);
