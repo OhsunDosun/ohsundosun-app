@@ -419,7 +419,7 @@
 		};
 		249021D4217E4FDB00AE95B9 /* Profile-prod */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 7AFA3C8E1D35360C0083082E /* Release.xcconfig */;
+			baseConfigurationReference = D09A9E9AEC670F96D0CE4B42 /* Pods-Runner.profile-prod.xcconfig */;
 			buildSettings = {
 				APP_FLAVOR = prod;
 				APP_NAME = "오순도순";
@@ -556,7 +556,7 @@
 		};
 		97C147061CF9000F007C117D /* Debug-prod */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 9740EEB21CF90195004384FC /* Debug.xcconfig */;
+			baseConfigurationReference = 24F18BC3F3F144E361371F6B /* Pods-Runner.debug-prod.xcconfig */;
 			buildSettings = {
 				APP_FLAVOR = prod;
 				APP_NAME = "오순도순";
@@ -587,7 +587,7 @@
 		};
 		97C147071CF9000F007C117D /* Release-prod */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 7AFA3C8E1D35360C0083082E /* Release.xcconfig */;
+			baseConfigurationReference = 5B57D4EB69E359D82251DDEC /* Pods-Runner.release-prod.xcconfig */;
 			buildSettings = {
 				APP_FLAVOR = prod;
 				APP_NAME = "오순도순";
@@ -672,7 +672,7 @@
 		};
 		C433DED329764CCE00A3383B /* Debug-dev */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 9740EEB21CF90195004384FC /* Debug.xcconfig */;
+			baseConfigurationReference = BA20F4DA69423D5792154166 /* Pods-Runner.debug-dev.xcconfig */;
 			buildSettings = {
 				APP_FLAVOR = dev;
 				APP_NAME = "오순도순 Dev";
@@ -754,7 +754,7 @@
 		};
 		C433DED529764CD500A3383B /* Release-dev */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 7AFA3C8E1D35360C0083082E /* Release.xcconfig */;
+			baseConfigurationReference = 3E2411AE30E42EA7C1BC6367 /* Pods-Runner.release-dev.xcconfig */;
 			buildSettings = {
 				APP_FLAVOR = dev;
 				APP_NAME = "오순도순 Dev";
@@ -834,7 +834,7 @@
 		};
 		C433DED729764CDC00A3383B /* Profile-dev */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 7AFA3C8E1D35360C0083082E /* Release.xcconfig */;
+			baseConfigurationReference = 68B4B521C8268B3FC9D608C8 /* Pods-Runner.profile-dev.xcconfig */;
 			buildSettings = {
 				APP_FLAVOR = dev;
 				APP_NAME = "오순도순 Dev";

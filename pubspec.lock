@@ -1068,10 +1068,10 @@ packages:
     dependency: "direct dev"
     description:
       name: retrofit_generator
-      sha256: ba40c4b34a865976b426c59e2731962ac10ce9b36c92a0f3633c5417e272a287
+      sha256: "7c0cca6106a8bc14ade20120700a3f607a932413f37d180e095b4658d415c6c8"
       url: "https://pub.dev"
     source: hosted
-    version: "6.0.0+3"
+    version: "7.0.1"
   riverpod:
     dependency: transitive
     description:
