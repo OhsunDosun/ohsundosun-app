@@ -6,6 +6,7 @@ import 'package:ohsundosun/data/provider/service_provider.dart';
 import 'package:ohsundosun/enum/loading_type.dart';
 import 'package:ohsundosun/model/common/comment.dart';
 import 'package:ohsundosun/model/common/post.dart';
+import 'package:ohsundosun/provider/router_provider.dart';
 import 'package:ohsundosun/util/extension.dart';
 import 'package:ohsundosun/widget/index.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
@@ -47,13 +48,36 @@ class PostDetail extends _$PostDetail {
   @override
   PostUI? build() => null;
 
-  Future<void> init() async {
+  Future<void> init(BuildContext context) async {
     final postId = ref.read(postIdProvider);
     final postsService = ref.read(postsServiceProvider);
 
-    state = await postsService.getPost(postId: postId!);
+    try {
+      state = await postsService.getPost(postId: postId ?? "");
 
-    await ref.read(pagingProvider.notifier).load();
+      await ref.read(pagingProvider.notifier).load();
+    } on String catch (errorCode) {
+      late String errorText;
+
+      switch (errorCode) {
+        default:
+          errorText = "알 수 없는 에러가 발생했습니다.";
+          break;
+      }
+
+      showDialog(
+        context: context,
+        builder: (context) {
+          return ODAlertModal(
+            text: errorText,
+            onTap: () {
+              context.pop();
+              context.pop();
+            },
+          );
+        },
+      );
+    }
   }
 
   Future<void> reload() async {
@@ -76,6 +100,152 @@ class PostDetail extends _$PostDetail {
 
     await ref.read(pagingProvider.notifier).load(type: LoadingType.refresh);
   }
+
+  Future<void> report(
+    BuildContext context, {
+    String? commentId,
+  }) async {
+    final loading = ref.read(loadingProvider.notifier);
+
+    final postService = ref.read(postsServiceProvider);
+
+    loading.update(LoadingType.load);
+    try {
+      if (commentId != null) {
+        await postService.reportComment(
+          postId: state?.uuid ?? "",
+          commentId: commentId,
+        );
+      } else {
+        await postService.reportPost(
+          postId: state?.uuid ?? "",
+        );
+      }
+
+      loading.update(LoadingType.none);
+    } on String catch (errorCode) {
+      loading.update(LoadingType.none);
+
+      late String errorText;
+
+      switch (errorCode) {
+        default:
+          errorText = "알 수 없는 에러가 발생했습니다.";
+          break;
+      }
+
+      showDialog(
+        context: context,
+        builder: (context) {
+          return ODAlertModal(
+            text: errorText,
+            onTap: () => context.pop(),
+          );
+        },
+      );
+    }
+  }
+
+  Future<void> delete(
+    BuildContext context, {
+    String? commentId,
+  }) async {
+    final loading = ref.read(loadingProvider.notifier);
+
+    final postService = ref.read(postsServiceProvider);
+
+    loading.update(LoadingType.load);
+    try {
+      if (commentId != null) {
+        await postService.deleteComment(
+          postId: state?.uuid ?? "",
+          commentId: commentId,
+        );
+
+        await reload();
+      } else {
+        await postService.deletePost(
+          postId: state?.uuid ?? "",
+        );
+
+        loading.update(LoadingType.none);
+        ref.watch(routerProvider).pop(true);
+      }
+    } on String catch (errorCode) {
+      loading.update(LoadingType.none);
+
+      late String errorText;
+
+      switch (errorCode) {
+        default:
+          errorText = "알 수 없는 에러가 발생했습니다.";
+          break;
+      }
+
+      showDialog(
+        context: context,
+        builder: (context) {
+          return ODAlertModal(
+            text: errorText,
+            onTap: () => context.pop(),
+          );
+        },
+      );
+    }
+  }
+
+  Future<void> onAddComment(BuildContext context) async {
+    FocusScope.of(context).unFocus();
+
+    final loading = ref.read(loadingProvider.notifier);
+
+    try {
+      loading.update(LoadingType.load);
+
+      final postService = ref.read(postsServiceProvider);
+
+      final commentId = ref.read(commentIdProvider);
+      final comment = ref.read(postDetailCommentProvider);
+
+      if (commentId != null) {
+        await postService.addCommentReply(
+          postId: state?.uuid ?? "",
+          commentId: commentId,
+          content: comment,
+        );
+      } else {
+        await postService.addComment(
+          postId: state?.uuid ?? "",
+          content: comment,
+        );
+      }
+
+      await reload();
+      ref.read(postDetailCommentProvider.notifier).reset();
+
+      loading.update(LoadingType.none);
+    } on String catch (errorCode) {
+      loading.update(LoadingType.none);
+
+      late String errorText;
+
+      switch (errorCode) {
+        default:
+          errorText = "알 수 없는 에러가 발생했습니다.";
+          break;
+      }
+
+      showDialog(
+        context: context,
+        builder: (context) {
+          return ODAlertModal(
+            text: errorText,
+            onTap: () => context.pop(),
+          );
+        },
+      );
+    }
+  }
 }
 
 @riverpod
@@ -93,7 +263,7 @@ void Function(int?) pageRequestListener(PageRequestListenerRef ref) {
 @riverpod
 class Paging extends _$Paging {
   @override
-  PagingController<int?, Comment> build() => PagingController(firstPageKey: null);
+  PagingController<int?, CommentUI> build() => PagingController(firstPageKey: null);
 
   Future<void> load({
     LoadingType type = LoadingType.init,
@@ -177,59 +347,5 @@ class PostDetailComment extends _$PostDetailComment {
 
   void update(String value) {
     state = value;
-  }
-}
-
-Future<void> onAddComment(BuildContext context, WidgetRef ref) async {
-  FocusScope.of(context).unFocus();
-
-  final loading = ref.read(loadingProvider.notifier);
-
-  try {
-    loading.update(LoadingType.load);
-
-    final postService = ref.read(postsServiceProvider);
-
-    final postId = ref.read(postIdProvider);
-    final commentId = ref.read(commentIdProvider);
-    final comment = ref.read(postDetailCommentProvider);
-
-    if (commentId != null) {
-      await postService.addCommentReply(
-        postId: postId!,
-        commentId: commentId,
-        content: comment,
-      );
-    } else {
-      await postService.addComment(
-        postId: postId!,
-        content: comment,
-      );
-    }
-
-    await ref.read(pagingProvider.notifier).load(type: LoadingType.reload);
-    ref.read(postDetailCommentProvider.notifier).reset();
-
-    loading.update(LoadingType.none);
-  } on String catch (errorCode) {
-    loading.update(LoadingType.none);
-
-    late String errorText;
-
-    switch (errorCode) {
-      default:
-        errorText = "알 수 없는 에러가 발생헀습니다.";
-        break;
-    }
-
-    showDialog(
-      context: context,
-      builder: (context) {
-        return ODAlertModal(
-          text: errorText,
-          onTap: () => context.pop(),
-        );
-      },
-    );
   }
 }

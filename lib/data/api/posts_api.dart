@@ -2,7 +2,8 @@ import 'dart:async';
 import 'package:ohsundosun/model/common/comment.dart';
 import 'package:ohsundosun/model/common/post.dart';
 import 'package:ohsundosun/model/request/posts/add_comment_request.dart';
-import 'package:ohsundosun/model/request/posts/upsert_post_request.dart';
+import 'package:ohsundosun/model/request/posts/add_post_request.dart';
+import 'package:ohsundosun/model/request/posts/update_post_request.dart';
 import 'package:ohsundosun/model/response/common/data_response.dart';
 import 'package:ohsundosun/model/response/common/paging_response.dart';
 import 'package:retrofit/retrofit.dart';
@@ -31,13 +32,23 @@ abstract class PostsApi {
 
   @POST("/v1/posts")
   Future<DataResponse> addPost({
-    @Body() required UpsertPostRequest body,
+    @Body() required AddPostRequest body,
   });
 
   @PUT("/v1/posts/{postId}")
   Future<DataResponse> updatePost({
     @Path('postId') required String postId,
-    @Body() required UpsertPostRequest body,
+    @Body() required UpdatePostRequest body,
+  });
+
+  @DELETE("/v1/posts/{postId}")
+  Future<DataResponse> deletePost({
+    @Path('postId') required String postId,
+  });
+
+  @POST("/v1/posts/{postId}/report")
+  Future<DataResponse> reportPost({
+    @Path('postId') required String postId,
   });
 
   @GET("/v1/posts/{postId}/comments")
@@ -51,5 +62,17 @@ abstract class PostsApi {
   Future<DataResponse> addComment({
     @Path('postId') required String postId,
     @Body() required AddCommentRequest body,
+  });
+
+  @DELETE("/v1/posts/{postId}/comments/{commnetId}")
+  Future<DataResponse> deleteComment({
+    @Path('postId') required String postId,
+    @Path('commnetId') required String commnetId,
+  });
+
+  @POST("/v1/posts/{postId}/comments/{commnetId}/report")
+  Future<DataResponse> reportComment({
+    @Path('postId') required String postId,
+    @Path('commnetId') required String commnetId,
   });
 }

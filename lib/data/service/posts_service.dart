@@ -6,7 +6,8 @@ import 'package:ohsundosun/enum/post_type.dart';
 import 'package:ohsundosun/model/common/comment.dart';
 import 'package:ohsundosun/model/common/post.dart';
 import 'package:ohsundosun/model/request/posts/add_comment_request.dart';
-import 'package:ohsundosun/model/request/posts/upsert_post_request.dart';
+import 'package:ohsundosun/model/request/posts/add_post_request.dart';
+import 'package:ohsundosun/model/request/posts/update_post_request.dart';
 import 'package:ohsundosun/model/response/common/paging_response.dart';
 import 'package:ohsundosun/util/error.dart';
 
@@ -35,7 +36,7 @@ class PostsService {
 
       return PagingData(
         lastKey: response.data.lastKey,
-        list: response.data.list.map((post) => post.toPostUI()).toList(),
+        list: response.data.list.map((item) => item.toUI()).toList(),
       );
     } on DioError catch (e) {
       return Future.error(getErrorMessage(e));
@@ -52,7 +53,7 @@ class PostsService {
         postId: postId,
       );
 
-      return response.data.toPostUI();
+      return response.data.toUI();
     } on DioError catch (e) {
       return Future.error(getErrorMessage(e));
     } catch (e) {
@@ -60,7 +61,7 @@ class PostsService {
     }
   }
 
-  Future<PagingData<Comment>> getComments({
+  Future<PagingData<CommentUI>> getComments({
     required String postId,
     int? limit,
     int? lastKey,
@@ -72,7 +73,10 @@ class PostsService {
         lastKey: lastKey?.toString() ?? "",
       );
 
-      return response.data;
+      return PagingData(
+        lastKey: response.data.lastKey,
+        list: response.data.list.map((item) => item.toUI()).toList(),
+      );
     } on DioError catch (e) {
       return Future.error(getErrorMessage(e));
     } catch (e) {
@@ -82,14 +86,16 @@ class PostsService {
 
   Future<void> addPost({
     required PostType type,
+    required MBTI mbti,
     required String title,
     required String content,
     required List<String> images,
   }) async {
     try {
       await _postsApi.addPost(
-        body: UpsertPostRequest(
+        body: AddPostRequest(
           type: type.toValue(),
+          mbti: mbti.toString(),
           title: title,
           content: content,
           images: images,
@@ -112,12 +118,40 @@ class PostsService {
     try {
       await _postsApi.updatePost(
         postId: postId,
-        body: UpsertPostRequest(
+        body: UpdatePostRequest(
           type: type.toValue(),
           title: title,
           content: content,
           images: images,
         ),
+      );
+    } on DioError catch (e) {
+      return Future.error(getErrorMessage(e));
+    } catch (e) {
+      return Future.error("error");
+    }
+  }
+
+  Future<void> deletePost({
+    required String postId,
+  }) async {
+    try {
+      await _postsApi.deletePost(
+        postId: postId,
+      );
+    } on DioError catch (e) {
+      return Future.error(getErrorMessage(e));
+    } catch (e) {
+      return Future.error("error");
+    }
+  }
+
+  Future<void> reportPost({
+    required String postId,
+  }) async {
+    try {
+      await _postsApi.reportPost(
+        postId: postId,
       );
     } on DioError catch (e) {
       return Future.error(getErrorMessage(e));
@@ -156,6 +190,38 @@ class PostsService {
           commentId: commentId,
           content: content,
         ),
+      );
+    } on DioError catch (e) {
+      return Future.error(getErrorMessage(e));
+    } catch (e) {
+      return Future.error("error");
+    }
+  }
+
+  Future<void> deleteComment({
+    required String postId,
+    required String commentId,
+  }) async {
+    try {
+      await _postsApi.deleteComment(
+        postId: postId,
+        commnetId: commentId,
+      );
+    } on DioError catch (e) {
+      return Future.error(getErrorMessage(e));
+    } catch (e) {
+      return Future.error("error");
+    }
+  }
+
+  Future<void> reportComment({
+    required String postId,
+    required String commentId,
+  }) async {
+    try {
+      await _postsApi.reportComment(
+        postId: postId,
+        commnetId: commentId,
       );
     } on DioError catch (e) {
       return Future.error(getErrorMessage(e));

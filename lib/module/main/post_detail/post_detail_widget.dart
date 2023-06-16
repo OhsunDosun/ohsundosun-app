@@ -1,7 +1,7 @@
 part of 'post_detail_view.dart';
 
 class CommentItem extends ConsumerWidget {
-  final Comment comment;
+  final CommentUI comment;
 
   const CommentItem(
     this.comment, {
@@ -58,7 +58,9 @@ class CommentItem extends ConsumerWidget {
                           ),
                           ODWidth(5),
                           Text(
-                            DateFormat("yyyy.MM.dd").format(comment.createdAt),
+                            DateTime.now().difference(comment.createdAt) <= const Duration(minutes: 10)
+                                ? DateFormat('${DateTime.now().difference(comment.createdAt).inMinutes}분전').format(comment.createdAt)
+                                : DateFormat('yy.MM.dd').format(comment.createdAt),
                             style: SpoqaHanSansNeo.regular.set(
                               size: 12,
                               height: 18,
@@ -66,13 +68,31 @@ class CommentItem extends ConsumerWidget {
                             ),
                           ),
                           const Spacer(),
-                          InkWell(
-                            onTap: () {},
-                            child: const ODSvgImage(
+                          ODPopupMenuButton(
+                            button: const ODSvgImage(
                               SvgImage.icDotCircle,
                               size: 20,
                             ),
-                          )
+                            offset: Offset(-80.w, -4.h),
+                            menus: [
+                              if (comment.isMine) ...[
+                                ("delete", "삭제하기"),
+                              ],
+                              ("report", "신고하기"),
+                            ],
+                            onTap: (value) async {
+                              switch (value) {
+                                case "report":
+                                  ref.read(postDetailProvider.notifier).report(context, commentId: comment.uuid);
+                                  break;
+                                case "delete":
+                                  ref.read(postDetailProvider.notifier).delete(context, commentId: comment.uuid);
+                                  break;
+                                case "url":
+                                  break;
+                              }
+                            },
+                          ),
                         ],
                       ),
                     ),

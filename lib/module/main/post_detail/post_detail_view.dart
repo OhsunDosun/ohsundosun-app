@@ -43,7 +43,7 @@ class PostDetailView extends HookConsumerWidget {
       SchedulerBinding.instance.addPostFrameCallback((_) {
         ref.read(postIdProvider.notifier).update(id);
 
-        ref.read(postDetailProvider.notifier).init();
+        ref.read(postDetailProvider.notifier).init(context);
       });
 
       return null;
@@ -75,7 +75,8 @@ class PostDetailView extends HookConsumerWidget {
                         ("edit", "수정하기"),
                         ("delete", "삭제하기"),
                       ],
-                      ("url", "URL 복사"),
+                      ("report", "신고하기"),
+                      // ("url", "URL 복사"),
                     ],
                     onTap: (value) async {
                       switch (value) {
@@ -86,7 +87,11 @@ class PostDetailView extends HookConsumerWidget {
                             ref.read(postDetailProvider.notifier).reload();
                           }
                           break;
+                        case "report":
+                          ref.read(postDetailProvider.notifier).report(context);
+                          break;
                         case "delete":
+                          ref.read(postDetailProvider.notifier).delete(context);
                           break;
                         case "url":
                           break;
@@ -234,9 +239,9 @@ class PostDetailView extends HookConsumerWidget {
                           ],
                         ),
                       ),
-                      PagedSliverList<int?, Comment>(
+                      PagedSliverList<int?, CommentUI>(
                         pagingController: pagingController,
-                        builderDelegate: PagedChildBuilderDelegate<Comment>(
+                        builderDelegate: PagedChildBuilderDelegate<CommentUI>(
                           itemBuilder: (context, item, index) => CommentItem(item),
                           firstPageErrorIndicatorBuilder: (_) => const SizedBox.shrink(),
                           newPageErrorIndicatorBuilder: (_) => const SizedBox.shrink(),
@@ -345,7 +350,7 @@ class PostDetailView extends HookConsumerWidget {
                             ),
                           ),
                           InkWell(
-                            onTap: () => onAddComment(context, ref),
+                            onTap: () => ref.read(postDetailProvider.notifier).onAddComment(context),
                             child: Padding(
                               padding: EdgeInsets.all(10.r),
                               child: const ODSvgImage(

@@ -46,7 +46,7 @@ class PostUI with _$PostUI {
 }
 
 extension PostExtention on Post {
-  PostUI toPostUI() {
+  PostUI toUI() {
     return PostUI(
       uuid: uuid,
       mbti: mbti,
@@ -55,7 +55,7 @@ extension PostExtention on Post {
       title: title,
       content: content,
       images: images.split(",")..removeWhere((image) => image == ""),
-      createdAt: createdAt,
+      createdAt: createdAt.toLocal(),
       likeCount: likeCount,
       commentCount: commentCount,
       isLike: isLike,

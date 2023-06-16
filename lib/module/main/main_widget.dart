@@ -1,6 +1,6 @@
 part of 'main_view.dart';
 
-class PostItem extends StatelessWidget {
+class PostItem extends ConsumerWidget {
   final PostUI post;
 
   const PostItem(
@@ -9,11 +9,17 @@ class PostItem extends StatelessWidget {
   });
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
     return Container(
       margin: EdgeInsets.only(top: 15.h, left: 20.w, right: 20.w),
       child: InkWell(
-        onTap: () => context.go(AppRoute.postDetail, extra: post.uuid),
+        onTap: () async {
+          final result = await context.push(AppRoute.postDetail, extra: post.uuid);
+
+          if (result == true) {
+            ref.read(pagingProvider.notifier).load(type: LoadingType.reload);
+          }
+        },
         child: Container(
           padding: EdgeInsets.only(top: 15.h, bottom: 18.h, left: 20.w, right: 20),
           decoration: BoxDecoration(

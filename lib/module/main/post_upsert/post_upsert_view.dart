@@ -9,8 +9,8 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:image_cropper/image_cropper.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:ohsundosun/asset/index.dart';
+import 'package:ohsundosun/enum/mbti.dart';
 import 'package:ohsundosun/module/main/post_upsert/post_upsert_provider.dart';
-import 'package:ohsundosun/provider/app_provider.dart';
 import 'package:ohsundosun/provider/router_provider.dart';
 import 'package:ohsundosun/style/index.dart';
 import 'package:ohsundosun/util/extension.dart';
@@ -26,20 +26,19 @@ class PostUpsertView extends HookConsumerWidget {
 
   @override
   Widget build(BuildContext context, ref) {
-    final userInfo = ref.watch(userInfoProvider);
     final title = ref.watch(titleProvider);
+    final mbti = ref.watch(postWriteMBTIProvider);
     ref.watch(contentProvider);
     final images = ref.watch(imagesProvider);
 
     final isInsert = useState(id?.isEmpty ?? true);
-    final mbti = useState(userInfo.mbti);
 
     useEffect(() {
-      if (!isInsert.value) {
-        SchedulerBinding.instance.addPostFrameCallback((_) {
+      SchedulerBinding.instance.addPostFrameCallback((_) {
+        if (!isInsert.value) {
           getPost(ref, postId: id!);
-        });
-      }
+        }
+      });
       return null;
     }, []);
 
@@ -69,8 +68,8 @@ class PostUpsertView extends HookConsumerWidget {
                             Row(
                               children: [
                                 ODBadge(
-                                  mbti.value.toString(),
-                                  type: mbti.value.toODBadgeType(),
+                                  mbti.toString(),
+                                  type: mbti.toODBadgeType(),
                                 ),
                               ],
                             ),

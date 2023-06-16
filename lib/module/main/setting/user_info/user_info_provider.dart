@@ -267,7 +267,7 @@ onUpdatePassword(
 
     switch (errorCode) {
       default:
-        errorText = "알 수 없는 에러가 발생헀습니다.";
+        errorText = "알 수 없는 에러가 발생했습니다.";
         break;
     }
 

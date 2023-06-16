@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:ohsundosun/data/provider/service_provider.dart';
 import 'package:ohsundosun/enum/image_category.dart';
+import 'package:ohsundosun/enum/mbti.dart';
 import 'package:ohsundosun/enum/post_type.dart';
 import 'package:ohsundosun/provider/app_provider.dart';
 import 'package:ohsundosun/provider/router_provider.dart';
@@ -28,6 +29,16 @@ class PostWritePostType extends _$PostWritePostType {
   PostType build() => PostType.daily;
 
   void update(PostType value) {
+    state = value;
+  }
+}
+
+@riverpod
+class PostWriteMBTI extends _$PostWriteMBTI {
+  @override
+  MBTI build() => ref.read(userInfoProvider).mbti;
+
+  void update(MBTI value) {
     state = value;
   }
 }
@@ -146,6 +157,7 @@ Future<void> upsertPost(
   final loading = ref.read(loadingProvider.notifier);
 
   final type = ref.watch(postWritePostTypeProvider);
+  final mbti = ref.watch(postWriteMBTIProvider);
   final title = ref.watch(titleProvider);
   final content = ref.watch(contentProvider);
   final images = ref.watch(imagesProvider);
@@ -165,6 +177,7 @@ Future<void> upsertPost(
       );
     } else {
       await postsService.addPost(
+        mbti: mbti,
         type: type,
         title: title,
         content: content,

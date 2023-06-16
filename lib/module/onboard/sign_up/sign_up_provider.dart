@@ -270,7 +270,7 @@ Future<void> onSignUp(BuildContext context, WidgetRef ref) async {
 
     switch (errorCode) {
       default:
-        errorText = "알 수 없는 에러가 발생헀습니다.";
+        errorText = "알 수 없는 에러가 발생했습니다.";
         break;
     }
 
@@ -318,7 +318,7 @@ Future<void> onEmailVerify(WidgetRef ref) async {
 
     switch (errorCode) {
       default:
-        errorText = "알 수 없는 에러가 발생헀습니다.";
+        errorText = "알 수 없는 에러가 발생했습니다.";
         break;
     }
 
