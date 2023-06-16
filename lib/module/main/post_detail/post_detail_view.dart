@@ -19,6 +19,7 @@ import 'package:ohsundosun/util/extension.dart';
 import 'package:ohsundosun/widget/index.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:collection/collection.dart';
+import 'package:expandable_page_view/expandable_page_view.dart';
 
 part 'post_detail_widget.dart';
 
@@ -156,9 +157,32 @@ class PostDetailView extends HookConsumerWidget {
                                           ...[0, 1, 2].map(
                                             (index) => Expanded(
                                               child: post.images.elementAtOrNull(index) != null
-                                                  ? CachedNetworkImage(
-                                                      imageUrl: post.images.elementAt(index),
-                                                      errorWidget: (context, url, error) => const SizedBox.shrink(),
+                                                  ? InkWell(
+                                                      onTap: () {
+                                                        showDialog(
+                                                          context: context,
+                                                          builder: (context) => Column(
+                                                            mainAxisAlignment: MainAxisAlignment.center,
+                                                            children: [
+                                                              ExpandablePageView(
+                                                                controller: PageController(initialPage: index),
+                                                                children: post.images
+                                                                    .map(
+                                                                      (image) => CachedNetworkImage(
+                                                                        imageUrl: image,
+                                                                        errorWidget: (context, url, error) => const SizedBox.shrink(),
+                                                                      ),
+                                                                    )
+                                                                    .toList(),
+                                                              ),
+                                                            ],
+                                                          ),
+                                                        );
+                                                      },
+                                                      child: CachedNetworkImage(
+                                                        imageUrl: post.images.elementAt(index),
+                                                        errorWidget: (context, url, error) => const SizedBox.shrink(),
+                                                      ),
                                                     )
                                                   : const SizedBox.shrink(),
                                             ),
