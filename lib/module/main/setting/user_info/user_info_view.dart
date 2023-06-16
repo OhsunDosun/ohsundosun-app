@@ -160,7 +160,7 @@ class UserInfoView extends ConsumerWidget {
                                   message: ref.watch(passwordVerifyMessageProvider),
                                   messageType: ref.watch(passwordVerifyMessageTypeProvider),
                                 ),
-                                ODHeight(43),
+                                ODHeight(15),
                               ],
                             ),
                           ),

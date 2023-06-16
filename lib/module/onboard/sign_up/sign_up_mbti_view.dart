@@ -36,7 +36,7 @@ class SignUpMBTIView extends ConsumerWidget {
                         child: Text(
                           textAlign: TextAlign.center,
                           "유형선택",
-                          style: SpoqaHanSansNeo.medium.set(
+                          style: SpoqaHanSansNeo.bold.set(
                             size: 16,
                             height: 35,
                             letter: -1,

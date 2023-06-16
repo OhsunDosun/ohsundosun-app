@@ -40,19 +40,24 @@ class ODConfirmModal extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.stretch,
               mainAxisSize: MainAxisSize.min,
               children: [
-                content ??
-                    Padding(
-                      padding: EdgeInsets.only(top: 39.h, bottom: 45.h, left: 10.w, right: 10.w),
-                      child: Text(
-                        text ?? "",
-                        textAlign: TextAlign.center,
-                        style: SpoqaHanSansNeo.medium.set(
-                          size: 18,
-                          letter: -1,
-                          color: ColorStyles.black100,
+                Flexible(
+                  fit: FlexFit.loose,
+                  child: ODSingleScroll(
+                    child: content ??
+                        Padding(
+                          padding: EdgeInsets.only(top: 39.h, bottom: 45.h, left: 10.w, right: 10.w),
+                          child: Text(
+                            text ?? "",
+                            textAlign: TextAlign.center,
+                            style: SpoqaHanSansNeo.medium.set(
+                              size: 18,
+                              letter: -1,
+                              color: ColorStyles.black100,
+                            ),
+                          ),
                         ),
-                      ),
-                    ),
+                  ),
+                ),
                 Row(
                   children: [
                     ODButton(

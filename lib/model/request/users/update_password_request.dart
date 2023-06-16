@@ -6,6 +6,7 @@ part 'update_password_request.g.dart';
 @freezed
 class UpdatePasswordRequest with _$UpdatePasswordRequest {
   const factory UpdatePasswordRequest({
+    required String type,
     required String newPassword,
     required String oldPassword,
   }) = _UpdatePasswordRequest;

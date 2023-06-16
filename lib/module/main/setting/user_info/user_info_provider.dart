@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:ohsundosun/data/provider/service_provider.dart';
+import 'package:ohsundosun/enum/sign_in_type.dart';
 import 'package:ohsundosun/model/response/auth/verify_response.dart';
 import 'package:ohsundosun/provider/app_provider.dart';
 import 'package:ohsundosun/provider/router_provider.dart';
@@ -248,14 +249,22 @@ onUpdatePassword(
   try {
     loading.update(true);
 
+    final signInType = ref.read(appSignInTypeProvider);
     final usersService = ref.read(usersServiceProvider);
     final password = ref.read(passwordProvider);
     final oldpassword = ref.read(oldpasswordProvider);
 
     await usersService.updatePassword(
+      type: signInType,
       newpassword: password,
       oldpassword: oldpassword,
     );
+
+    if (signInType == SignInType.newPasswordSignIn) {
+      ref.read(appSignInTypeProvider.notifier).update(SignInType.defaultSignIn);
+    }
+
+    ref.read(appPasswordProvider.notifier).update(password);
 
     loading.update(false);
 

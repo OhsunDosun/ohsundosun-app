@@ -26,7 +26,6 @@ class UpdateMBTIView extends ConsumerWidget {
               const ODBackAppBar(
                 text: "MBTI 수정",
               ),
-              ODHeight(20),
               Expanded(
                 child: ODSingleScroll(
                   child: Padding(
@@ -34,6 +33,7 @@ class UpdateMBTIView extends ConsumerWidget {
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.stretch,
                       children: [
+                        ODHeight(20),
                         RichText(
                           text: TextSpan(
                             children: [

@@ -1,12 +1,13 @@
 import 'package:dio/dio.dart';
 import 'package:ohsundosun/data/api/users_api.dart';
 import 'package:ohsundosun/enum/mbti.dart';
+import 'package:ohsundosun/enum/sign_in_type.dart';
 import 'package:ohsundosun/model/request/users/add_rating_request.dart';
 import 'package:ohsundosun/model/request/users/sign_up_request.dart';
 import 'package:ohsundosun/model/request/users/update_mbti_request.dart';
 import 'package:ohsundosun/model/request/users/update_nickname_request.dart';
 import 'package:ohsundosun/model/request/users/update_notification_request.dart';
-import 'package:ohsundosun/model/request/user/update_password_request.dart';
+import 'package:ohsundosun/model/request/users/update_password_request.dart';
 import 'package:ohsundosun/model/response/users/get_user_info_response.dart';
 import 'package:ohsundosun/util/error.dart';
 
@@ -112,12 +113,14 @@ class UsersService {
   }
 
   Future<void> updatePassword({
+    required SignInType type,
     required String newpassword,
     required String oldpassword,
   }) async {
     try {
       await _usersApi.updatePassword(
         UpdatePasswordRequest(
+          type: type.toString(),
           newPassword: newpassword,
           oldPassword: oldpassword,
         ),

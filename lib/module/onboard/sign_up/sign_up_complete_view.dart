@@ -46,7 +46,7 @@ class SignUpCompleteView extends ConsumerWidget {
                         child: Text(
                           textAlign: TextAlign.center,
                           "완료",
-                          style: SpoqaHanSansNeo.medium.set(
+                          style: SpoqaHanSansNeo.bold.set(
                             size: 16,
                             height: 35,
                             letter: -1,

@@ -26,7 +26,7 @@ class SignUpInfoView extends ConsumerWidget {
                             child: Text(
                               textAlign: TextAlign.center,
                               "계정정보",
-                              style: SpoqaHanSansNeo.medium.set(
+                              style: SpoqaHanSansNeo.bold.set(
                                 size: 16,
                                 height: 35,
                                 letter: -1,
