@@ -5,6 +5,7 @@ import 'package:ohsundosun/asset/index.dart';
 import 'package:ohsundosun/enum/mbti.dart';
 import 'package:ohsundosun/module/onboard/sign_up/sign_up_provider.dart';
 import 'package:ohsundosun/provider/router_provider.dart';
+import 'package:ohsundosun/util/extension.dart';
 import 'package:ohsundosun/widget/index.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:ohsundosun/style/index.dart';
@@ -24,25 +25,28 @@ class SignUpView extends ConsumerWidget {
     ref.watch(passwordProvider);
     ref.watch(signUpMBTIProvider);
 
-    return Scaffold(
-      body: ODSafeColumn(
-        top: true,
-        children: [
-          const ODBackAppBar(
-            text: '회원가입',
-          ),
-          Expanded(
-            child: PageView(
-              physics: const NeverScrollableScrollPhysics(),
-              controller: pageController,
-              children: const [
-                SignUpInfoView(),
-                SignUpMBTIView(),
-                SignUpCompleteView(),
-              ],
+    return GestureDetector(
+      onTap: () => FocusScope.of(context).unFocus(),
+      child: Scaffold(
+        body: ODSafeColumn(
+          top: true,
+          children: [
+            const ODBackAppBar(
+              text: '회원가입',
             ),
-          ),
-        ],
+            Expanded(
+              child: PageView(
+                physics: const NeverScrollableScrollPhysics(),
+                controller: pageController,
+                children: const [
+                  SignUpInfoView(),
+                  SignUpMBTIView(),
+                  SignUpCompleteView(),
+                ],
+              ),
+            ),
+          ],
+        ),
       ),
     );
   }

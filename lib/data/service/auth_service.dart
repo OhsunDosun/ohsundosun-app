@@ -1,6 +1,7 @@
 import 'package:dio/dio.dart';
 import 'package:ohsundosun/data/api/auth_api.dart';
 import 'package:ohsundosun/enum/sign_in_type.dart';
+import 'package:ohsundosun/model/request/auth/new_password_request.dart';
 import 'package:ohsundosun/model/request/auth/sign_in_request.dart';
 import 'package:ohsundosun/model/response/auth/verify_response.dart';
 import 'package:ohsundosun/model/response/common/default_response.dart';
@@ -43,11 +44,29 @@ class AuthService {
     }
   }
 
+  Future<void> newPassword({
+    required String email,
+  }) async {
+    try {
+      await _authApi.newPassword(
+        body: NewPasswordRequest(
+          email: email,
+        ),
+      );
+    } on DioError catch (e) {
+      return Future.error(getErrorMessage(e));
+    } catch (e) {
+      return Future.error("error");
+    }
+  }
+
   Future<VerifyData> verifyEmail({
     required String email,
   }) async {
     try {
-      final response = await _authApi.verifyEmail(email: email);
+      final response = await _authApi.verifyEmail(
+        email: email,
+      );
 
       return response.data;
     } on DioError catch (e) {
@@ -61,7 +80,9 @@ class AuthService {
     required String nickname,
   }) async {
     try {
-      final response = await _authApi.verifyNickname(nickname: nickname);
+      final response = await _authApi.verifyNickname(
+        nickname: nickname,
+      );
 
       return response.data;
     } on DioError catch (e) {

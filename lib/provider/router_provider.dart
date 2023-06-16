@@ -57,7 +57,7 @@ class AppRoute {
         ),
         GoRoute(
           path: AppRoute.findPassword.replaceAll("$onboard/", ""),
-          builder: (context, state) => const PwfindView(),
+          builder: (context, state) => const FindPasswordView(),
         ),
       ],
     ),

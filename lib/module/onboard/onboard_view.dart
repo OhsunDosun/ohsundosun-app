@@ -12,6 +12,7 @@ class OnboardView extends ConsumerWidget {
   @override
   Widget build(BuildContext context, ref) {
     return Scaffold(
+      resizeToAvoidBottomInset: false,
       body: ODSafeBox(
         top: true,
         child: Column(

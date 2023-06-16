@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'package:ohsundosun/model/request/auth/new_password_request.dart';
 import 'package:ohsundosun/model/request/auth/sign_in_request.dart';
 import 'package:ohsundosun/model/response/auth/verify_response.dart';
 import 'package:ohsundosun/model/response/common/data_response.dart';
@@ -21,7 +22,9 @@ abstract class AuthApi {
   Future<DefaultResponse> signCheck();
 
   @POST("/v1/auth/password/new")
-  Future<DataResponse> newPassword();
+  Future<DefaultResponse> newPassword({
+    @Body() required NewPasswordRequest body,
+  });
 
   @GET("/v1/auth/verify/email/{email}")
   Future<DataResponse<VerifyData>> verifyEmail({

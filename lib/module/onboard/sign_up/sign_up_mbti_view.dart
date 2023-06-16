@@ -18,17 +18,6 @@ class SignUpMBTIView extends ConsumerWidget {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.stretch,
                 children: [
-                  Text(
-                    textAlign: TextAlign.center,
-                    "회원가입",
-                    style: SpoqaHanSansNeo.bold.set(
-                      size: 28,
-                      height: 35,
-                      letter: -1,
-                      color: ColorStyles.black100,
-                    ),
-                  ),
-                  ODHeight(60),
                   Row(
                     children: [
                       Expanded(
