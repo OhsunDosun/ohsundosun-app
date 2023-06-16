@@ -40,9 +40,9 @@
 		68B4B521C8268B3FC9D608C8 /* Pods-Runner.profile-dev.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Runner.profile-dev.xcconfig"; path = "Target Support Files/Pods-Runner/Pods-Runner.profile-dev.xcconfig"; sourceTree = "<group>"; };
 		74858FAD1ED2DC5600515810 /* Runner-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Runner-Bridging-Header.h"; sourceTree = "<group>"; };
 		74858FAE1ED2DC5600515810 /* AppDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		7AFA3C8E1D35360C0083082E /* Release.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; name = Release.xcconfig; path = Flutter/Release.xcconfig; sourceTree = "<group>"; };
+		7AFA3C8E1D35360C0083082E /* Release-Prod.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; name = "Release-Prod.xcconfig"; path = "Flutter/Release-Prod.xcconfig"; sourceTree = "<group>"; };
 		89D446C0A0FF991ACFAFFE56 /* Pods_Runner.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Runner.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		9740EEB21CF90195004384FC /* Debug.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; name = Debug.xcconfig; path = Flutter/Debug.xcconfig; sourceTree = "<group>"; };
+		9740EEB21CF90195004384FC /* Debug-Dev.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; name = "Debug-Dev.xcconfig"; path = "Flutter/Debug-Dev.xcconfig"; sourceTree = "<group>"; };
 		9740EEB31CF90195004384FC /* Generated.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; name = Generated.xcconfig; path = Flutter/Generated.xcconfig; sourceTree = "<group>"; };
 		97C146EE1CF9000F007C117D /* Runner.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Runner.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		97C146FB1CF9000F007C117D /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -51,6 +51,10 @@
 		97C147021CF9000F007C117D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		BA20F4DA69423D5792154166 /* Pods-Runner.debug-dev.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Runner.debug-dev.xcconfig"; path = "Target Support Files/Pods-Runner/Pods-Runner.debug-dev.xcconfig"; sourceTree = "<group>"; };
 		C48F10E629C3E8C500A8C65B /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		C4F7C83D2A3BFE7800F075D7 /* Release-Dev.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; name = "Release-Dev.xcconfig"; path = "Flutter/Release-Dev.xcconfig"; sourceTree = "<group>"; };
+		C4F7C83E2A3BFEC500F075D7 /* Debug-Prod.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; name = "Debug-Prod.xcconfig"; path = "Flutter/Debug-Prod.xcconfig"; sourceTree = "<group>"; };
+		C4F7C83F2A3BFEEB00F075D7 /* Profile-Dev.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; name = "Profile-Dev.xcconfig"; path = "Flutter/Profile-Dev.xcconfig"; sourceTree = "<group>"; };
+		C4F7C8402A3BFEFF00F075D7 /* Profile-Prod.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; name = "Profile-Prod.xcconfig"; path = "Flutter/Profile-Prod.xcconfig"; sourceTree = "<group>"; };
 		C4FE750F29F7A20D008E0B8E /* Runner.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Runner.entitlements; sourceTree = "<group>"; };
 		D09A9E9AEC670F96D0CE4B42 /* Pods-Runner.profile-prod.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Runner.profile-prod.xcconfig"; path = "Target Support Files/Pods-Runner/Pods-Runner.profile-prod.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -71,8 +75,12 @@
 			isa = PBXGroup;
 			children = (
 				3B3967151E833CAA004F5970 /* AppFrameworkInfo.plist */,
-				9740EEB21CF90195004384FC /* Debug.xcconfig */,
-				7AFA3C8E1D35360C0083082E /* Release.xcconfig */,
+				C4F7C83E2A3BFEC500F075D7 /* Debug-Prod.xcconfig */,
+				9740EEB21CF90195004384FC /* Debug-Dev.xcconfig */,
+				C4F7C8402A3BFEFF00F075D7 /* Profile-Prod.xcconfig */,
+				C4F7C83F2A3BFEEB00F075D7 /* Profile-Dev.xcconfig */,
+				7AFA3C8E1D35360C0083082E /* Release-Prod.xcconfig */,
+				C4F7C83D2A3BFE7800F075D7 /* Release-Dev.xcconfig */,
 				9740EEB31CF90195004384FC /* Generated.xcconfig */,
 			);
 			name = Flutter;
@@ -419,7 +427,7 @@
 		};
 		249021D4217E4FDB00AE95B9 /* Profile-prod */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = D09A9E9AEC670F96D0CE4B42 /* Pods-Runner.profile-prod.xcconfig */;
+			baseConfigurationReference = C4F7C8402A3BFEFF00F075D7 /* Profile-Prod.xcconfig */;
 			buildSettings = {
 				APP_FLAVOR = prod;
 				APP_NAME = "오순도순";
@@ -437,6 +445,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
+				MARKETING_VERSION = "$(FLUTTER_BUILD_NAME)";
 				PRODUCT_BUNDLE_IDENTIFIER = com.ohsundosun.ohsundosun;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -556,7 +565,7 @@
 		};
 		97C147061CF9000F007C117D /* Debug-prod */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 24F18BC3F3F144E361371F6B /* Pods-Runner.debug-prod.xcconfig */;
+			baseConfigurationReference = C4F7C83E2A3BFEC500F075D7 /* Debug-Prod.xcconfig */;
 			buildSettings = {
 				APP_FLAVOR = prod;
 				APP_NAME = "오순도순";
@@ -574,6 +583,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
+				MARKETING_VERSION = "$(FLUTTER_BUILD_NAME)";
 				PRODUCT_BUNDLE_IDENTIFIER = com.ohsundosun.ohsundosun;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -587,7 +597,7 @@
 		};
 		97C147071CF9000F007C117D /* Release-prod */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 5B57D4EB69E359D82251DDEC /* Pods-Runner.release-prod.xcconfig */;
+			baseConfigurationReference = 7AFA3C8E1D35360C0083082E /* Release-Prod.xcconfig */;
 			buildSettings = {
 				APP_FLAVOR = prod;
 				APP_NAME = "오순도순";
@@ -605,6 +615,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
+				MARKETING_VERSION = "$(FLUTTER_BUILD_NAME)";
 				PRODUCT_BUNDLE_IDENTIFIER = com.ohsundosun.ohsundosun;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -672,7 +683,7 @@
 		};
 		C433DED329764CCE00A3383B /* Debug-dev */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = BA20F4DA69423D5792154166 /* Pods-Runner.debug-dev.xcconfig */;
+			baseConfigurationReference = 9740EEB21CF90195004384FC /* Debug-Dev.xcconfig */;
 			buildSettings = {
 				APP_FLAVOR = dev;
 				APP_NAME = "오순도순 Dev";
@@ -689,6 +700,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
+				MARKETING_VERSION = "$(FLUTTER_BUILD_NAME)";
 				PRODUCT_BUNDLE_IDENTIFIER = com.ohsundosun.ohsundosun.dev;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -754,7 +766,7 @@
 		};
 		C433DED529764CD500A3383B /* Release-dev */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 3E2411AE30E42EA7C1BC6367 /* Pods-Runner.release-dev.xcconfig */;
+			baseConfigurationReference = C4F7C83D2A3BFE7800F075D7 /* Release-Dev.xcconfig */;
 			buildSettings = {
 				APP_FLAVOR = dev;
 				APP_NAME = "오순도순 Dev";
@@ -772,6 +784,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
+				MARKETING_VERSION = "$(FLUTTER_BUILD_NAME)";
 				PRODUCT_BUNDLE_IDENTIFIER = com.ohsundosun.ohsundosun.dev;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -834,7 +847,7 @@
 		};
 		C433DED729764CDC00A3383B /* Profile-dev */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 68B4B521C8268B3FC9D608C8 /* Pods-Runner.profile-dev.xcconfig */;
+			baseConfigurationReference = C4F7C83F2A3BFEEB00F075D7 /* Profile-Dev.xcconfig */;
 			buildSettings = {
 				APP_FLAVOR = dev;
 				APP_NAME = "오순도순 Dev";
@@ -852,6 +865,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
+				MARKETING_VERSION = "$(FLUTTER_BUILD_NAME)";
 				PRODUCT_BUNDLE_IDENTIFIER = com.ohsundosun.ohsundosun.dev;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";

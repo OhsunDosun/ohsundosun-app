@@ -1,3 +1,4 @@
+import 'dart:io';
 import 'dart:math';
 
 import 'package:firebase_core/firebase_core.dart';
@@ -23,9 +24,20 @@ import 'package:ohsundosun/util/mode.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 Future<void> main() async {
-  SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle.dark);
+  SystemChrome.setSystemUIOverlayStyle(
+    SystemUiOverlayStyle.dark.copyWith(
+      statusBarColor: Colors.white,
+      statusBarBrightness: Brightness.dark,
+    ),
+  );
 
   WidgetsBinding widgetsBinding = WidgetsFlutterBinding.ensureInitialized();
+
+  SystemChrome.setEnabledSystemUIMode(
+    SystemUiMode.manual,
+    overlays: [SystemUiOverlay.bottom, SystemUiOverlay.top],
+  );
+
   // 가로 모드 세팅
   SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp]);
   // 스플래쉬 화면 유지

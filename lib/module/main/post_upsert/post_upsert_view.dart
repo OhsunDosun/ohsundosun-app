@@ -9,7 +9,6 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:image_cropper/image_cropper.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:ohsundosun/asset/index.dart';
-import 'package:ohsundosun/enum/mbti.dart';
 import 'package:ohsundosun/module/main/post_upsert/post_upsert_provider.dart';
 import 'package:ohsundosun/provider/router_provider.dart';
 import 'package:ohsundosun/style/index.dart';
