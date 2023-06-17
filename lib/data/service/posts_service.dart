@@ -7,6 +7,7 @@ import 'package:ohsundosun/model/common/comment.dart';
 import 'package:ohsundosun/model/common/post.dart';
 import 'package:ohsundosun/model/request/posts/add_comment_request.dart';
 import 'package:ohsundosun/model/request/posts/add_post_request.dart';
+import 'package:ohsundosun/model/request/posts/like_post_request.dart';
 import 'package:ohsundosun/model/request/posts/update_post_request.dart';
 import 'package:ohsundosun/model/response/common/paging_response.dart';
 import 'package:ohsundosun/util/error.dart';
@@ -138,6 +139,24 @@ class PostsService {
     try {
       await _postsApi.deletePost(
         postId: postId,
+      );
+    } on DioError catch (e) {
+      return Future.error(getErrorMessage(e));
+    } catch (e) {
+      return Future.error("error");
+    }
+  }
+
+  Future<void> likePost({
+    required String postId,
+    required bool like,
+  }) async {
+    try {
+      await _postsApi.likePost(
+        postId: postId,
+        body: LikePostRequest(
+          like: like,
+        ),
       );
     } on DioError catch (e) {
       return Future.error(getErrorMessage(e));

@@ -69,9 +69,12 @@ class PostItem extends ConsumerWidget {
               ODHeight(15),
               Row(
                 children: [
-                  const ODSvgImage(
-                    SvgImage.icLikeOff,
-                    size: 20,
+                  InkWell(
+                    onTap: () => ref.read(pagingProvider.notifier).onLike(postId: post.uuid, value: !post.isLike),
+                    child: ODSvgImage(
+                      post.isLike ? SvgImage.icLikeOn : SvgImage.icLikeOff,
+                      size: 20,
+                    ),
                   ),
                   ODWidth(5),
                   Text(

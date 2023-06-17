@@ -35,6 +35,8 @@ class MainView extends HookConsumerWidget {
     final mbti = ref.watch(mainMBTIProvider);
     final scrollController = ref.watch(scrollControllerProvider);
 
+    ref.watch(likeCancelableOperationProvider);
+
     useEffect(() {
       SchedulerBinding.instance.addPostFrameCallback((_) {
         ref.read(pagingProvider.notifier).load(type: LoadingType.init);

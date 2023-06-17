@@ -40,8 +40,8 @@ class Nickname extends _$Nickname {
   String build() => "";
 
   Future<void> update(String value) async {
-    final authService = ref.watch(authServiceProvider);
-    final nicknameCancelableOperation = ref.watch(nicknameCancelableOperationProvider);
+    final authService = ref.read(authServiceProvider);
+    final nicknameCancelableOperation = ref.read(nicknameCancelableOperationProvider);
     nicknameCancelableOperation?.cancel();
 
     if (value.isNotEmpty) {
@@ -51,7 +51,9 @@ class Nickname extends _$Nickname {
         ref.read(nicknameEnabledProvider.notifier).update(false);
       } else {
         final nicknameCancelableOperation = CancelableOperation.fromFuture(
-          authService.verifyNickname(nickname: value),
+          authService.verifyNickname(
+            nickname: value,
+          ),
         ).then(
           (verify) {
             if (verify.available) {
@@ -119,8 +121,8 @@ onUpdateNickname(
   try {
     loading.update(true);
 
-    final usersService = ref.watch(usersServiceProvider);
-    final nickname = ref.watch(nicknameProvider);
+    final usersService = ref.read(usersServiceProvider);
+    final nickname = ref.read(nicknameProvider);
 
     await usersService.updateNickname(
       nickname: nickname,
@@ -129,7 +131,7 @@ onUpdateNickname(
 
     loading.update(false);
 
-    ref.watch(routerProvider).pop();
+    ref.read(routerProvider).pop();
   } catch (e) {
     loading.update(false);
   }

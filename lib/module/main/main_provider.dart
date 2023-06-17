@@ -1,3 +1,4 @@
+import 'package:async/async.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
@@ -72,7 +73,7 @@ class ScrollOffset extends _$ScrollOffset {
   double build() => 0;
 
   void update(double value) {
-    final maxOffset = ref.watch(maxHeightProvider);
+    final maxOffset = ref.read(maxHeightProvider);
 
     double offset = value;
 
@@ -116,9 +117,48 @@ void Function(int?) pageRequestListener(PageRequestListenerRef ref) {
 }
 
 @riverpod
+class LikeCancelableOperation extends _$LikeCancelableOperation {
+  @override
+  CancelableOperation<bool>? build() => null;
+
+  void update(CancelableOperation<bool> value) {
+    state = value;
+  }
+}
+
+@riverpod
 class Paging extends _$Paging {
   @override
   PagingController<int?, PostUI> build() => PagingController(firstPageKey: null);
+
+  Future<void> onLike({
+    required String postId,
+    required bool value,
+  }) async {
+    final postsService = ref.read(postsServiceProvider);
+    final likeCancelableOperation = ref.read(likeCancelableOperationProvider);
+    likeCancelableOperation?.cancel();
+
+    final newLikeCancelableOperation = CancelableOperation.fromFuture(
+      postsService.likePost(
+        postId: postId,
+        like: value,
+      ),
+    ).then(
+      (_) {
+        state.itemList = state.itemList?.map((item) {
+          if (item.uuid == postId) {
+            return item.copyWith(isLike: value, likeCount: value ? item.likeCount + 1 : item.likeCount - 1);
+          } else {
+            return item;
+          }
+        }).toList();
+
+        return value;
+      },
+    );
+    ref.read(likeCancelableOperationProvider.notifier).update(newLikeCancelableOperation);
+  }
 
   Future<void> load({
     LoadingType type = LoadingType.init,
@@ -129,10 +169,10 @@ class Paging extends _$Paging {
 
     final loading = ref.read(loadingProvider.notifier);
 
-    final limit = ref.watch(limitProvider);
-    final sort = ref.watch(mainPostSortProvider);
-    final postType = ref.watch(mainPostTypeProvider);
-    final mbti = ref.watch(mainMBTIProvider);
+    final limit = ref.read(limitProvider);
+    final sort = ref.read(mainPostSortProvider);
+    final postType = ref.read(mainPostTypeProvider);
+    final mbti = ref.read(mainMBTIProvider);
 
     if (type == LoadingType.init || type == LoadingType.reload) {
       loading.update(true);
@@ -140,7 +180,7 @@ class Paging extends _$Paging {
     }
 
     if (type == LoadingType.reload || type == LoadingType.refresh) {
-      state.removePageRequestListener(ref.watch(pageRequestListenerProvider));
+      state.removePageRequestListener(ref.read(pageRequestListenerProvider));
     }
 
     try {
@@ -160,7 +200,7 @@ class Paging extends _$Paging {
       if (postPaging.lastKey != null) {
         state.appendPage(postPaging.list, postPaging.lastKey);
         if (type == LoadingType.init || type == LoadingType.reload || type == LoadingType.refresh) {
-          state.addPageRequestListener(ref.watch(pageRequestListenerProvider));
+          state.addPageRequestListener(ref.read(pageRequestListenerProvider));
         }
       } else {
         state.appendLastPage(postPaging.list);
@@ -183,65 +223,3 @@ class Paging extends _$Paging {
     }
   }
 }
-
-
-// Future<void> getPosts(
-//   WidgetRef ref, {
-//   LoadingType type = LoadingType.init,
-//   String? lastKey,
-// }) async {
-// final scrollController = ref.read(scrollControllerProvider);
-// final pagingController = ref.read(pagingControllerProvider);
-// final postsService = ref.read(postsServiceProvider);
-
-// final loading = ref.read(loadingProvider.notifier);
-
-// final limit = ref.watch(limitProvider);
-// final sort = ref.watch(mainPostSortProvider);
-// final postType = ref.watch(mainPostTypeProvider);
-// final mbti = ref.watch(mainMBTIProvider);
-
-// if (type == LoadingType.init || type == LoadingType.reload) {
-//   loading.update(true);
-// }
-
-// debugPrint(type.toString());
-
-// debugPrint(pagingController.itemList?.length.toString());
-
-// try {
-//   final posts = await postsService.getPosts(
-//     sort: sort,
-//     limit: limit,
-//     lastKey: lastKey,
-//     type: postType,
-//     mbti: mbti,
-//   );
-
-//   if (type == LoadingType.reload || type == LoadingType.refresh) {
-//     pagingController.itemList = [];
-//     scrollController.jumpTo(0);
-//   }
-
-//   if (posts.length < limit) {
-//     pagingController.appendLastPage(posts);
-//   } else {
-//     pagingController.appendPage(posts, posts.last.key);
-//   }
-
-//   if (type == LoadingType.init || type == LoadingType.reload) {
-//     loading.update(false);
-//   }
-// } on String catch (error) {
-//   debugPrint(error);
-//   if (type == LoadingType.reload || type == LoadingType.refresh) {
-//     pagingController.itemList = null;
-//     pagingController.appendLastPage([]);
-//     scrollController.jumpTo(0);
-//   }
-
-//   if (type == LoadingType.init || type == LoadingType.reload) {
-//     loading.update(false);
-//   }
-// }
-// }

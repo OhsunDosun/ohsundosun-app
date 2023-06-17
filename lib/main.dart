@@ -1,3 +1,4 @@
+import 'dart:io';
 import 'dart:math';
 
 import 'package:firebase_core/firebase_core.dart';
@@ -23,12 +24,16 @@ import 'package:ohsundosun/util/mode.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 Future<void> main() async {
-  SystemChrome.setSystemUIOverlayStyle(
-    SystemUiOverlayStyle.dark.copyWith(
-      statusBarColor: Colors.white,
-      statusBarBrightness: Brightness.dark,
-    ),
-  );
+  if (Platform.isAndroid) {
+    SystemChrome.setSystemUIOverlayStyle(
+      SystemUiOverlayStyle.dark.copyWith(
+        statusBarColor: Colors.white,
+        statusBarBrightness: Brightness.dark,
+      ),
+    );
+  } else {
+    SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle.dark);
+  }
 
   WidgetsBinding widgetsBinding = WidgetsFlutterBinding.ensureInitialized();
 

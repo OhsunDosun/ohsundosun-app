@@ -1,3 +1,4 @@
+import 'package:async/async.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
@@ -38,6 +39,16 @@ class CommentId extends _$CommentId {
   String? build() => null;
 
   void update(String? value) {
+    state = value;
+  }
+}
+
+@riverpod
+class LikeCancelableOperation extends _$LikeCancelableOperation {
+  @override
+  CancelableOperation<bool>? build() => null;
+
+  void update(CancelableOperation<bool> value) {
     state = value;
   }
 }
@@ -168,7 +179,7 @@ class PostDetail extends _$PostDetail {
         );
 
         loading.update(LoadingType.none);
-        ref.watch(routerProvider).pop(true);
+        ref.read(routerProvider).pop(true);
       }
     } on String catch (errorCode) {
       loading.update(LoadingType.none);
@@ -191,6 +202,34 @@ class PostDetail extends _$PostDetail {
         },
       );
     }
+  }
+
+  Future<void> onLike({
+    required bool value,
+  }) async {
+    final post = state;
+
+    if (post == null) {
+      return;
+    }
+
+    final postsService = ref.read(postsServiceProvider);
+    final likeCancelableOperation = ref.read(likeCancelableOperationProvider);
+    likeCancelableOperation?.cancel();
+
+    final newLikeCancelableOperation = CancelableOperation.fromFuture(
+      postsService.likePost(
+        postId: post.uuid,
+        like: value,
+      ),
+    ).then(
+      (_) {
+        state = post.copyWith(isLike: value, likeCount: value ? post.likeCount + 1 : post.likeCount - 1);
+
+        return value;
+      },
+    );
+    ref.read(likeCancelableOperationProvider.notifier).update(newLikeCancelableOperation);
   }
 
   Future<void> onAddComment(BuildContext context) async {
@@ -293,7 +332,7 @@ class Paging extends _$Paging {
       if (commentPaging.lastKey != null) {
         state.appendPage(commentPaging.list, commentPaging.lastKey);
         if (type == LoadingType.init || type == LoadingType.reload || type == LoadingType.refresh) {
-          state.addPageRequestListener(ref.watch(pageRequestListenerProvider));
+          state.addPageRequestListener(ref.read(pageRequestListenerProvider));
         }
       } else {
         state.appendLastPage(commentPaging.list);

@@ -51,6 +51,7 @@ class SplashView extends HookConsumerWidget {
         ref.read(routerProvider).go(AppRoute.main);
         FlutterNativeSplash.remove();
       } catch (_) {
+        ref.read(routerProvider).go(AppRoute.onboard);
         FlutterNativeSplash.remove();
       }
     }

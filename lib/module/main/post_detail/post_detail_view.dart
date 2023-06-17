@@ -35,6 +35,7 @@ class PostDetailView extends HookConsumerWidget {
   Widget build(BuildContext context, ref) {
     ref.watch(postIdProvider);
     ref.watch(postDetailCommentProvider);
+    ref.watch(likeCancelableOperationProvider);
 
     final loading = ref.watch(loadingProvider);
     final post = ref.watch(postDetailProvider);
@@ -193,9 +194,12 @@ class PostDetailView extends HookConsumerWidget {
                                     ODHeight(15),
                                     Row(
                                       children: [
-                                        const ODSvgImage(
-                                          SvgImage.icLikeOff,
-                                          size: 20,
+                                        InkWell(
+                                          onTap: () => ref.read(postDetailProvider.notifier).onLike(value: !post.isLike),
+                                          child: ODSvgImage(
+                                            post.isLike ? SvgImage.icLikeOn : SvgImage.icLikeOff,
+                                            size: 20,
+                                          ),
                                         ),
                                         ODWidth(5),
                                         Text(

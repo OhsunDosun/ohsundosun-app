@@ -44,7 +44,7 @@ onUpdateMBTI(BuildContext context, WidgetRef ref) async {
 
     loading.update(false);
 
-    ref.watch(routerProvider).pop();
+    ref.read(routerProvider).pop();
   } on String catch (errorCode) {
     loading.update(false);
 

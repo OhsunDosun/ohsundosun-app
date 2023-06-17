@@ -94,9 +94,9 @@ Future<void> onNewPassword(BuildContext context, WidgetRef ref) async {
   try {
     loading.update(true);
 
-    final authService = ref.watch(authServiceProvider);
+    final authService = ref.read(authServiceProvider);
 
-    final email = ref.watch(emailProvider);
+    final email = ref.read(emailProvider);
 
     await authService.newPassword(
       email: email,
@@ -151,11 +151,11 @@ Future<void> onSignIn(BuildContext context, WidgetRef ref) async {
   try {
     loading.update(true);
 
-    final authService = ref.watch(authServiceProvider);
+    final authService = ref.read(authServiceProvider);
     final usersService = ref.read(usersServiceProvider);
 
-    final email = ref.watch(emailProvider);
-    final password = ref.watch(passwordProvider);
+    final email = ref.read(emailProvider);
+    final password = ref.read(passwordProvider);
 
     await authService.signIn(
       type: SignInType.newPasswordSignIn,

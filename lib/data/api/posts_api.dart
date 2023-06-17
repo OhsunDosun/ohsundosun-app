@@ -3,6 +3,7 @@ import 'package:ohsundosun/model/common/comment.dart';
 import 'package:ohsundosun/model/common/post.dart';
 import 'package:ohsundosun/model/request/posts/add_comment_request.dart';
 import 'package:ohsundosun/model/request/posts/add_post_request.dart';
+import 'package:ohsundosun/model/request/posts/like_post_request.dart';
 import 'package:ohsundosun/model/request/posts/update_post_request.dart';
 import 'package:ohsundosun/model/response/common/data_response.dart';
 import 'package:ohsundosun/model/response/common/paging_response.dart';
@@ -44,6 +45,12 @@ abstract class PostsApi {
   @DELETE("/v1/posts/{postId}")
   Future<DataResponse> deletePost({
     @Path('postId') required String postId,
+  });
+
+  @PATCH("/v1/posts/{postId}/like")
+  Future<DataResponse> likePost({
+    @Path('postId') required String postId,
+    @Body() required LikePostRequest body,
   });
 
   @POST("/v1/posts/{postId}/report")
