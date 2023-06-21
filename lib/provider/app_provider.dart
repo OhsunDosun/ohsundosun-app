@@ -41,6 +41,30 @@ String appKey(AppKeyRef ref) {
   }
 }
 
+@riverpod
+String serverStatusKey(ServerStatusKeyRef ref) {
+  final appMode = ref.watch(appModeProvider);
+
+  switch (appMode) {
+    case AppMode.dev:
+      return "DEV_SERVER_STATUS";
+    case AppMode.prod:
+      return "PROD_SERVER_STATUS";
+  }
+}
+
+@riverpod
+String appStatusKey(AppStatusKeyRef ref) {
+  final appMode = ref.watch(appModeProvider);
+
+  switch (appMode) {
+    case AppMode.dev:
+      return "DEV_APP_STATUS";
+    case AppMode.prod:
+      return "PROD_APP_STATUS";
+  }
+}
+
 @Riverpod(keepAlive: true)
 class FcmToken extends _$FcmToken {
   @override

@@ -76,6 +76,9 @@ dependencies:
   async: ^2.11.0
   image_picker: ^0.8.7+5
   image_cropper: ^4.0.1
+  package_info_plus: ^4.0.2
+  version: ^3.0.2
+  store_redirect: ^2.0.1
 
   # Firebase
   firebase_core: ^2.12.0
