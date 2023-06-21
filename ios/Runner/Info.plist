@@ -29,9 +29,9 @@
 		<key>LSRequiresIPhoneOS</key>
 		<true/>
 		<key>NSCameraUsageDescription</key>
-		<string>이미지 첨부를 위한 권한 요청</string>
+		<string>게시글 사진 첨부 기능 사용을 위해 카메라 접근권한 동의가 필요합니다.</string>
 		<key>NSPhotoLibraryUsageDescription</key>
-		<string>이미지 첨부를 위한 권한 요청</string>
+		<string>게시글 사진 첨부 기능 사용을 위해 갤러리 접근권한 동의가 필요합니다.</string>
 		<key>UIApplicationSupportsIndirectInputEvents</key>
 		<true/>
 		<key>UIBackgroundModes</key>
