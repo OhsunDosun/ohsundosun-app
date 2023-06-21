@@ -3,7 +3,7 @@
 # Update version
 echo "Update app version"
 # Get version
-version_and_no_string=`grep "version\: " ./pubspec.yaml`
+version_and_no_string=`grep "version\: " ./pubspec.yaml | head -1`
 # Remove version: string
 version_and_no=`echo $version_and_no_string | sed -e "s/version\: //g"`
 # Split version and no

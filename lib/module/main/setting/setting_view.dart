@@ -12,6 +12,7 @@ import 'package:ohsundosun/provider/router_provider.dart';
 import 'package:ohsundosun/style/index.dart';
 import 'package:ohsundosun/widget/index.dart';
 import 'package:dotted_line/dotted_line.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 part 'setting_widget.dart';
 
@@ -129,6 +130,14 @@ class SettingView extends HookConsumerWidget {
                 value: notification,
                 onChange: (value) => ref.read(notificationProvider.notifier).update(value),
               ),
+            ),
+            SettingItem(
+              "이용약관",
+              onTap: () => launchUrl(Uri.parse("https://ohsundosun.github.io/terms"), mode: LaunchMode.externalApplication),
+            ),
+            SettingItem(
+              "개인정보 처리방침",
+              onTap: () => launchUrl(Uri.parse("https://ohsundosun.github.io/privacy"), mode: LaunchMode.externalApplication),
             ),
             SettingItem(
               "평가하기",
