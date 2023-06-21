@@ -8,6 +8,7 @@ part 'comment.g.dart';
 class Comment with _$Comment {
   const factory Comment({
     required String uuid,
+    required String userUUID,
     required MBTI mbti,
     required int level,
     required String nickname,
@@ -23,6 +24,7 @@ class Comment with _$Comment {
 class CommentUI with _$CommentUI {
   const factory CommentUI({
     required String uuid,
+    required String userUUID,
     required MBTI mbti,
     required int level,
     required String nickname,
@@ -38,6 +40,7 @@ extension CommentExtention on Comment {
   CommentUI toUI() {
     return CommentUI(
       uuid: uuid,
+      userUUID: userUUID,
       mbti: mbti,
       level: level,
       nickname: nickname,

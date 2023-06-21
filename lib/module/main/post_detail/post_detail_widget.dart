@@ -79,11 +79,15 @@ class CommentItem extends ConsumerWidget {
                                 ("delete", "삭제하기"),
                               ],
                               ("report", "신고하기"),
+                              ("block", "차단하기"),
                             ],
                             onTap: (value) async {
                               switch (value) {
                                 case "report":
                                   ref.read(postDetailProvider.notifier).report(context, commentId: comment.uuid);
+                                  break;
+                                case "block":
+                                  ref.read(postDetailProvider.notifier).block(context, userId: comment.userUUID);
                                   break;
                                 case "delete":
                                   ref.read(postDetailProvider.notifier).delete(context, commentId: comment.uuid);

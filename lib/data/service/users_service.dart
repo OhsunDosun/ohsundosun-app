@@ -131,4 +131,18 @@ class UsersService {
       return Future.error("error");
     }
   }
+
+  Future<void> blockUser({
+    required String userId,
+  }) async {
+    try {
+      await _usersApi.blockUser(
+        userId: userId,
+      );
+    } on DioError catch (e) {
+      return Future.error(getErrorMessage(e));
+    } catch (e) {
+      return Future.error("error");
+    }
+  }
 }

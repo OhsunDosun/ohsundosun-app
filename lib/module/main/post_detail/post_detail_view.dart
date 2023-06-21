@@ -78,6 +78,7 @@ class PostDetailView extends HookConsumerWidget {
                         ("delete", "삭제하기"),
                       ],
                       ("report", "신고하기"),
+                      ("block", "차단하기"),
                       // ("url", "URL 복사"),
                     ],
                     onTap: (value) async {
@@ -91,6 +92,9 @@ class PostDetailView extends HookConsumerWidget {
                           break;
                         case "report":
                           ref.read(postDetailProvider.notifier).report(context);
+                          break;
+                        case "block":
+                          ref.read(postDetailProvider.notifier).block(context, userId: post?.userUUID ?? "");
                           break;
                         case "delete":
                           ref.read(postDetailProvider.notifier).delete(context);

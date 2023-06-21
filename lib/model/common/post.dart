@@ -9,6 +9,7 @@ part 'post.g.dart';
 class Post with _$Post {
   const factory Post({
     required String uuid,
+    required String userUUID,
     required MBTI mbti,
     required PostType type,
     required String nickname,
@@ -29,6 +30,7 @@ class Post with _$Post {
 class PostUI with _$PostUI {
   const factory PostUI({
     required String uuid,
+    required String userUUID,
     required MBTI mbti,
     required PostType type,
     required String nickname,
@@ -49,6 +51,7 @@ extension PostExtention on Post {
   PostUI toUI() {
     return PostUI(
       uuid: uuid,
+      userUUID: userUUID,
       mbti: mbti,
       type: type,
       nickname: nickname,

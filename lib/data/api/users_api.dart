@@ -48,4 +48,9 @@ abstract class UsersApi {
   Future<DataResponse> updatePassword(
     @Body() UpdatePasswordRequest body,
   );
+
+  @POST("/v1/users/{userId}/block")
+  Future<DataResponse> blockUser({
+    @Path('userId') required String userId,
+  });
 }

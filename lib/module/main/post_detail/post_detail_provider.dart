@@ -156,6 +156,45 @@ class PostDetail extends _$PostDetail {
     }
   }
 
+  Future<void> block(
+    BuildContext context, {
+    required String userId,
+  }) async {
+    final loading = ref.read(loadingProvider.notifier);
+
+    final usersService = ref.read(usersServiceProvider);
+
+    loading.update(LoadingType.load);
+    try {
+      await usersService.blockUser(
+        userId: userId,
+      );
+
+      loading.update(LoadingType.none);
+      ref.read(routerProvider).pop(true);
+    } on String catch (errorCode) {
+      loading.update(LoadingType.none);
+
+      late String errorText;
+
+      switch (errorCode) {
+        default:
+          errorText = "알 수 없는 에러가 발생했습니다.";
+          break;
+      }
+
+      showDialog(
+        context: context,
+        builder: (context) {
+          return ODAlertModal(
+            text: errorText,
+            onTap: () => context.pop(),
+          );
+        },
+      );
+    }
+  }
+
   Future<void> delete(
     BuildContext context, {
     String? commentId,
