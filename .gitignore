@@ -17,7 +17,7 @@ Pods/
 .packages
 build/
 # If you're building an application, you may want to check-in your pubspec.lock
-pubspec.lock
+# pubspec.lock
 
 # Directory created by dartdoc
 # If you don't generate documentation locally you can remove this line.
@@ -25,6 +25,7 @@ doc/api/
 
 # dotenv environment variables file
 .env*
+!.env.example
 
 # Avoid committing generated Javascript files:
 *.dart.js
@@ -85,7 +86,7 @@ lib/generated_plugin_registrant.dart
 # For library packages, don’t commit the pubspec.lock file.
 # Regenerating the pubspec.lock file lets you test your package against the latest compatible versions of its dependencies.
 # See https://dart.dev/guides/libraries/private-files#pubspeclock
-#pubspec.lock
+# pubspec.lock
 
 # Android related
 **/android/**/gradle-wrapper.jar
@@ -96,6 +97,9 @@ lib/generated_plugin_registrant.dart
 **/android/key.properties
 **/android/local.properties
 **/android/**/GeneratedPluginRegistrant.java
+**/android/keystore.properties
+*.jks
+*.keystore
 
 # iOS/XCode related
 **/ios/**/*.mode1v3
@@ -391,3 +395,15 @@ fabric.properties
 !/gradle/wrapper/gradle-wrapper.jar
 
 # End of https://www.toptal.com/developers/gitignore/api/flutter,dart,androidstudio,gradle,cocoapods,swift,kotlin,fastlane,firebase
+
+**/*.freezed.dart
+**/*.g.dart
+**/*.config.dart
+
+.fvm/flutter_sdk
+
+google-services.json
+GoogleService-Info.plist
+firebase_app_id_file.json
+
+.DS_Store

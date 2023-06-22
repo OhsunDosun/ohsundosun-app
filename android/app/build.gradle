@@ -21,7 +21,39 @@ if (flutterVersionName == null) {
     flutterVersionName = '1.0'
 }
 
+def keyStoreProperties = new Properties()
+def keyStorePropertiesFile = rootProject.file('keystore.properties')
+if (keyStorePropertiesFile.exists()) {
+    keyStorePropertiesFile.withReader('UTF-8') { reader ->
+        keyStoreProperties.load(reader)
+    }
+}
+
+def appStoreFile = keyStoreProperties.getProperty('app.storeFile')
+if (appStoreFile == null) {
+    throw new GradleException("appStoreFile not found. Define location with app.storeFile in the keystore.properties file.")
+}
+
+def appStorePassword = keyStoreProperties.getProperty('app.storePassword')
+if (appStorePassword == null) {
+    throw new GradleException("appStorePassword not found. Define location with app.storePassword in the keystore.properties file.")
+}
+
+def appKeyAlias = keyStoreProperties.getProperty('app.keyAlias')
+if (appKeyAlias == null) {
+    throw new GradleException("appKeyAlias not found. Define location with app.keyAlias in the keystore.properties file.")
+}
+
+def appKeyPassword = keyStoreProperties.getProperty('app.keyPassword')
+if (appKeyPassword == null) {
+    throw new GradleException("appKeyPassword not found. Define location with app.keyPassword in the keystore.properties file.")
+}
+
 apply plugin: 'com.android.application'
+// START: FlutterFire Configuration
+apply plugin: 'com.google.gms.google-services'
+apply plugin: 'com.google.firebase.crashlytics'
+// END: FlutterFire Configuration
 apply plugin: 'kotlin-android'
 apply from: "$flutterRoot/packages/flutter_tools/gradle/flutter.gradle"
 
@@ -47,17 +79,45 @@ android {
         applicationId "com.ohsundosun.ohsundosun"
         // You can update the following values to match your application needs.
         // For more information, see: https://docs.flutter.dev/deployment/android#reviewing-the-build-configuration.
-        minSdkVersion flutter.minSdkVersion
+        minSdkVersion 21
         targetSdkVersion flutter.targetSdkVersion
         versionCode flutterVersionCode.toInteger()
         versionName flutterVersionName
+    }
+
+    signingConfigs{
+        release {
+            storeFile file(appStoreFile)
+            storePassword appStorePassword
+            keyAlias appKeyAlias
+            keyPassword appKeyPassword
+        }
     }
 
     buildTypes {
         release {
             // TODO: Add your own signing config for the release build.
             // Signing with the debug keys for now, so `flutter run --release` works.
-            signingConfig signingConfigs.debug
+            signingConfig signingConfigs.release
+
+            minifyEnabled true
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
+
+    flavorDimensions "app"
+
+    productFlavors {
+        dev {
+            dimension "app"
+            applicationId "com.ohsundosun.ohsundosun.dev"
+            resValue "string", "app_name", "오순도순 DEV"
+        }
+        
+        prod {
+            dimension "app"
+            applicationId "com.ohsundosun.ohsundosun"
+            resValue "string", "app_name", "오순도순"
         }
     }
 }
@@ -67,5 +127,9 @@ flutter {
 }
 
 dependencies {
+    coreLibraryDesugaring 'com.android.tools:desugar_jdk_libs:2.0.3'
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
+    
+    implementation 'androidx.window:window:1.1.0'
+    implementation 'androidx.window:window-java:1.1.0'
 }

@@ -1,0 +1,82 @@
+part of 'index.dart';
+
+enum ODBadgeType {
+  white,
+  purple,
+  blue,
+  green,
+  orange;
+
+  Color toColor() {
+    switch (this) {
+      case ODBadgeType.white:
+        return ColorStyles.white;
+      case ODBadgeType.purple:
+        return ColorStyles.purple10;
+      case ODBadgeType.blue:
+        return ColorStyles.blue10;
+      case ODBadgeType.green:
+        return ColorStyles.green10;
+      case ODBadgeType.orange:
+        return ColorStyles.orange10;
+    }
+  }
+
+  Color toTextColor() {
+    switch (this) {
+      case ODBadgeType.white:
+        return ColorStyles.black80;
+      case ODBadgeType.purple:
+        return ColorStyles.purpleDeep;
+      case ODBadgeType.blue:
+        return ColorStyles.blueDeep;
+      case ODBadgeType.green:
+        return ColorStyles.greenDeep;
+      case ODBadgeType.orange:
+        return ColorStyles.orangeDeep;
+    }
+  }
+}
+
+class ODBadge extends StatelessWidget {
+  final ODBadgeType type;
+  final String text;
+  final void Function()? onTap;
+
+  const ODBadge(
+    this.text, {
+    super.key,
+    this.type = ODBadgeType.white,
+    this.onTap,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return InkWell(
+      onTap: onTap,
+      child: Container(
+        height: 20.h,
+        padding: EdgeInsets.symmetric(horizontal: 8.w),
+        decoration: BoxDecoration(
+          color: type.toColor(),
+          borderRadius: BorderRadius.circular(5.r),
+          border: type == ODBadgeType.white
+              ? Border.all(
+                  width: 1.r,
+                  color: ColorStyles.black20,
+                )
+              : null,
+        ),
+        child: Center(
+          child: Text(
+            text,
+            style: (type == ODBadgeType.white ? SpoqaHanSansNeo.medium : SpoqaHanSansNeo.bold).set(
+              size: 11,
+              color: type.toTextColor(),
+            ),
+          ),
+        ),
+      ),
+    );
+  }
+}
