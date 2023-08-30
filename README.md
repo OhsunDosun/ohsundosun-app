@@ -1,16 +1,20 @@
-# ohsundosun
+# ohsundosun-app
+> 오순도순 프로젝트 APP
 
-A new Flutter project.
+## Description
 
-## Getting Started
+MBTI 어플로 당신의 성격 유형을 알아보세요!  
+자신의 성격 특성을 이해하면 더 나은 인간관계와 직업 선택,그리고 삶을 즐기는 방법을 찾을 수 있습니다.
 
-This project is a starting point for a Flutter application.
+[Android](https://play.google.com/store/apps/details?id=com.ohsundosun.ohsundosun) / [iOS](https://apps.apple.com/kr/app/%EC%98%A4%EC%88%9C%EB%8F%84%EC%88%9C/id1634542335?uo=4)
 
-A few resources to get you started if this is your first Flutter project:
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
+## Installation
+```
+$ ./scripts/clean.sh
+```
 
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+## Running the app
+```
+$  fvm flutter run 
+```
