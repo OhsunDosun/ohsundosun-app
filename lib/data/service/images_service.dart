@@ -21,7 +21,7 @@ class ImagesService {
       );
 
       return response.data.images;
-    } on DioError catch (e) {
+    } on DioException catch (e) {
       return Future.error(getErrorMessage(e));
     } catch (e) {
       return Future.error("error");

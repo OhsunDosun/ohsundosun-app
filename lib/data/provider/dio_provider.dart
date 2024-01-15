@@ -33,7 +33,7 @@ Dio dio(DioRef ref) {
       }
 
       return handler.next(response);
-    }, onError: (DioError e, handler) async {
+    }, onError: (DioException e, handler) async {
       final data = e.response?.data;
       if (e.requestOptions.baseUrl == ref.read(baseUrlProvider) && data != null && data.runtimeType != String) {
         final responseData = DefaultResponse.fromJson(data);
@@ -88,7 +88,7 @@ Dio dio(DioRef ref) {
               );
 
               return handler.resolve(reRequest);
-            } on DioError catch (e) {
+            } on DioException catch (e) {
               debugPrint(e.toString());
               final signNewData = e.response?.data;
               if (signNewData != null) {
@@ -133,7 +133,7 @@ Dio dio(DioRef ref) {
                     );
 
                     return handler.resolve(reRequest);
-                  } on DioError catch (_) {
+                  } on DioException catch (_) {
                     await ref.read(appSignInTypeProvider.notifier).update(SignInType.defaultSignIn);
                     await ref.read(appEmailProvider.notifier).update(null);
                     await ref.read(appPasswordProvider.notifier).update(null);

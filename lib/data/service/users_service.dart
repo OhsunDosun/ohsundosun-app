@@ -21,7 +21,7 @@ class UsersService {
       final response = await _usersApi.getUserInfo();
 
       return response.data;
-    } on DioError catch (e) {
+    } on DioException catch (e) {
       return Future.error(getErrorMessage(e));
     } catch (e) {
       return Future.error("error");
@@ -33,7 +33,7 @@ class UsersService {
       final response = await _usersApi.updateNickname(UpdateNicknameRequest(nickname: nickname));
 
       return response.data;
-    } on DioError catch (e) {
+    } on DioException catch (e) {
       return Future.error(getErrorMessage(e));
     } catch (e) {
       return Future.error("error");
@@ -49,7 +49,7 @@ class UsersService {
       );
 
       return response.data;
-    } on DioError catch (e) {
+    } on DioException catch (e) {
       return Future.error(getErrorMessage(e));
     } catch (e) {
       return Future.error("error");
@@ -65,7 +65,7 @@ class UsersService {
           mbti: mbti.toString(),
         ),
       );
-    } on DioError catch (e) {
+    } on DioException catch (e) {
       return Future.error(getErrorMessage(e));
     } catch (e) {
       return Future.error("error");
@@ -87,7 +87,7 @@ class UsersService {
           password: password,
         ),
       );
-    } on DioError catch (e) {
+    } on DioException catch (e) {
       return Future.error(getErrorMessage(e));
     } catch (e) {
       return Future.error("error");
@@ -105,7 +105,7 @@ class UsersService {
           rating: rating,
         ),
       );
-    } on DioError catch (e) {
+    } on DioException catch (e) {
       return Future.error(getErrorMessage(e));
     } catch (e) {
       return Future.error("error");
@@ -125,7 +125,7 @@ class UsersService {
           oldPassword: oldpassword,
         ),
       );
-    } on DioError catch (e) {
+    } on DioException catch (e) {
       return Future.error(getErrorMessage(e));
     } catch (e) {
       return Future.error("error");
@@ -139,7 +139,7 @@ class UsersService {
       await _usersApi.blockUser(
         userId: userId,
       );
-    } on DioError catch (e) {
+    } on DioException catch (e) {
       return Future.error(getErrorMessage(e));
     } catch (e) {
       return Future.error("error");

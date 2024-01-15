@@ -7,8 +7,8 @@ class SignUpCompleteView extends ConsumerWidget {
   Widget build(BuildContext context, ref) {
     final nickname = ref.watch(nicknameProvider);
 
-    return WillPopScope(
-      onWillPop: () async => true,
+    return PopScope(
+      canPop: false,
       child: Column(
         children: [
           Expanded(

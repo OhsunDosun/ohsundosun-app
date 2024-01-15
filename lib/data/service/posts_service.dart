@@ -39,7 +39,7 @@ class PostsService {
         lastKey: response.data.lastKey,
         list: response.data.list.map((item) => item.toUI()).toList(),
       );
-    } on DioError catch (e) {
+    } on DioException catch (e) {
       return Future.error(getErrorMessage(e));
     } catch (e) {
       return Future.error("error");
@@ -55,7 +55,7 @@ class PostsService {
       );
 
       return response.data.toUI();
-    } on DioError catch (e) {
+    } on DioException catch (e) {
       return Future.error(getErrorMessage(e));
     } catch (e) {
       return Future.error("error");
@@ -78,7 +78,7 @@ class PostsService {
         lastKey: response.data.lastKey,
         list: response.data.list.map((item) => item.toUI()).toList(),
       );
-    } on DioError catch (e) {
+    } on DioException catch (e) {
       return Future.error(getErrorMessage(e));
     } catch (e) {
       return Future.error("error");
@@ -102,7 +102,7 @@ class PostsService {
           images: images,
         ),
       );
-    } on DioError catch (e) {
+    } on DioException catch (e) {
       return Future.error(getErrorMessage(e));
     } catch (e) {
       return Future.error("error");
@@ -126,7 +126,7 @@ class PostsService {
           images: images,
         ),
       );
-    } on DioError catch (e) {
+    } on DioException catch (e) {
       return Future.error(getErrorMessage(e));
     } catch (e) {
       return Future.error("error");
@@ -140,7 +140,7 @@ class PostsService {
       await _postsApi.deletePost(
         postId: postId,
       );
-    } on DioError catch (e) {
+    } on DioException catch (e) {
       return Future.error(getErrorMessage(e));
     } catch (e) {
       return Future.error("error");
@@ -158,7 +158,7 @@ class PostsService {
           like: like,
         ),
       );
-    } on DioError catch (e) {
+    } on DioException catch (e) {
       return Future.error(getErrorMessage(e));
     } catch (e) {
       return Future.error("error");
@@ -172,7 +172,7 @@ class PostsService {
       await _postsApi.reportPost(
         postId: postId,
       );
-    } on DioError catch (e) {
+    } on DioException catch (e) {
       return Future.error(getErrorMessage(e));
     } catch (e) {
       return Future.error("error");
@@ -190,7 +190,7 @@ class PostsService {
           content: content,
         ),
       );
-    } on DioError catch (e) {
+    } on DioException catch (e) {
       return Future.error(getErrorMessage(e));
     } catch (e) {
       return Future.error("error");
@@ -210,7 +210,7 @@ class PostsService {
           content: content,
         ),
       );
-    } on DioError catch (e) {
+    } on DioException catch (e) {
       return Future.error(getErrorMessage(e));
     } catch (e) {
       return Future.error("error");
@@ -226,7 +226,7 @@ class PostsService {
         postId: postId,
         commnetId: commentId,
       );
-    } on DioError catch (e) {
+    } on DioException catch (e) {
       return Future.error(getErrorMessage(e));
     } catch (e) {
       return Future.error("error");
@@ -242,7 +242,7 @@ class PostsService {
         postId: postId,
         commnetId: commentId,
       );
-    } on DioError catch (e) {
+    } on DioException catch (e) {
       return Future.error(getErrorMessage(e));
     } catch (e) {
       return Future.error("error");

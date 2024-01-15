@@ -166,8 +166,7 @@ class MyApp extends ConsumerWidget {
           routerConfig: router,
           debugShowCheckedModeBanner: false,
           builder: (context, widget) {
-            return MediaQuery(
-              data: MediaQuery.of(context).copyWith(textScaleFactor: 1.0),
+            return MediaQuery.withNoTextScaling(
               child: widget ?? const SizedBox.shrink(),
             );
           },

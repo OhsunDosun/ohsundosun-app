@@ -35,7 +35,7 @@ final dioLogger = InterceptorsWrapper(onRequest: (options, handler) {
   debugPrint('${response.data}');
   debugPrint('____________________________________________');
   return handler.next(response);
-}, onError: (DioError e, handler) {
+}, onError: (DioException e, handler) {
   debugPrint('[${e.requestOptions.method}] ${e.requestOptions.path}');
   debugPrint('ERROR  [${e.response?.statusCode}]');
   debugPrint('${e.response?.data}');

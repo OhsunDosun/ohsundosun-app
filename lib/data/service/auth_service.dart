@@ -27,7 +27,7 @@ class AuthService {
           fcm: fcmToken,
         ),
       );
-    } on DioError catch (e) {
+    } on DioException catch (e) {
       return Future.error(getErrorMessage(e));
     } catch (e) {
       return Future.error("error");
@@ -37,7 +37,7 @@ class AuthService {
   Future<DefaultResponse> signCheck() async {
     try {
       return await _authApi.signCheck();
-    } on DioError catch (e) {
+    } on DioException catch (e) {
       return Future.error(getErrorMessage(e));
     } catch (e) {
       return Future.error("error");
@@ -53,7 +53,7 @@ class AuthService {
           email: email,
         ),
       );
-    } on DioError catch (e) {
+    } on DioException catch (e) {
       return Future.error(getErrorMessage(e));
     } catch (e) {
       return Future.error("error");
@@ -69,7 +69,7 @@ class AuthService {
       );
 
       return response.data;
-    } on DioError catch (e) {
+    } on DioException catch (e) {
       return Future.error(getErrorMessage(e));
     } catch (e) {
       return Future.error("error");
@@ -85,7 +85,7 @@ class AuthService {
       );
 
       return response.data;
-    } on DioError catch (e) {
+    } on DioException catch (e) {
       return Future.error(getErrorMessage(e));
     } catch (e) {
       return Future.error("error");
